@@ -2,7 +2,6 @@
     <div>
         <slider
             tooltip="none"
-            :model-value="getHue()"
             :min="0"
             :max="360"
             :duration="0"
@@ -15,9 +14,9 @@
             }"
             lazy
             class="tw-cursor-pointer"
-            @update:model-value="hueUpdate"
-            @dragging="hueUpdate"
-            @change="hueChange"
+            :model-value="hue"
+            @dragging="immediateHue = $event"
+            @update:model-value="hue = $event"
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
@@ -28,7 +27,7 @@
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <circle cx="12" cy="12.6421" r="12" :fill="hueColor(getHue())" />
+                        <circle cx="12" cy="12.6421" r="12" :fill="`#${hueCircleFill}`" />
                         <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
                         <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
                     </svg>
@@ -38,7 +37,6 @@
         <slider
             v-if="color"
             tooltip="none"
-            :model-value="getLightness()"
             :min="0"
             :max="1"
             :interval="0.01"
@@ -46,12 +44,12 @@
             :dotSize="44"
             :height="12"
             :process="false"
-            :railStyle="lightnessBgColor()"
+            :rail-style="{ background: lightnessBackground }"
             lazy
             class="tw-cursor-pointer tw-mt-3"
-            @update:model-value="lightnessUpdate"
-            @dragging="lightnessUpdate"
-            @change="lightnessChange"
+            :model-value="lightness"
+            @dragging="immediateLightness = $event"
+            @update:model-value="lightness = $event"
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
@@ -62,7 +60,7 @@
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <circle cx="12" cy="12.6421" r="12" :fill="`#${color}`" />
+                        <circle cx="12" cy="12.6421" r="12" :fill="`#${lightnessCircleFill}`" />
                         <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
                         <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
                     </svg>
@@ -80,8 +78,13 @@ export default {
         defaultColor: String,
     },
     data() {
+        const hue = this.defaultColor ? tinycolor(this.defaultColor).toHsl()?.h : 180
+        const lightness = this.defaultColor ? tinycolor(this.defaultColor)?.toHsl()?.l : 0.5
         return {
-            color: this.defaultColor,
+            hue,
+            immediateHue: hue,
+            lightness,
+            immediateLightness: lightness,
         }
     },
     components: {
@@ -89,46 +92,32 @@ export default {
     },
     watch: {
         defaultColor(newDefaultColor) {
-            this.color = newDefaultColor
+            this.hue = newDefaultColor ? tinycolor(newDefaultColor).toHsl()?.h : 180
+            this.lightness = newDefaultColor ? tinycolor(newDefaultColor)?.toHsl()?.l : 0.5
+        },
+        hue(newHue) {
+            this.immediateHue = newHue
+            this.$emit('change', this.color)
+        },
+        lightness(newLightness) {
+            this.immediateLightness = newLightness
+            this.$emit('change', this.color)
         },
     },
-    methods: {
-        getHue() {
-            const hue = tinycolor(this.color || null).toHsl()?.h
-            return hue || 180
+    computed: {
+        color() {
+            return tinycolor(`hsl(${this.hue}, 0.8, ${this.lightness * 100}%)`).toHex()
         },
-        getLightness() {
-            const lightness = tinycolor(this.color)?.toHsl()?.l
-            return lightness
+        hueCircleFill() {
+            return tinycolor(`hsl(${this.immediateHue}, 0.8, 50%)`).toHex()
         },
-        hueColor(hue) {
-            return 'hsl(' + hue + ', 80%, 50%)'
+        lightnessCircleFill() {
+            return tinycolor(
+                `hsl(${this.immediateHue}, 0.8, ${this.immediateLightness * 100}%)`
+            ).toHex()
         },
-        hueUpdate(hue) {
-            this.color = tinycolor(`hsl(${hue}, 0.8, ${this.getLightness() || 0.5})`).toHex()
-        },
-        lightnessUpdate(lightness) {
-            this.color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
-        },
-        hueChange(hue) {
-            this.color = tinycolor(`hsl(${hue}, 0.8, ${this.getLightness() || 0.5})`).toHex()
-            this.$emit('change', newColor)
-        },
-        lightnessChange(lightness) {
-            this.color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
-            this.$emit('change', newColor)
-        },
-        lightnessBgColor() {
-            return {
-                background:
-                    'linear-gradient(to right, hsl(' +
-                    tinycolor(this.color).toHsl()?.h +
-                    ', 80%, 0%) 0%, hsl(' +
-                    tinycolor(this.color).toHsl()?.h +
-                    ', 80%, 50%) 50%, hsl(' +
-                    tinycolor(this.color).toHsl()?.h +
-                    ', 80%, 100%) 100%)',
-            }
+        lightnessBackground() {
+            return `linear-gradient(to right, hsl(${this.immediateHue}, 80%, 0%) 0%, hsl(${this.immediateHue}, 80%, 50%) 50%, hsl(${this.immediateHue}, 80%, 100%) 100%)`
         },
     },
 }
