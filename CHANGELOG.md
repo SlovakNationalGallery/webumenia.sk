@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.85.0] - 2023-11-23
+### Changed
+- GMUHK default authority role
+
 ### Fixed
 - redundant commas from authority details
 
