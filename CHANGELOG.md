@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.84.1] - 2023-11-23
 ### Fixed
 - redundant commas from authority details
 
