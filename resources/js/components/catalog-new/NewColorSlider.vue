@@ -73,13 +73,18 @@
 import tinycolor from 'tinycolor2'
 import VueSlider from 'vue-slider-component'
 
+const defaultHue = 180
+const defaultLightness = 0.5
+
 export default {
     props: {
         defaultColor: String,
     },
     data() {
-        const hue = this.defaultColor ? tinycolor(this.defaultColor).toHsl()?.h : 180
-        const lightness = this.defaultColor ? tinycolor(this.defaultColor)?.toHsl()?.l : 0.5
+        const hue = this.defaultColor ? tinycolor(this.defaultColor).toHsl()?.h : defaultHue
+        const lightness = this.defaultColor
+            ? tinycolor(this.defaultColor)?.toHsl()?.l
+            : defaultLightness
         return {
             hue,
             immediateHue: hue,
@@ -92,8 +97,10 @@ export default {
     },
     watch: {
         defaultColor(newDefaultColor) {
-            this.hue = newDefaultColor ? tinycolor(newDefaultColor).toHsl()?.h : 180
-            this.lightness = newDefaultColor ? tinycolor(newDefaultColor)?.toHsl()?.l : 0.5
+            this.hue = newDefaultColor ? tinycolor(newDefaultColor).toHsl()?.h : defaultHue
+            this.lightness = newDefaultColor
+                ? tinycolor(newDefaultColor)?.toHsl()?.l
+                : defaultLightness
         },
         hue(newHue) {
             this.immediateHue = newHue
