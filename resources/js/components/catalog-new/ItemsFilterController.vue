@@ -185,8 +185,6 @@ export default {
             this.query = { ...EMPTY_QUERY }
         },
         handleColorChange(color) {
-            console.log('Podme na to')
-            console.log(color)
             this.query = {
                 ...this.query,
                 color: color,

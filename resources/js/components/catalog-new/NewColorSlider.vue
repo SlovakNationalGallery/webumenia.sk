@@ -1,22 +1,22 @@
 <template>
     <div>
         <slider
+            :model-value="hue"
+            @update:model-value="hue = $event"
+            @dragging="immediateHue = $event"
             tooltip="none"
             :min="0"
             :max="360"
             :duration="0"
-            :dotSize="44"
+            :dot-size="44"
             :height="12"
             :process="false"
-            :railStyle="{
+            :rail-style="{
                 background:
                     'linear-gradient(to right, #d82626 0%, #d8d826 17%, #26d826 33%, #26d8d8 50%, #2626d8 67%, #d826d8 83%, #d82626 100%)',
             }"
             lazy
             class="tw-cursor-pointer"
-            :model-value="hue"
-            @dragging="immediateHue = $event"
-            @update:model-value="hue = $event"
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
@@ -36,20 +36,20 @@
         </slider>
         <slider
             v-if="color"
+            :model-value="lightness"
+            @update:model-value="lightness = $event"
+            @dragging="immediateLightness = $event"
             tooltip="none"
             :min="0"
             :max="1"
             :interval="0.01"
             :duration="0"
-            :dotSize="44"
+            :dot-size="44"
             :height="12"
             :process="false"
             :rail-style="{ background: lightnessBackground }"
             lazy
             class="tw-cursor-pointer tw-mt-3"
-            :model-value="lightness"
-            @dragging="immediateLightness = $event"
-            @update:model-value="lightness = $event"
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
