@@ -84,8 +84,6 @@ class PnpTrienaleImporter extends AbstractImporter
 
     protected $counter;
 
-    protected static $name = 'pnp_trienale';
-
     protected function init()
     {
         $this->sanitizers[] = function ($value) {

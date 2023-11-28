@@ -24,16 +24,15 @@ class PnpImporter extends AbstractImporter
         'gallery:sk' => 'Památník národního písemnictví, PNP',
     ];
 
-    protected static $name = 'pnp';
-
-    protected function getItemId(array $record) {
+    protected function getItemId(array $record)
+    {
         $id = strtr($record['Inventární číslo:'], ' /', '_-');
-        return sprintf("CZE:PNP-%s", $id);
+        return sprintf('CZE:PNP-%s', $id);
     }
 
     protected function getItemImageFilenameFormat(array $record): string
     {
         $id = strtr($record['Inventární číslo:'], ' /', '_-');
-        return preg_quote(sprintf("PNP--%s", $id));
+        return preg_quote(sprintf('PNP--%s', $id));
     }
 }

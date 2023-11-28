@@ -36,8 +36,6 @@ class OglImporter extends AbstractImporter
         'gallery:cs' => 'Oblastní galerie Liberec, OGL',
     ];
 
-    public static $name = 'ogl';
-
     protected function init()
     {
         $this->sanitizers[] = function ($value) {
