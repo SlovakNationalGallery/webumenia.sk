@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\SpatieMedia as Media;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Model>

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\SpatieMedia as Media;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\ResponsiveImages\Jobs\GenerateResponsiveImagesJob;
 
 class MediaLibraryRegenerateResponsiveImages extends Command
@@ -42,8 +42,10 @@ class MediaLibraryRegenerateResponsiveImages extends Command
     public function handle()
     {
         $query = Media::query();
-        if ($this->option('only-missing')) $query->whereJsonLength('responsive_images', 0);
-        
+        if ($this->option('only-missing')) {
+            $query->whereJsonLength('responsive_images', 0);
+        }
+
         foreach ($query->lazy() as $media) {
             Bus::dispatch(new GenerateResponsiveImagesJob($media));
         }

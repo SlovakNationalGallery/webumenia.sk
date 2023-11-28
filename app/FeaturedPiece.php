@@ -2,11 +2,11 @@
 
 namespace App;
 
+use App\SpatieMedia as Media;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class FeaturedPiece extends Model implements HasMedia
 {
