@@ -2,6 +2,11 @@
 
 namespace App\Importers;
 
+use App\Medium;
+use App\Technique;
+use App\Topic;
+use App\WorkType;
+
 class MgImporter extends AbstractImporter
 {
     protected static $options = [
@@ -13,31 +18,26 @@ class MgImporter extends AbstractImporter
     ];
 
     protected $mapping = [
-        'acquisition_date' => 'RokAkv',
-        'copyright_expires' => 'DatExp',
-        'dating:cs' => 'Datace',
         'date_earliest' => 'RokOd',
         'date_latest' => 'Do',
-        'place:cs' => 'MístoVz',
-        'inscription:cs' => 'Sign',
-        'state_edition:cs' => 'Původnost',
+        'acquisition_date' => 'RokAkv',
         'author' => 'Autor',
-        'title:cs' => 'Titul',
-        'topic:cs' => 'Námět',
+        'dating:sk' => 'Datace',
+        'dating:cs' => 'Datace',
+        'place:sk' => 'MístoVz',
+        'place:cs' => 'MístoVz',
+        'inscription:sk' => 'Sign',
+        'inscription:cs' => 'Sign',
+        'state_edition:sk' => 'Původnost',
+        'state_edition:cs' => 'Původnost',
     ];
 
     protected $defaults = [
-        'author' => 'neurčený autor',
+        'gallery:sk' => 'Moravská galerie, MG',
         'gallery:cs' => 'Moravská galerie, MG',
-        'title:cs' => 'bez názvu',
-        'topic:cs' => '',
-        'relationship_type:cs' => '',
-        'description:cs' => '',
-        'work_level:cs' => '',
-        'subject:cs' => '',
     ];
 
-    protected static $cz_work_types_spec = [
+    protected array $workTypes = [
         'Ar' => 'architektura',
         'Bi' => 'bibliofilie a staré tisky',
         'Dř' => 'dřevo, nábytek a design',
@@ -55,44 +55,7 @@ class MgImporter extends AbstractImporter
         'Te' => 'textil',
     ];
 
-    protected static $cz_measurement_replacements = [
-        'a' => 'výška hlavní části',
-        'a.' => 'výška hlavní části',
-        'b' => 'výška vedlejší části',
-        'b.' => 'výška vedlejší části',
-        'čas' => 'čas',
-        'd' => 'délka',
-        'd.' => 'délka',
-        'h' => 'hloubka/tloušťka',
-        'h.' => 'hloubka/tloušťka',
-        'hmot' => 'hmotnost',
-        'hmot.' => 'hmotnost',
-        'hr' => 'hloubka s rámem',
-        'jiný' => 'jiný nespecifikovaný',
-        'p' => 'průměr/ráže',
-        'p.' => 'průměr/ráže',
-        'r.' => 'ráže',
-        'ryz' => 'ryzost',
-        's' => 'šířka',
-        's.' => 'šířka',
-        'sd.' => 'šířka grafické desky',
-        'sp' => 'šířka s paspartou',
-        'sp.' => 'šířka s paspartou',
-        'sr' => 'šířka s rámem',
-        'v' => 'celková výška/délka',
-        'v.' => 'celková výška/délka',
-        'vd.' => 'výška grafické desky',
-        'vp' => 'výška s paspartou',
-        'vp.' => 'výška s paspartou',
-        'vr' => 'výška s rámem',
-        ';' => ';',
-        '=' => ' ',
-        'cm' => ' cm',
-    ];
-
-    protected static $name = 'mg';
-
-    protected function init()
+    protected function init(): void
     {
         $this->filters[] = function (array $record) {
             return $record['Plus2T'] != 'ODPIS';
@@ -103,7 +66,7 @@ class MgImporter extends AbstractImporter
         };
     }
 
-    protected function getItemId(array $record)
+    protected function getItemId(array $record): string
     {
         $id = sprintf('CZE:MG.%s_%s', $record['Rada_S'], (int) $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
@@ -127,7 +90,7 @@ class MgImporter extends AbstractImporter
         return sprintf('%s(_.*)?', preg_quote($filename));
     }
 
-    protected function hydrateIdentifier(array $record)
+    protected function hydrateIdentifier(array $record): string
     {
         $identifier = sprintf('%s %s', $record['Rada_S'], (int) $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
@@ -137,46 +100,144 @@ class MgImporter extends AbstractImporter
         return $identifier;
     }
 
-    protected function hydrateMedium(array $record)
+    protected function hydrateTitle(array $record, string $locale): ?string
     {
-        return isset($record['Materiál']) && isset($record['MatSpec'])
-            ? $record['Materiál'] . ', ' . $record['MatSpec']
-            : $record['Materiál'];
+        if (!in_array($locale, ['cs', 'sk'])) {
+            return null;
+        }
+
+        if ($record['Titul'] !== null) {
+            return $record['Titul'];
+        } elseif ($record['Předmět'] !== null) {
+            return $record['Předmět'];
+        } else {
+            return null;
+        }
     }
 
-    protected function hydrateTechnique(array $record)
+    protected function hydrateMedium(array $record, string $locale): ?string
     {
-        return $record['TechSpec']
-            ? $record['Technika'] . ', ' . $record['TechSpec']
-            : $record['Technika'];
+        $medium = Medium::query()
+            ->whereTranslation('name', $record['Materiál'], 'cs')
+            ->whereNull('parent_id')
+            ->firstOr(fn() => Medium::create(['name:cs' => $record['Materiál']]));
+
+        if ($record['MatSpec'] !== null) {
+            $medium = $medium
+                ->children()
+                ->whereTranslation('name', $record['MatSpec'], 'cs')
+                ->firstOr(
+                    fn() => Medium::create([
+                        'name:cs' => $record['MatSpec'],
+                        'parent_id' => $medium->id,
+                    ])
+                );
+        }
+
+        return $medium->getFullName($locale);
     }
 
-    protected function hydrateWorkType(array $record)
+    protected function hydrateTechnique(array $record, string $locale): ?string
     {
-        return isset(static::$cz_work_types_spec[$record['Skupina']])
-            ? static::$cz_work_types_spec[$record['Skupina']]
-            : 'nespecifikované';
+        $technique = Technique::query()
+            ->whereTranslation('name', $record['Technika'], 'cs')
+            ->firstOr(fn() => Technique::create(['name:cs' => $record['Technika']]));
+
+        if ($record['TechSpec'] !== null) {
+            $technique = $technique
+                ->children()
+                ->whereTranslation('name', $record['TechSpec'], 'cs')
+                ->firstOr(
+                    fn() => Technique::create([
+                        'name:cs' => $record['TechSpec'],
+                        'parent_id' => $technique->id,
+                    ])
+                );
+        }
+
+        return $technique->getFullName($locale);
     }
 
-    protected function hydrateRelationshipType(array $record)
+    protected function hydrateWorkType(array $record, string $locale): ?string
     {
-        return self::isBiennial($record) ? 'ze souboru' : '';
+        $workType = $this->workTypes[$record['Skupina']] ?? null;
+        if ($workType === null) {
+            return null;
+        }
+
+        $workType = WorkType::query()
+            ->whereTranslation('name', $workType, 'cs')
+            ->firstOr(fn() => WorkType::create(['name:cs' => $workType]));
+
+        if ($record['Podskup'] !== null) {
+            $workType = $workType
+                ->children()
+                ->whereTranslation('name', $record['Podskup'], 'cs')
+                ->firstOr(
+                    fn() => WorkType::create([
+                        'name:cs' => $record['Podskup'],
+                        'parent_id' => $workType->id,
+                    ])
+                );
+        }
+
+        return $workType->getFullName($locale);
     }
 
-    protected function hydrateRelatedWork(array $record)
+    protected function hydrateTopic(array $record, string $locale): ?string
     {
-        return self::isBiennial($record) ? 'Bienále Brno' : '';
+        if ($record['Námět'] === null) {
+            return null;
+        }
+
+        return Topic::query()
+            ->whereTranslation('name', $record['Námět'], 'cs')
+            ->firstOr(fn() => Topic::create(['name:cs' => $record['Námět']]))
+            ->translate($locale)?->name;
     }
 
-    protected function hydrateMeasurement(array $record)
+    protected function hydrateRelationshipType(array $record, string $locale): ?string
     {
-        return !empty($record['Služ']) && $record['Služ'] != '='
-            ? strtr($record['Služ'], static::$cz_measurement_replacements)
-            : '';
+        if ($this->isBiennial($record) || $record['Rada_S'] === 'JV') {
+            return $this->translator->get(
+                'importer.mg.relationship_type.from_set',
+                locale: $locale
+            );
+        }
+
+        return null;
     }
 
-    protected static function isBiennial(array $record)
+    protected function hydrateRelatedWork(array $record, string $locale): ?string
     {
-        return strpos($record['Okolnosti'], 'BB') !== false;
+        if ($this->isBiennial($record)) {
+            return $this->translator->get('importer.mg.related_work.biennal_brno', locale: $locale);
+        }
+
+        if ($record['Rada_S'] === 'JV') {
+            return $this->translator->get('importer.mg.related_work.jv', locale: $locale);
+        }
+
+        return null;
+    }
+
+    protected function hydrateMeasurement(array $record, string $locale): ?string
+    {
+        if ($record['Služ'] === '=') {
+            return null;
+        }
+
+        $replacements = $this->translator->get(
+            'importer.demus.measurement_replacements',
+            locale: $locale
+        );
+        return str($record['Služ'])
+            ->swap($replacements)
+            ->when($locale === 'en', fn($value) => $value->replace(',', '.'));
+    }
+
+    protected function isBiennial(array $record): bool
+    {
+        return str($record['Okolnosti'])->startsWith('BB');
     }
 }

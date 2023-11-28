@@ -1,5 +1,7 @@
 <?php
 
+use App\SpatieMedia;
+
 return [
 
     /*
@@ -7,4 +9,6 @@ return [
      * one or more of the disks you've configured in config/filesystems.php.
      */
     'disk_name' => env('MEDIA_DISK', 'media'),
+
+    'media_model' => SpatieMedia::class
 ];

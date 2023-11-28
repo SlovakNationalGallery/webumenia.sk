@@ -13,7 +13,6 @@ use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use SplFileInfo;
-use Symfony\Component\Console\Exception\LogicException;
 
 abstract class AbstractImporter
 {
@@ -49,20 +48,11 @@ abstract class AbstractImporter
         'newline' => "\n",
     ];
 
-    /** @var string */
-    protected static $name;
-
     public function __construct(
         AuthorityMatcher $authorityMatcher,
         IFileRepository $repository,
         Translator $translator
     ) {
-        if (static::$name === null) {
-            throw new LogicException(
-                sprintf('%s needs to define its $name static property', get_class($this))
-            );
-        }
-
         $this->authorityMatcher = $authorityMatcher;
         $this->repository = $repository;
         $this->translator = $translator;
@@ -97,6 +87,7 @@ abstract class AbstractImporter
                     $import_record->imported_items++;
                 }
             } catch (\Exception $e) {
+                throw $e;
                 $import_record->import->status = Import::STATUS_ERROR;
                 $import_record->import->save();
 
@@ -119,11 +110,6 @@ abstract class AbstractImporter
         $import_record->save();
 
         return $items;
-    }
-
-    public static function getName(): string
-    {
-        return static::$name;
     }
 
     public static function getOptions(): array

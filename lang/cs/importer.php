@@ -36,4 +36,13 @@ return [
             'cm' => ' cm',
         ],
     ],
+    'mg' => [
+        'relationship_type' => [
+            'from_set' => 'ze souboru',
+        ],
+        'related_work' => [
+            'biennal_brno' => 'Bienále Brno',
+            'jv' => 'Archiv a sbírka Jiřího Valocha',
+        ],
+    ],
 ];
