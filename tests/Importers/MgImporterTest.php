@@ -343,6 +343,15 @@ class MgImporterTest extends TestCase
                     'en' => null,
                 ],
             ],
+            'untitled' => [
+                null,
+                null,
+                [
+                    'cs' => 'bez názvu',
+                    'sk' => 'bez názvu',
+                    'en' => 'untitled',
+                ],
+            ],
         ];
     }
 

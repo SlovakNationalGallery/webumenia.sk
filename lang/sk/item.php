@@ -42,7 +42,7 @@ return [
         'clear_all' => 'zrušiť celý výber',
         'nothing_found' => 'hmm, nič sme nenašli.',
         'something_went_wrong' => 'ups, niečo sa pokazilo.',
-        'refresh_page' => 'obnoviť stránku',   
+        'refresh_page' => 'obnoviť stránku',
         'title' => 'filter diel',
         'show_results' => 'zobraziť výsledky',
         'show_more' => 'ukáž viac',
@@ -51,7 +51,8 @@ return [
         'hide_extended' => 'skryť ďalšie filtre',
         'extended_filter' => 'rozšírený filter',
         'displaying' => 'zobrazujem',
-        'artworks_sorted_by' => '{1} dielo zoradené podľa|[2, 4] diela zoradené podľa |[5,*] diel zoradených podľa',
+        'artworks_sorted_by' =>
+            '{1} dielo zoradené podľa|[2, 4] diela zoradené podľa |[5,*] diel zoradených podľa',
         'try_also' => 'vyskúšaj',
         'random_search' => 'náhodný výber.',
         'year_from' => 'od roku',
@@ -67,7 +68,7 @@ return [
             'name_human' => 'Zadaj meno',
             'name_object' => 'Zadaj názov',
             'term' => 'Zadaj pojem',
-        ],    
+        ],
         'title_generator' => [
             'search' => 'výsledky vyhľadávania pre: ":value"',
             'author' => 'autor: :value',
@@ -135,4 +136,5 @@ return [
         'vr' => 'výška s rámom',
         '=' => ' ',
     ],
+    'untitled' => 'bez názvu',
 ];

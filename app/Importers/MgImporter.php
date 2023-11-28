@@ -33,6 +33,7 @@ class MgImporter extends AbstractImporter
     ];
 
     protected $defaults = [
+        'author' => 'neurčený autor', // todo translatable author
         'gallery:sk' => 'Moravská galerie, MG',
         'gallery:cs' => 'Moravská galerie, MG',
     ];
@@ -102,16 +103,12 @@ class MgImporter extends AbstractImporter
 
     protected function hydrateTitle(array $record, string $locale): ?string
     {
-        if (!in_array($locale, ['cs', 'sk'])) {
-            return null;
-        }
-
         if ($record['Titul'] !== null) {
-            return $record['Titul'];
+            return in_array($locale, ['sk', 'cs']) ? $record['Titul'] : null;
         } elseif ($record['Předmět'] !== null) {
-            return $record['Předmět'];
+            return in_array($locale, ['sk', 'cs']) ? $record['Předmět'] : null;
         } else {
-            return null;
+            return $this->translator->get('item.untitled', locale: $locale);
         }
     }
 
