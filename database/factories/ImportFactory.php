@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Importers\WebumeniaMgImporter;
+use App\Importers\MgImporter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +19,7 @@ class ImportFactory extends Factory
     {
         return [
             'name' => fake()->text(),
-            'class_name' => WebumeniaMgImporter::class,
+            'class_name' => MgImporter::class,
         ];
     }
 }
