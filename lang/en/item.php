@@ -152,4 +152,10 @@ return [
     'topics' => [
         'figurálna kompozícia' => 'figurative composition',
     ],
+    'state_editions' => [
+        'kópia' => 'copy',
+        'neznámy' => 'unknown',
+        'originál' => 'original',
+        'reprodukcia' => 'reproduction',
+    ],
 ];

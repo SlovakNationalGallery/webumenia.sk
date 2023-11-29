@@ -43,6 +43,7 @@ return [
         'related_work' => [
             'biennal_brno' => 'Bienále Brno',
             'jv' => 'Archiv a sbírka Jiřího Valocha',
+            'dagmar_hochova' => 'Archiv negativů Dagmar Hochové',
         ],
     ],
 ];

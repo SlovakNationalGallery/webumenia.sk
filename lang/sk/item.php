@@ -148,8 +148,24 @@ return [
     'techniques' => [
         'akvarel' => 'akvarel',
         'akvarel/čierny' => 'akvarel/čierny',
+        'farebná fotografia' => 'farebná fotografia',
+        'iná fotografia' => 'iná fotografia',
+        'kolorovaná fotografia' => 'kolorovaná fotografia',
+        'kontakt fotografie' => 'kontakt fotografie',
+        'pastelový papier fotografia' => 'pastelový papier fotografia',
+        'tónovaná fotografia' => 'tónovaná fotografia',
+        'tónovaná, kolorovaná fotografia' => 'tónovaná, kolorovaná fotografia',
+        'zmenšenina fotografie' => 'zmenšenina fotografie',
+        'zväčšenina fotografie' => 'zväčšenina fotografie',
+        'čiernobiela fotografia' => 'čiernobiela fotografia',
     ],
     'topics' => [
         'figurálna kompozícia' => 'figurálna kompozícia',
+    ],
+    'state_editions' => [
+        'kópia' => 'kópia',
+        'neznámy' => 'neznámy',
+        'originál' => 'originál',
+        'reprodukcia' => 'reprodukcia',
     ],
 ];
