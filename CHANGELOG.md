@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.86.0] - 2023-12-07
 ### Fixed
 - indexing of Admin section
+- Zoom viewer for more than 10 related images
 
 ## [2.85.0] - 2023-11-23
 ### Changed
