@@ -609,12 +609,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function related($limit = 10)
+    public function related()
     {
         $relatedIds = Item::search()
             ->where('related_work', $this->related_work)
             ->whereIn('author', $this->makeArray($this->author))
-            ->take($limit)
+            ->take(1000) // Scout limits to 10 by default
             ->keys();
 
         return self::query()

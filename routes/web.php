@@ -252,6 +252,7 @@ function()
             ? $item
                 ->related()
                 ->with('translations')
+                ->take(10)
                 ->get()
             : null;
 
