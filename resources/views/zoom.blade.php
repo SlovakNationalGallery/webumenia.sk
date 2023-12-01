@@ -104,8 +104,9 @@
 
                     <div v-dragscroll v-show="showControls" v-if="sequenceMode"
                         class="tw-pointer-events-auto tw-flex tw-h-20 tw-flex-shrink-0 tw-overflow-auto tw-bg-white tw-bg-opacity-70 md:tw-h-full md:tw-w-32 md:tw-flex-col">
-                        <img v-for="src, index in thumbnailUrls" :key="index" :src="src"
-                            v-on:click="methods.setPage(index)"
+                        <zoom-viewer.thumbnail v-for="src, index in thumbnailUrls" :key="index"
+                            :scroll-into-view="index === {{ $index }}" :src="src"
+                            loading="lazy" v-on:click="methods.setPage(index)"
                             :class="['tw-h-full md:tw-h-auto tw-p-2 md:tw-px-4 tw-border tw-cursor-pointer tw-transition-colors tw-border-sky-300', page === index ? 'tw-border-opacity-100' : 'tw-border-transparent hover:tw-border-sky-300/30']" />
                     </div>
                 </Transition>
