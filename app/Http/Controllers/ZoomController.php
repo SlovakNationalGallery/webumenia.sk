@@ -7,7 +7,7 @@ use App\ItemImage;
 
 class ZoomController extends Controller
 {
-   /**
+    /**
      * Show the zoomable itemImages for the item with specified $id
      *
      * @param  int  $id
@@ -20,10 +20,14 @@ class ZoomController extends Controller
             ->findOrFail($id);
 
         $itemImages = $item->images;
-        $index =  0;
-        
+        $index = 0;
+
         if ($itemImages->count() === 1 && $item->related_work) {
-            $relatedItems = Item::related($item)->has('images')->with('images')->get();
+            $relatedItems = $item
+                ->related()
+                ->has('images')
+                ->with('images')
+                ->get();
 
             $itemImages = $relatedItems->map(function ($relatedItem) {
                 return $relatedItem->images->first();

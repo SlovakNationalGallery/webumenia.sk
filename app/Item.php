@@ -609,14 +609,17 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function scopeRelated($query, Item $item)
+    public function related($limit = 10)
     {
         $relatedIds = Item::search()
-            ->where('related_work', $item->related_work)
-            ->whereIn('author', $this->makeArray($item->author))
+            ->where('related_work', $this->related_work)
+            ->whereIn('author', $this->makeArray($this->author))
+            ->take($limit)
             ->keys();
 
-        return $query->whereIn('id', $relatedIds)->orderBy('related_work_order');
+        return self::query()
+            ->whereIn('id', $relatedIds)
+            ->orderBy('related_work_order');
     }
 
     public function getAuthorsWithLinks()
