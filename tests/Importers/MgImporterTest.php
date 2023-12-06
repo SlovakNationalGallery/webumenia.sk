@@ -8,10 +8,6 @@ use App\ImportRecord;
 use App\Item;
 use App\Matchers\AuthorityMatcher;
 use App\Repositories\CsvRepository;
-use Database\Seeders\MediumSeeder;
-use Database\Seeders\TechniqueSeeder;
-use Database\Seeders\TopicSeeder;
-use Database\Seeders\WorkTypeSeeder;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -36,13 +32,6 @@ class MgImporterTest extends TestCase
             $this->repositoryMock,
             app(Translator::class)
         );
-
-        $this->seed([
-            MediumSeeder::class,
-            TechniqueSeeder::class,
-            TopicSeeder::class,
-            WorkTypeSeeder::class,
-        ]);
     }
 
     /** @dataProvider mediumProvider */
@@ -54,9 +43,9 @@ class MgImporterTest extends TestCase
         ]);
 
         $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
-        foreach ($translations as $locale => $translation) {
-            $this->assertEquals($translation, $item->translate($locale)->medium);
-        }
+        $this->assertEquals($translations['cs'], $item->translate('cs')->medium);
+        $this->assertEquals($translations['sk'], $item->translate('sk')->medium);
+        $this->assertEquals($translations['en'], $item->translate('en')->medium);
     }
 
     public static function mediumProvider()
@@ -94,8 +83,8 @@ class MgImporterTest extends TestCase
                 'unknown',
                 [
                     'cs' => 'papír/unknown',
-                    'sk' => 'papier',
-                    'en' => 'paper',
+                    'sk' => null,
+                    'en' => null,
                 ],
             ],
         ];
@@ -110,9 +99,9 @@ class MgImporterTest extends TestCase
         ]);
 
         $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
-        foreach ($translations as $locale => $translation) {
-            $this->assertEquals($translation, $item->translate($locale)->technique);
-        }
+        $this->assertEquals($translations['cs'], $item->translate('cs')->technique);
+        $this->assertEquals($translations['sk'], $item->translate('sk')->technique);
+        $this->assertEquals($translations['en'], $item->translate('en')->technique);
     }
 
     public static function techniqueProvider()
@@ -157,9 +146,9 @@ class MgImporterTest extends TestCase
         ]);
 
         $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
-        foreach ($translations as $locale => $translation) {
-            $this->assertEquals($translation, $item->translate($locale)->work_type);
-        }
+        $this->assertEquals($translations['cs'], $item->translate('cs')->work_type);
+        $this->assertEquals($translations['sk'], $item->translate('sk')->work_type);
+        $this->assertEquals($translations['en'], $item->translate('en')->work_type);
     }
 
     public static function workTypeProvider()
@@ -197,8 +186,8 @@ class MgImporterTest extends TestCase
                 'unknown',
                 [
                     'cs' => 'fotografie/unknown',
-                    'sk' => 'fotografia',
-                    'en' => 'photograph',
+                    'sk' => null,
+                    'en' => null,
                 ],
             ],
         ];
@@ -212,9 +201,9 @@ class MgImporterTest extends TestCase
         ]);
 
         $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
-        foreach ($translations as $locale => $translation) {
-            $this->assertEquals($translation, $item->translate($locale)->topic);
-        }
+        $this->assertEquals($translations['cs'], $item->translate('cs')->topic);
+        $this->assertEquals($translations['sk'], $item->translate('sk')->topic);
+        $this->assertEquals($translations['en'], $item->translate('en')->topic);
     }
 
     public static function topicProvider()
@@ -317,9 +306,9 @@ class MgImporterTest extends TestCase
         ]);
 
         $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
-        foreach ($translations as $locale => $translation) {
-            $this->assertEquals($translation, $item->translate($locale)->title);
-        }
+        $this->assertEquals($translations['cs'], $item->translate('cs')->title);
+        $this->assertEquals($translations['sk'], $item->translate('sk')->title);
+        $this->assertEquals($translations['en'], $item->translate('en')->title);
     }
 
     public static function titleProvider()

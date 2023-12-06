@@ -140,4 +140,19 @@ return [
         '=' => ' ',
     ],
     'untitled' => 'bez názvu',
+    'work_types' => [
+        'fotografia' => 'fotografie',
+        'fotografia/negatív' => 'fotografie/negativ',
+    ],
+    'media' => [
+        'papier' => 'papír',
+        'papier/matný' => 'papír/matný',
+    ],
+    'techniques' => [
+        'akvarel' => 'akvarel',
+        'akvarel/čierny' => 'akvarel/černý',
+    ],
+    'topics' => [
+        'figurálna kompozícia' => 'figurální kompozice',
+    ],
 ];

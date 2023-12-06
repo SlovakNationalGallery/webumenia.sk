@@ -2,10 +2,7 @@
 
 namespace App\Importers;
 
-use App\Medium;
-use App\Technique;
-use App\Topic;
-use App\WorkType;
+use App\Item;
 
 class MgImporter extends AbstractImporter
 {
@@ -56,6 +53,11 @@ class MgImporter extends AbstractImporter
         'Te' => 'textil',
     ];
 
+    protected array $mediumTranslationKeys;
+    protected array $techniqueTranslationKeys;
+    protected array $workTypeTranslationKeys;
+    protected array $topicTranslationKeys;
+
     protected function init(): void
     {
         $this->filters[] = function (array $record) {
@@ -65,6 +67,11 @@ class MgImporter extends AbstractImporter
         $this->sanitizers[] = function ($value) {
             return empty_to_null($value);
         };
+
+        $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
+        $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
+        $this->workTypeTranslationKeys = array_flip(trans('item.work_types', locale: 'cs'));
+        $this->topicTranslationKeys = array_flip(trans('item.topics', locale: 'cs'));
     }
 
     protected function getItemId(array $record): string
@@ -105,54 +112,41 @@ class MgImporter extends AbstractImporter
     {
         if ($record['Titul'] !== null) {
             return in_array($locale, ['sk', 'cs']) ? $record['Titul'] : null;
-        } elseif ($record['Předmět'] !== null) {
-            return in_array($locale, ['sk', 'cs']) ? $record['Předmět'] : null;
-        } else {
-            return $this->translator->get('item.untitled', locale: $locale);
         }
+        if ($record['Předmět'] !== null) {
+            return in_array($locale, ['sk', 'cs']) ? $record['Předmět'] : null;
+        }
+        return trans('item.untitled', locale: $locale);
     }
 
     protected function hydrateMedium(array $record, string $locale): ?string
     {
-        $medium = Medium::query()
-            ->whereTranslation('name', $record['Materiál'], 'cs')
-            ->whereNull('parent_id')
-            ->firstOr(fn() => Medium::create(['name:cs' => $record['Materiál']]));
-
+        $medium = $record['Materiál'];
         if ($record['MatSpec'] !== null) {
-            $medium = $medium
-                ->children()
-                ->whereTranslation('name', $record['MatSpec'], 'cs')
-                ->firstOr(
-                    fn() => Medium::create([
-                        'name:cs' => $record['MatSpec'],
-                        'parent_id' => $medium->id,
-                    ])
-                );
+            $medium .= Item::TREE_DELIMITER . $record['MatSpec'];
         }
 
-        return $medium->getFullName($locale);
+        if ($locale === 'cs') {
+            return $medium;
+        }
+
+        $key = $this->mediumTranslationKeys[$medium] ?? null;
+        return $key ? trans("item.media.$key", locale: $locale) : null;
     }
 
     protected function hydrateTechnique(array $record, string $locale): ?string
     {
-        $technique = Technique::query()
-            ->whereTranslation('name', $record['Technika'], 'cs')
-            ->firstOr(fn() => Technique::create(['name:cs' => $record['Technika']]));
-
+        $technique = $record['Technika'];
         if ($record['TechSpec'] !== null) {
-            $technique = $technique
-                ->children()
-                ->whereTranslation('name', $record['TechSpec'], 'cs')
-                ->firstOr(
-                    fn() => Technique::create([
-                        'name:cs' => $record['TechSpec'],
-                        'parent_id' => $technique->id,
-                    ])
-                );
+            $technique .= Item::TREE_DELIMITER . $record['TechSpec'];
         }
 
-        return $technique->getFullName($locale);
+        if ($locale === 'cs') {
+            return $technique;
+        }
+
+        $key = $this->techniqueTranslationKeys[$technique] ?? null;
+        return $key ? trans("item.techniques.$key", locale: $locale) : null;
     }
 
     protected function hydrateWorkType(array $record, string $locale): ?string
@@ -162,44 +156,34 @@ class MgImporter extends AbstractImporter
             return null;
         }
 
-        $workType = WorkType::query()
-            ->whereTranslation('name', $workType, 'cs')
-            ->firstOr(fn() => WorkType::create(['name:cs' => $workType]));
-
         if ($record['Podskup'] !== null) {
-            $workType = $workType
-                ->children()
-                ->whereTranslation('name', $record['Podskup'], 'cs')
-                ->firstOr(
-                    fn() => WorkType::create([
-                        'name:cs' => $record['Podskup'],
-                        'parent_id' => $workType->id,
-                    ])
-                );
+            $workType .= Item::TREE_DELIMITER . $record['Podskup'];
         }
 
-        return $workType->getFullName($locale);
+        if ($locale === 'cs') {
+            return $workType;
+        }
+
+        $key = $this->workTypeTranslationKeys[$workType] ?? null;
+        return $key ? trans("item.work_types.$key", locale: $locale) : null;
     }
 
     protected function hydrateTopic(array $record, string $locale): ?string
     {
-        if ($record['Námět'] === null) {
-            return null;
+        $topic = $record['Námět'];
+
+        if ($locale === 'cs') {
+            return $topic;
         }
 
-        return Topic::query()
-            ->whereTranslation('name', $record['Námět'], 'cs')
-            ->firstOr(fn() => Topic::create(['name:cs' => $record['Námět']]))
-            ->translate($locale)?->name;
+        $key = $this->topicTranslationKeys[$topic] ?? null;
+        return $key ? trans("item.topics.$key", locale: $locale) : null;
     }
 
     protected function hydrateRelationshipType(array $record, string $locale): ?string
     {
         if ($this->isBiennial($record) || $record['Rada_S'] === 'JV') {
-            return $this->translator->get(
-                'importer.mg.relationship_type.from_set',
-                locale: $locale
-            );
+            return trans('importer.mg.relationship_type.from_set', locale: $locale);
         }
 
         return null;
@@ -208,11 +192,11 @@ class MgImporter extends AbstractImporter
     protected function hydrateRelatedWork(array $record, string $locale): ?string
     {
         if ($this->isBiennial($record)) {
-            return $this->translator->get('importer.mg.related_work.biennal_brno', locale: $locale);
+            return trans('importer.mg.related_work.biennal_brno', locale: $locale);
         }
 
         if ($record['Rada_S'] === 'JV') {
-            return $this->translator->get('importer.mg.related_work.jv', locale: $locale);
+            return trans('importer.mg.related_work.jv', locale: $locale);
         }
 
         return null;
@@ -224,10 +208,7 @@ class MgImporter extends AbstractImporter
             return null;
         }
 
-        $replacements = $this->translator->get(
-            'importer.demus.measurement_replacements',
-            locale: $locale
-        );
+        $replacements = trans('importer.demus.measurement_replacements', locale: $locale);
         return str($record['Služ'])
             ->swap($replacements)
             ->when($locale === 'en', fn($value) => $value->replace(',', '.'));

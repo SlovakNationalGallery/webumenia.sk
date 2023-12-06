@@ -26,7 +26,6 @@
         "google/recaptcha": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
-        "kalnoy/nestedset": "^6.0",
         "laravel/framework": "^10.0",
         "laravel/scout": "^9.2",
         "laravel/tinker": "^2.7",

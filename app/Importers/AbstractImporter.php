@@ -87,7 +87,6 @@ abstract class AbstractImporter
                     $import_record->imported_items++;
                 }
             } catch (\Exception $e) {
-                throw $e;
                 $import_record->import->status = Import::STATUS_ERROR;
                 $import_record->import->save();
 
