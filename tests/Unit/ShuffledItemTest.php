@@ -7,6 +7,7 @@ use App\ItemImage;
 use App\ShuffledItem;
 use Database\Factories\MediaFactory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tests\TestCase;
 
 class ShuffledItemTest extends TestCase
