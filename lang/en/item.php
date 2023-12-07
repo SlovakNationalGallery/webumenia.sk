@@ -42,7 +42,7 @@ return [
         'clear_all' => 'clear all',
         'nothing_found' => 'hmm, we found nothing.',
         'something_went_wrong' => 'oops, something went wrong',
-        'refresh_page' => 'refresh',   
+        'refresh_page' => 'refresh',
         'title' => 'artwork filter',
         'show_results' => 'show results',
         'show_more' => 'show more',
@@ -135,5 +135,21 @@ return [
         'vp.' => 'height with mount',
         'vr' => 'height with frame',
         '=' => ' ',
+    ],
+    'untitled' => 'untitled',
+    'work_types' => [
+        'fotografia' => 'photograph',
+        'fotografia/negatív' => 'photograph/negative',
+    ],
+    'media' => [
+        'papier' => 'paper',
+        'papier/matný' => 'paper/matte',
+    ],
+    'techniques' => [
+        'akvarel' => 'watercolor',
+        'akvarel/čierny' => 'watercolor/black',
+    ],
+    'topics' => [
+        'figurálna kompozícia' => 'figurative composition',
     ],
 ];

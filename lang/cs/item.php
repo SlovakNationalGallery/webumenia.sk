@@ -40,9 +40,9 @@ return [
     'filter' => [
         'clear' => 'zrušit výběr',
         'clear_all' => 'zrušit celý výběr',
-        'nothing_found' => 'hmm, nic jsme nenašli.',      
+        'nothing_found' => 'hmm, nic jsme nenašli.',
         'something_went_wrong' => 'ups, něco se pokazilo.',
-        'refresh_page' => 'obnovit stránku',   
+        'refresh_page' => 'obnovit stránku',
         'title' => 'filtr děl',
         'show_results' => 'show results',
         'show_more' => 'ukaž více',
@@ -51,7 +51,8 @@ return [
         'show_extended' => 'všechny filtry',
         'extended_filter' => 'rozšířený filtr',
         'displaying' => '{1} zobrazeno|[2, 4] zobrazena|[5,*] zobrazeno',
-        'artworks_sorted_by' => '{1} dílo seřazené podle|[2, 4] díla seřazené podle |[5,*] děl seřazených podle',
+        'artworks_sorted_by' =>
+            '{1} dílo seřazené podle|[2, 4] díla seřazené podle |[5,*] děl seřazených podle',
         'try_also' => 'vyzkoušej',
         'random_search' => 'náhodný výběr.',
         'year_from' => 'od roku',
@@ -137,5 +138,21 @@ return [
         'vp.' => 'výška s paspartou',
         'vr' => 'výška s rámem',
         '=' => ' ',
+    ],
+    'untitled' => 'bez názvu',
+    'work_types' => [
+        'fotografia' => 'fotografie',
+        'fotografia/negatív' => 'fotografie/negativ',
+    ],
+    'media' => [
+        'papier' => 'papír',
+        'papier/matný' => 'papír/matný',
+    ],
+    'techniques' => [
+        'akvarel' => 'akvarel',
+        'akvarel/čierny' => 'akvarel/černý',
+    ],
+    'topics' => [
+        'figurálna kompozícia' => 'figurální kompozice',
     ],
 ];

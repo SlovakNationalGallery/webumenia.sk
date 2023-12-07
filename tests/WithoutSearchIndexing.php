@@ -2,17 +2,17 @@
 
 namespace Tests;
 
-use Illuminate\Support\Facades\Event;
+use App\Elasticsearch\Repositories\AuthorityRepository;
+use App\Elasticsearch\Repositories\ItemRepository;
+use Elasticsearch\Client;
 
 trait WithoutSearchIndexing
 {
-    /**
-     * Fakes all events, effectively disabling ItemObserver and AuthorityObserver
-     *
-     * @return void
-     */
-    public function disableModelSearchIndexing()
+    public function disableModelSearchIndexing(): void
     {
-        Event::fake();
+        $this->mock(Client::class)->shouldIgnoreMissing();
+        // forces re-instantiation of repositories with client mock
+        $this->app->forgetInstance(ItemRepository::class);
+        $this->app->forgetInstance(AuthorityRepository::class);
     }
 }

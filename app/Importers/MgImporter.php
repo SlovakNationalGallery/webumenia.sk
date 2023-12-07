@@ -2,6 +2,8 @@
 
 namespace App\Importers;
 
+use App\Item;
+
 class MgImporter extends AbstractImporter
 {
     protected static $options = [
@@ -13,31 +15,27 @@ class MgImporter extends AbstractImporter
     ];
 
     protected $mapping = [
-        'acquisition_date' => 'RokAkv',
-        'copyright_expires' => 'DatExp',
-        'dating:cs' => 'Datace',
         'date_earliest' => 'RokOd',
         'date_latest' => 'Do',
-        'place:cs' => 'MístoVz',
-        'inscription:cs' => 'Sign',
-        'state_edition:cs' => 'Původnost',
+        'acquisition_date' => 'RokAkv',
         'author' => 'Autor',
-        'title:cs' => 'Titul',
-        'topic:cs' => 'Námět',
+        'dating:sk' => 'Datace',
+        'dating:cs' => 'Datace',
+        'place:sk' => 'MístoVz',
+        'place:cs' => 'MístoVz',
+        'inscription:sk' => 'Sign',
+        'inscription:cs' => 'Sign',
+        'state_edition:sk' => 'Původnost',
+        'state_edition:cs' => 'Původnost',
     ];
 
     protected $defaults = [
-        'author' => 'neurčený autor',
+        'author' => 'neurčený autor', // todo translatable author
+        'gallery:sk' => 'Moravská galerie, MG',
         'gallery:cs' => 'Moravská galerie, MG',
-        'title:cs' => 'bez názvu',
-        'topic:cs' => '',
-        'relationship_type:cs' => '',
-        'description:cs' => '',
-        'work_level:cs' => '',
-        'subject:cs' => '',
     ];
 
-    protected static $cz_work_types_spec = [
+    protected array $workTypes = [
         'Ar' => 'architektura',
         'Bi' => 'bibliofilie a staré tisky',
         'Dř' => 'dřevo, nábytek a design',
@@ -55,44 +53,12 @@ class MgImporter extends AbstractImporter
         'Te' => 'textil',
     ];
 
-    protected static $cz_measurement_replacements = [
-        'a' => 'výška hlavní části',
-        'a.' => 'výška hlavní části',
-        'b' => 'výška vedlejší části',
-        'b.' => 'výška vedlejší části',
-        'čas' => 'čas',
-        'd' => 'délka',
-        'd.' => 'délka',
-        'h' => 'hloubka/tloušťka',
-        'h.' => 'hloubka/tloušťka',
-        'hmot' => 'hmotnost',
-        'hmot.' => 'hmotnost',
-        'hr' => 'hloubka s rámem',
-        'jiný' => 'jiný nespecifikovaný',
-        'p' => 'průměr/ráže',
-        'p.' => 'průměr/ráže',
-        'r.' => 'ráže',
-        'ryz' => 'ryzost',
-        's' => 'šířka',
-        's.' => 'šířka',
-        'sd.' => 'šířka grafické desky',
-        'sp' => 'šířka s paspartou',
-        'sp.' => 'šířka s paspartou',
-        'sr' => 'šířka s rámem',
-        'v' => 'celková výška/délka',
-        'v.' => 'celková výška/délka',
-        'vd.' => 'výška grafické desky',
-        'vp' => 'výška s paspartou',
-        'vp.' => 'výška s paspartou',
-        'vr' => 'výška s rámem',
-        ';' => ';',
-        '=' => ' ',
-        'cm' => ' cm',
-    ];
+    protected array $mediumTranslationKeys;
+    protected array $techniqueTranslationKeys;
+    protected array $workTypeTranslationKeys;
+    protected array $topicTranslationKeys;
 
-    protected static $name = 'mg';
-
-    protected function init()
+    protected function init(): void
     {
         $this->filters[] = function (array $record) {
             return $record['Plus2T'] != 'ODPIS';
@@ -101,9 +67,14 @@ class MgImporter extends AbstractImporter
         $this->sanitizers[] = function ($value) {
             return empty_to_null($value);
         };
+
+        $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
+        $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
+        $this->workTypeTranslationKeys = array_flip(trans('item.work_types', locale: 'cs'));
+        $this->topicTranslationKeys = array_flip(trans('item.topics', locale: 'cs'));
     }
 
-    protected function getItemId(array $record)
+    protected function getItemId(array $record): string
     {
         $id = sprintf('CZE:MG.%s_%s', $record['Rada_S'], (int) $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
@@ -127,7 +98,7 @@ class MgImporter extends AbstractImporter
         return sprintf('%s(_.*)?', preg_quote($filename));
     }
 
-    protected function hydrateIdentifier(array $record)
+    protected function hydrateIdentifier(array $record): string
     {
         $identifier = sprintf('%s %s', $record['Rada_S'], (int) $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
@@ -137,46 +108,114 @@ class MgImporter extends AbstractImporter
         return $identifier;
     }
 
-    protected function hydrateMedium(array $record)
+    protected function hydrateTitle(array $record, string $locale): ?string
     {
-        return isset($record['Materiál']) && isset($record['MatSpec'])
-            ? $record['Materiál'] . ', ' . $record['MatSpec']
-            : $record['Materiál'];
+        if ($record['Titul'] !== null) {
+            return in_array($locale, ['sk', 'cs']) ? $record['Titul'] : null;
+        }
+        if ($record['Předmět'] !== null) {
+            return in_array($locale, ['sk', 'cs']) ? $record['Předmět'] : null;
+        }
+        return trans('item.untitled', locale: $locale);
     }
 
-    protected function hydrateTechnique(array $record)
+    protected function hydrateMedium(array $record, string $locale): ?string
     {
-        return $record['TechSpec']
-            ? $record['Technika'] . ', ' . $record['TechSpec']
-            : $record['Technika'];
+        $medium = $record['Materiál'];
+        if ($record['MatSpec'] !== null) {
+            $medium .= Item::TREE_DELIMITER . $record['MatSpec'];
+        }
+
+        if ($locale === 'cs') {
+            return $medium;
+        }
+
+        $key = $this->mediumTranslationKeys[$medium] ?? null;
+        return $key ? trans("item.media.$key", locale: $locale) : null;
     }
 
-    protected function hydrateWorkType(array $record)
+    protected function hydrateTechnique(array $record, string $locale): ?string
     {
-        return isset(static::$cz_work_types_spec[$record['Skupina']])
-            ? static::$cz_work_types_spec[$record['Skupina']]
-            : 'nespecifikované';
+        $technique = $record['Technika'];
+        if ($record['TechSpec'] !== null) {
+            $technique .= Item::TREE_DELIMITER . $record['TechSpec'];
+        }
+
+        if ($locale === 'cs') {
+            return $technique;
+        }
+
+        $key = $this->techniqueTranslationKeys[$technique] ?? null;
+        return $key ? trans("item.techniques.$key", locale: $locale) : null;
     }
 
-    protected function hydrateRelationshipType(array $record)
+    protected function hydrateWorkType(array $record, string $locale): ?string
     {
-        return self::isBiennial($record) ? 'ze souboru' : '';
+        $workType = $this->workTypes[$record['Skupina']] ?? null;
+        if ($workType === null) {
+            return null;
+        }
+
+        if ($record['Podskup'] !== null) {
+            $workType .= Item::TREE_DELIMITER . $record['Podskup'];
+        }
+
+        if ($locale === 'cs') {
+            return $workType;
+        }
+
+        $key = $this->workTypeTranslationKeys[$workType] ?? null;
+        return $key ? trans("item.work_types.$key", locale: $locale) : null;
     }
 
-    protected function hydrateRelatedWork(array $record)
+    protected function hydrateTopic(array $record, string $locale): ?string
     {
-        return self::isBiennial($record) ? 'Bienále Brno' : '';
+        $topic = $record['Námět'];
+
+        if ($locale === 'cs') {
+            return $topic;
+        }
+
+        $key = $this->topicTranslationKeys[$topic] ?? null;
+        return $key ? trans("item.topics.$key", locale: $locale) : null;
     }
 
-    protected function hydrateMeasurement(array $record)
+    protected function hydrateRelationshipType(array $record, string $locale): ?string
     {
-        return !empty($record['Služ']) && $record['Služ'] != '='
-            ? strtr($record['Služ'], static::$cz_measurement_replacements)
-            : '';
+        if ($this->isBiennial($record) || $record['Rada_S'] === 'JV') {
+            return trans('importer.mg.relationship_type.from_set', locale: $locale);
+        }
+
+        return null;
     }
 
-    protected static function isBiennial(array $record)
+    protected function hydrateRelatedWork(array $record, string $locale): ?string
     {
-        return strpos($record['Okolnosti'], 'BB') !== false;
+        if ($this->isBiennial($record)) {
+            return trans('importer.mg.related_work.biennal_brno', locale: $locale);
+        }
+
+        if ($record['Rada_S'] === 'JV') {
+            return trans('importer.mg.related_work.jv', locale: $locale);
+        }
+
+        return null;
+    }
+
+    protected function hydrateMeasurement(array $record, string $locale): ?string
+    {
+        if ($record['Služ'] === '=') {
+            return null;
+        }
+
+        $replacements = trans('importer.demus.measurement_replacements', locale: $locale);
+        return str($record['Služ'])
+            ->swap($replacements)
+            ->when($locale === 'en', fn($value) => $value->replace(',', '.'));
+    }
+
+    protected function isBiennial(array $record): bool
+    {
+        return str($record['Okolnosti'])->startsWith('BB');
     }
 }

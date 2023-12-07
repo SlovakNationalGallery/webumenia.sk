@@ -37,8 +37,6 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected $counter;
 
-    protected static $name = 'pnp_karasek';
-
     protected function init()
     {
         $this->sanitizers[] = function ($value) {

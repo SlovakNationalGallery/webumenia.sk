@@ -3,7 +3,7 @@
 namespace Tests\BrowserKit\Admin;
 
 use App\Import;
-use App\Importers\WebumeniaMgImporter;
+use App\Importers\MgImporter;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTestCase;
@@ -23,7 +23,7 @@ class ImportFormTest extends BrowserKitTestCase
     {
         $this->visit('/imports/create')
             ->type('name', 'name')
-            ->type(WebumeniaMgImporter::class, 'class_name')
+            ->type(MgImporter::class, 'class_name')
             ->press('Uložiť')
             ->seePageIs('/imports');
     }

@@ -33,8 +33,6 @@ class GmuRnlImporter extends AbstractImporter
         'input_encoding' => 'CP1250',
     ];
 
-    protected static $name = 'gml-rnl';
-
     protected function init()
     {
         $this->sanitizers[] = function ($value) {
