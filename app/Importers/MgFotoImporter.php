@@ -4,8 +4,24 @@ namespace App\Importers;
 
 use App\Item;
 
-class MgFotoImporter extends AbstractMgImporter
+class MgFotoImporter extends AbstractImporter
 {
+    use MgImporterTrait;
+
+    protected static $options = [
+        'delimiter' => ';',
+        'enclosure' => '"',
+        'escape' => '\\',
+        'newline' => "\r\n",
+        'input_encoding' => 'CP1250',
+    ];
+
+    protected $defaults = [
+        'author' => 'neurčený autor', // todo translatable author
+        'gallery:sk' => 'Moravská galerie, MG',
+        'gallery:cs' => 'Moravská galerie, MG',
+    ];
+
     protected $mapping = [
         'date_earliest' => 'RokVzOd',
         'date_latest' => 'RokVzDo',

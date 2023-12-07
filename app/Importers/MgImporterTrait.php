@@ -2,22 +2,8 @@
 
 namespace App\Importers;
 
-class AbstractMgImporter extends AbstractImporter
+trait MgImporterTrait
 {
-    protected static $options = [
-        'delimiter' => ';',
-        'enclosure' => '"',
-        'escape' => '\\',
-        'newline' => "\r\n",
-        'input_encoding' => 'CP1250',
-    ];
-
-    protected $defaults = [
-        'author' => 'neurčený autor', // todo translatable author
-        'gallery:sk' => 'Moravská galerie, MG',
-        'gallery:cs' => 'Moravská galerie, MG',
-    ];
-
     protected array $mediumTranslationKeys;
     protected array $techniqueTranslationKeys;
     protected array $workTypeTranslationKeys;
