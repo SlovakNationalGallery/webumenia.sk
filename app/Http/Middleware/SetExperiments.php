@@ -19,7 +19,7 @@ class SetExperiments
     public function handle(Request $request, Closure $next): Response
     {
         $request->whenFilled('experiment', function ($experiment) {
-            if ($experiment === 'new-catalog') {
+            if ($experiment === 'new-catalog' || $experiment === 'new-katalog') {
                 return Experiment::set('new-catalog');
             }
         });
