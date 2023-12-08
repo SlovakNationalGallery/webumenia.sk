@@ -71,7 +71,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'current_location',
     ];
 
-    protected $fillable = array(
+    protected $fillable = [
         'id',
         'identifier',
         'author',
@@ -106,7 +106,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'additionals',
         'style_period',
         'current_location',
-    );
+        'exhibition',
+        'box',
+        'location',
+    ];
 
     public static $rules = array(
         'author' => 'required',
@@ -740,6 +743,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'credit' => $this["credit:$locale"],
             'contributor' => $this->contributor,
             'related_work' => $this["related_work:$locale"],
+            'exhibition' => $this->exhibition,
+            'box' => $this->box,
+            'location' => $this->location,
             'additionals' => $this["additionals:$locale"],
             'images' => $this->images
                 ->map(function(ItemImage $image) {

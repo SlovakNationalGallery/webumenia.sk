@@ -58,4 +58,41 @@ trait MgImporterTrait
 
         return $identifier;
     }
+
+    protected function hydrateExhibition(array $record): ?string
+    {
+        $exhibitions = [
+            '#^UPM/211/.*#' => 'LIGHT DEPO',
+            '#^UPM/210/.*#' => 'BLACK DEPO',
+            '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
+            '#^UPM/203/D/.*#' => 'Design 2000+',
+            '#^UPM/204/.*#' => 'Fashion 2000+',
+            '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
+        ];
+
+        foreach ($exhibitions as $pattern => $exhibition) {
+            if (preg_match($pattern, $record['AktLokace'])) {
+                return $exhibition;
+            }
+        }
+
+        return null;
+    }
+
+    protected function hydrateBox(array $record): ?string
+    {
+        $replacements = [
+            '#^UPM/211/B(\d+)/.*#' => 'BOX $1',
+            '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BOX $1$2',
+            '#^UPM/203/D/(.*?)/.*#' => '$1',
+        ];
+
+        foreach ($replacements as $pattern => $replacement) {
+            if (preg_match($pattern, $record['AktLokace'])) {
+                return preg_replace($pattern, $replacement, $record['AktLokace']);
+            }
+        }
+
+        return null;
+    }
 }

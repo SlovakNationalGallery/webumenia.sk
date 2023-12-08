@@ -344,6 +344,26 @@ class MgImporterTest extends TestCase
         ];
     }
 
+    public function testExhibition()
+    {
+        $this->importData([
+            'AktLokace' => 'UPM/210/F/B04/p01',
+        ]);
+
+        $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
+        $this->assertEquals('BLACK DEPO', $item->exhibition);
+    }
+
+    public function testBox()
+    {
+        $this->importData([
+            'AktLokace' => 'UPM/210/F/B04/p01',
+        ]);
+
+        $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
+        $this->assertEquals('BOX F04', $item->box);
+    }
+
     protected function importData($data): ImportRecord
     {
         $data = $this->fakeData($data);
@@ -381,6 +401,7 @@ class MgImporterTest extends TestCase
             'Podskup' => $this->faker->word,
             'Služ' => $this->faker->sentence,
             'Okolnosti' => $this->faker->text,
+            'AktLokace' => $this->faker->word,
         ];
     }
 }

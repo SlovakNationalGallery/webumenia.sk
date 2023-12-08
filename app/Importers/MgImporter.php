@@ -35,6 +35,7 @@ class MgImporter extends AbstractImporter
         'inscription:cs' => 'Sign',
         'state_edition:sk' => 'Původnost',
         'state_edition:cs' => 'Původnost',
+        'location' => 'AktLokace',
     ];
 
     protected array $workTypes = [

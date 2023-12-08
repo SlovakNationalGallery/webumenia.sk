@@ -30,10 +30,9 @@ class MgFotoImporter extends AbstractImporter
         'author' => 'Autor',
         'dating:sk' => 'DatVz',
         'dating:cs' => 'DatVz',
-        //        'location:sk' => 'AktLokace', todo
-        //        'location:cs' => 'AktLokace', todo
         'description:sk' => 'Popis',
         'description:cs' => 'Popis',
+        'location' => 'AktLokace',
     ];
 
     protected array $surfaces = [
