@@ -999,7 +999,7 @@
                                                     v-bind:srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                     sizes="(max-width: 768px) 250vw, 100vw">
                                             </a>
-                                            <div v-bind:class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']"
+                                            <div v-bind:class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-animate-pulse tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']"
                                                 v-bind:style="{'aspect-ratio': artwork.content.image_ratio || 7/8, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
                                             </div>
                                         </div>
