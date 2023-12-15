@@ -5,8 +5,9 @@
                 interaction.maxScrolledPercent >= {{ $openOnScrolledPercent }}
                 && interaction.timeSpentSeconds >= 30
             "
-            v-on:open="lw.call('onOpen')"
-            v-on:close="lw.call('onDismissed')"
+            {{-- TODO tracking disabled WEBUMENIA-2042 --}}
+            {{-- v-on:open="lw.call('onOpen')" --}}
+            {{-- v-on:close="lw.call('onDismissed')" --}}
         >
             <div class="row py-5">
                 <div class="visible-lg-block col-lg-1 col-lg-offset-2 text-right pl-0 pt-4">
