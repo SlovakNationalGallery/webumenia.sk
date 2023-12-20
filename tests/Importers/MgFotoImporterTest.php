@@ -35,11 +35,12 @@ class MgFotoImporterTest extends TestCase
     }
 
     /** @dataProvider mediumProvider */
-    public function testMedium($material, $povrch, $translations)
+    public function testMedium($material, $povrch, $barva, $translations)
     {
         $this->importData([
-            'Material' => $material,
+            'Materiál' => $material,
             'Povrch' => $povrch,
+            'Barva' => $barva,
         ]);
 
         $item = Item::find('CZE:MG.rada_s_123-lomeni_s');
@@ -54,6 +55,7 @@ class MgFotoImporterTest extends TestCase
             'material' => [
                 'papír',
                 null,
+                null,
                 [
                     'cs' => 'papír',
                     'sk' => 'papier',
@@ -63,10 +65,21 @@ class MgFotoImporterTest extends TestCase
             'materialWithSurface' => [
                 'papír',
                 'M',
+                null,
                 [
                     'cs' => 'papír/matný',
                     'sk' => 'papier/matný',
                     'en' => 'paper/matte',
+                ],
+            ],
+            'materialWithColor' => [
+                null,
+                null,
+                'CP',
+                [
+                    'cs' => 'papír/pastelový papír',
+                    'sk' => 'papier/pastelový papier',
+                    'en' => 'paper/pastel paper',
                 ],
             ],
         ];
@@ -187,9 +200,9 @@ class MgFotoImporterTest extends TestCase
                 'V',
                 null,
                 [
-                    'cs' => 'zvětšenina fotografie',
-                    'sk' => 'zväčšenina fotografie',
-                    'en' => 'photograhp enlargement',
+                    'cs' => 'zvětšování',
+                    'sk' => 'zväčšovanie',
+                    'en' => 'enlarging',
                 ],
             ],
             'barva' => [
@@ -198,16 +211,16 @@ class MgFotoImporterTest extends TestCase
                 [
                     'cs' => 'černobílá fotografie',
                     'sk' => 'čiernobiela fotografia',
-                    'en' => 'black and white photograph',
+                    'en' => 'black-and-white photograph',
                 ],
             ],
             'zoom/barva' => [
                 'V',
                 'C',
                 [
-                    'cs' => 'zvětšenina fotografie; černobílá fotografie',
-                    'sk' => 'zväčšenina fotografie; čiernobiela fotografia',
-                    'en' => 'photograhp enlargement; black and white photograph',
+                    'cs' => 'zvětšování; černobílá fotografie',
+                    'sk' => 'zväčšovanie; čiernobiela fotografia',
+                    'en' => 'enlarging; black-and-white photograph',
                 ],
             ],
         ];

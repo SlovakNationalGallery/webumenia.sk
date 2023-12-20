@@ -144,10 +144,19 @@ return [
     'media' => [
         'papier' => 'paper',
         'papier/matný' => 'paper/matte',
+        'papier/pastelový papier' => 'paper/pastel paper',
     ],
     'techniques' => [
         'akvarel' => 'watercolor',
         'akvarel/čierny' => 'watercolor/black',
+        'farebná fotografia' => 'color photograph',
+        'iná technika' => 'other technique',
+        'kolorovanie' => 'coloring',
+        'kontaktná kópia' => 'contact print',
+        'tónovanie' => 'toning',
+        'zmenšovanie' => 'reduction',
+        'zväčšovanie' => 'enlarging',
+        'čiernobiela fotografia' => 'black-and-white photograph',
     ],
     'topics' => [
         'figurálna kompozícia' => 'figurative composition',

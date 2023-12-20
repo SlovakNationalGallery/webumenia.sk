@@ -3,6 +3,7 @@
 namespace App\Importers;
 
 use App\Item;
+use Illuminate\Support\Arr;
 
 class MgFotoImporter extends AbstractImporter
 {
@@ -45,19 +46,9 @@ class MgFotoImporter extends AbstractImporter
     ];
 
     protected array $zooms = [
-        'K' => 'kontakt fotografie',
-        'M' => 'zmenšenina fotografie',
-        'V' => 'zväčšenina fotografie',
-    ];
-
-    protected array $colors = [
-        'B' => 'farebná fotografia',
-        'C' => 'čiernobiela fotografia',
-        'CK' => 'kolorováno fotografie',
-        'CP' => 'pastelový papier fotografia',
-        'CT' => 'tónovaná fotografia',
-        'CTK' => 'tónovaná, kolorovaná fotografia',
-        'J' => 'iná fotografia',
+        'K' => 'kontaktná kópia',
+        'M' => 'zmenšovanie',
+        'V' => 'zväčšovanie',
     ];
 
     protected array $stateEditions = [
@@ -90,33 +81,62 @@ class MgFotoImporter extends AbstractImporter
 
     protected function hydrateMedium(array $record, string $locale): ?string
     {
+        $media = collect();
+
         $medium = $record['Materiál'];
         if ($record['Povrch'] !== null) {
             $medium .= Item::TREE_DELIMITER . $this->surfaces[$record['Povrch']];
         }
-
-        if ($locale === 'cs') {
-            return $medium;
+        if ($medium) {
+            $media[] = $medium;
         }
 
-        $key = $this->mediumTranslationKeys[$medium] ?? null;
-        return $key ? trans("item.media.$key", locale: $locale) : null;
+        $colorMedia = [
+            'CP' => 'papír/pastelový papír',
+        ];
+        if ($record['Barva'] !== null && Arr::has($colorMedia, $record['Barva'])) {
+            $media[] = Arr::get($colorMedia, $record['Barva']);
+        }
+
+        return $media
+            ->map(function (string $medium) use ($locale) {
+                if ($locale === 'cs') {
+                    return $medium;
+                }
+
+                $key = $this->mediumTranslationKeys[$medium] ?? null;
+                return $key ? trans("item.media.$key", locale: $locale) : null;
+            })
+            ->filter()
+            ->join('; ');
     }
 
     protected function hydrateTechnique(array $record, string $locale): ?string
     {
-        $techniques = collect();
+        $techniqueTranslationKeys = collect();
         if ($record['Zoom'] !== null) {
-            $key = $this->zooms[$record['Zoom']];
-            $techniques[] = trans("item.techniques.$key", locale: $locale);
+            $techniqueTranslationKeys[] = $this->zooms[$record['Zoom']];
         }
 
-        if ($record['Barva'] !== null) {
-            $key = $this->colors[$record['Barva']];
-            $techniques[] = trans("item.techniques.$key", locale: $locale);
+        $colors = [
+            'B' => ['farebná fotografia'],
+            'C' => ['čiernobiela fotografia'],
+            'CK' => ['kolorovanie'],
+            'CT' => ['tónovanie'],
+            'CTK' => ['tónovanie', 'kolorovanie'],
+            'J' => ['iná technika'],
+        ];
+        $colorTranslationKeys = $colors[$record['Barva']] ?? null;
+        if ($colorTranslationKeys) {
+            foreach ($colorTranslationKeys as $colorTranslationKey) {
+                $techniqueTranslationKeys[] = $colorTranslationKey;
+            }
         }
 
-        return $techniques->join('; ') ?: null;
+        return $techniqueTranslationKeys
+            ->map(fn(string $key) => trans("item.techniques.$key", locale: $locale))
+            ->join('; ') ?:
+            null;
     }
 
     protected function hydrateWorkType(array $record, string $locale): ?string
