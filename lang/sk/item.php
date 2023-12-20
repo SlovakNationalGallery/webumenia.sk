@@ -144,12 +144,27 @@ return [
     'media' => [
         'papier' => 'papier',
         'papier/matný' => 'papier/matný',
+        'papier/pastelový papier' => 'papier/pastelový papier',
     ],
     'techniques' => [
         'akvarel' => 'akvarel',
         'akvarel/čierny' => 'akvarel/čierny',
+        'farebná fotografia' => 'farebná fotografia',
+        'iná technika' => 'iná technika',
+        'kolorovanie' => 'kolorovanie',
+        'kontaktná kópia' => 'kontaktná kópia',
+        'tónovanie' => 'tónovanie',
+        'zmenšovanie' => 'zmenšovanie',
+        'zväčšovanie' => 'zväčšovanie',
+        'čiernobiela fotografia' => 'čiernobiela fotografia',
     ],
     'topics' => [
         'figurálna kompozícia' => 'figurálna kompozícia',
+    ],
+    'state_editions' => [
+        'kópia' => 'kópia',
+        'neznámy' => 'neznámy',
+        'originál' => 'originál',
+        'reprodukcia' => 'reprodukcia',
     ],
 ];
