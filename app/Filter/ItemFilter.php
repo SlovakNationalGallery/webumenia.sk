@@ -47,6 +47,12 @@ class ItemFilter extends AbstractFilter
     /** @var Color|null */
     protected $color;
 
+    protected $exhibition;
+
+    protected $box;
+
+    protected $location;
+
     protected $filterables = [
         'author',
         'gallery',
@@ -64,6 +70,9 @@ class ItemFilter extends AbstractFilter
         'is_free',
         'is_for_reproduction',
         'contributor',
+        'exhibition',
+        'box',
+        'location',
     ];
 
     public function setYearTo(?int $yearTo): self
@@ -278,6 +287,39 @@ class ItemFilter extends AbstractFilter
     public function setContributor(?string $contributor): self
     {
         $this->contributor = $contributor;
+        return $this;
+    }
+
+    public function getExhibition(): ?string
+    {
+        return $this->exhibition;
+    }
+
+    public function setExhibition(?string $exhibition): self
+    {
+        $this->exhibition = $exhibition;
+        return $this;
+    }
+
+    public function getBox(): ?string
+    {
+        return $this->box;
+    }
+
+    public function setBox(?string $box): self
+    {
+        $this->box = $box;
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
         return $this;
     }
 

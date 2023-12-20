@@ -167,7 +167,16 @@ $mapping = [
             'type' => 'object'
         ],
         'images' => [
-            'type' => 'keyword'
+            'type' => 'keyword',
+        ],
+        'exhibition' => [
+            'type' => 'keyword',
+        ],
+        'box' => [
+            'type' => 'keyword',
+        ],
+        'location' => [
+            'type' => 'keyword',
         ],
     ],
 ];
