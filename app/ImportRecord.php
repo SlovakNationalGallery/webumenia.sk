@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -10,6 +11,8 @@ use SplFileInfo;
 
 class ImportRecord extends Model
 {
+    use HasFactory;
+
     const STATUS_NEW = 'new';
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETED = 'completed';

@@ -156,4 +156,14 @@ return [
             'cm' => ' cm',
         ],
     ],
+    'mg' => [
+        'relationship_type' => [
+            'from_set' => 'from set',
+        ],
+        'related_work' => [
+            'biennal_brno' => 'Biennal Brno',
+            'jv' => 'Archive and collection of Jiří Valoch',
+            'dagmar_hochova' => 'Archive of negatives of Dagmar Hochová',
+        ],
+    ],
 ];

@@ -57,21 +57,21 @@
                             <div v-if="showControls"
                                 class="tw-hidden tw-space-x-1.5 tw-text-lg md:tw-block">
                                 <button v-on:click="methods.zoomIn"
-                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity disabled:tw-opacity-30 hover:tw-opacity-90 active:tw-bg-white">
                                     <i class="fa fa-plus"></i>
                                 </button>
                                 <button v-on:click="methods.zoomOut"
-                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity disabled:tw-opacity-30 hover:tw-opacity-90 active:tw-bg-white">
                                     <i class="fa fa-minus"></i>
                                 </button>
                                 <button v-if="sequenceMode" v-on:click="methods.previousPage"
                                     :disabled="page === 0"
-                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity disabled:tw-opacity-30 hover:tw-opacity-90 active:tw-bg-white">
                                     <i class="fa fa-arrow-up"></i>
                                 </button>
                                 <button v-if="sequenceMode" v-on:click="methods.nextPage"
                                     :disabled="page === thumbnailUrls.length - 1"
-                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity disabled:tw-opacity-30 hover:tw-opacity-90 active:tw-bg-white">
                                     <i class="fa fa-arrow-down"></i>
                                 </button>
                             </div>
@@ -104,8 +104,9 @@
 
                     <div v-dragscroll v-show="showControls" v-if="sequenceMode"
                         class="tw-pointer-events-auto tw-flex tw-h-20 tw-flex-shrink-0 tw-overflow-auto tw-bg-white tw-bg-opacity-70 md:tw-h-full md:tw-w-32 md:tw-flex-col">
-                        <img v-for="src, index in thumbnailUrls" :key="index" :src="src"
-                            v-on:click="methods.setPage(index)"
+                        <zoom-viewer.thumbnail v-for="src, index in thumbnailUrls" :key="index"
+                            :scroll-into-view="index === {{ $index }}" :src="src"
+                            loading="lazy" v-on:click="methods.setPage(index)"
                             :class="['tw-h-full md:tw-h-auto tw-p-2 md:tw-px-4 tw-border tw-cursor-pointer tw-transition-colors tw-border-sky-300', page === index ? 'tw-border-opacity-100' : 'tw-border-transparent hover:tw-border-sky-300/30']" />
                     </div>
                 </Transition>

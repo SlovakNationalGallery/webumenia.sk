@@ -1,8 +1,11 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import VueDragscroll from 'vue-dragscroll'
 
-Vue.use(VueDragscroll)
+const app = createApp({})
 
-Vue.component('zoom-viewer', require('./components/ZoomViewer.vue').default)
+app.use(VueDragscroll)
 
-new Vue({ el: '#app' })
+app.component('zoom-viewer', require('./components/ZoomViewer.vue').default)
+app.component('zoom-viewer.thumbnail', require('./components/ZoomViewerThumbnail.vue').default)
+
+app.mount('#app')

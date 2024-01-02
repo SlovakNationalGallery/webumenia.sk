@@ -71,7 +71,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'current_location',
     ];
 
-    protected $fillable = array(
+    protected $fillable = [
         'id',
         'identifier',
         'author',
@@ -106,7 +106,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'additionals',
         'style_period',
         'current_location',
-    );
+        'exhibition',
+        'box',
+        'location',
+    ];
 
     public static $rules = array(
         'author' => 'required',
@@ -609,14 +612,17 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function scopeRelated($query, Item $item)
+    public function related()
     {
         $relatedIds = Item::search()
-            ->where('related_work', $item->related_work)
-            ->whereIn('author', $this->makeArray($item->author))
+            ->where('related_work', $this->related_work)
+            ->whereIn('author', $this->makeArray($this->author))
+            ->take(1000) // Scout limits to 10 by default
             ->keys();
 
-        return $query->whereIn('id', $relatedIds)->orderBy('related_work_order');
+        return self::query()
+            ->whereIn('id', $relatedIds)
+            ->orderBy('related_work_order');
     }
 
     public function getAuthorsWithLinks()
@@ -740,6 +746,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'credit' => $this["credit:$locale"],
             'contributor' => $this->contributor,
             'related_work' => $this["related_work:$locale"],
+            'exhibition' => $this->exhibition,
+            'box' => $this->box,
+            'location' => $this->location,
             'additionals' => $this["additionals:$locale"],
             'images' => $this->images
                 ->map(function(ItemImage $image) {

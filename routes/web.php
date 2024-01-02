@@ -249,8 +249,10 @@ function()
             )
             ->get();
         $related_items = !empty($item->related_work)
-            ? Item::with('translations')
-                ->related($item)
+            ? $item
+                ->related()
+                ->with('translations')
+                ->take(10)
                 ->get()
             : null;
 

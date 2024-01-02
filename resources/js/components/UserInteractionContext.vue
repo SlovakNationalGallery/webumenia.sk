@@ -23,7 +23,7 @@ export default {
     mounted() {
         window.addEventListener('scroll', this.onScrollDebounced);
     },
-    beforeDestroy() {
+    beforeUnmount() {
         clearInterval(this.timeSpentInterval);
         window.removeEventListener('scroll', this.onScrollDebounced);
     },

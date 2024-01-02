@@ -180,11 +180,11 @@ class ItemController extends Controller
         $filter = (array) $request->get('filter');
         $q = (string) $request->get('q');
 
-        try {
+        if ($q || $filter) {
             $query = $this->createQueryBuilder($q, $filter)
                 ->must(Query::ids()->values([$id]))
                 ->buildQuery();
-        } catch (QueryBuilderException $e) {
+        } else {
             $query = Query::ids()->values([$id]);
         }
 
