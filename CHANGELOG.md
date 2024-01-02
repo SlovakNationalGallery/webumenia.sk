@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.87.1] - 2023-12-21
+### Fixed
+- v1 Item detail to not throw errors
+
 ## [2.87.0] - 2023-12-21
 ### Fixed
 - BottomModal variant of the newsletter signup form
