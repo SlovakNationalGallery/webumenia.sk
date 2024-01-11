@@ -165,9 +165,14 @@ return [
         'figurálna kompozícia' => 'figurální kompozice',
     ],
     'state_editions' => [
+        'autorizovaný pozitív' => 'autorizovaný pozitiv',
+        'faksimile' => 'faksimile',
+        'iný' => 'jiný',
         'kópia' => 'kopie',
+        'neautorizovaný pozitív' => 'neautorský pozitiv',
         'neznámy' => 'neznámý',
         'originál' => 'originál',
         'reprodukcia' => 'reprodukce',
+        'tlačová reprodukcia' => 'tisková reprodukce',
     ],
 ];

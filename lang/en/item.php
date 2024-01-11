@@ -162,9 +162,14 @@ return [
         'figurálna kompozícia' => 'figurative composition',
     ],
     'state_editions' => [
+        'autorizovaný pozitív' => 'authorized photographic print',
+        'faksimile' => 'facsimile',
+        'iný' => 'other',
         'kópia' => 'copy',
+        'neautorizovaný pozitív' => 'modern print',
         'neznámy' => 'unknown',
         'originál' => 'original',
         'reprodukcia' => 'reproduction',
+        'tlačová reprodukcia' => 'photomechanical print',
     ],
 ];

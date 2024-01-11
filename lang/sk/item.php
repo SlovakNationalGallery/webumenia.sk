@@ -162,9 +162,14 @@ return [
         'figurálna kompozícia' => 'figurálna kompozícia',
     ],
     'state_editions' => [
+        'autorizovaný pozitív' => 'autorizovaný pozitív',
+        'faksimile' => 'faksimile',
+        'iný' => 'iný',
         'kópia' => 'kópia',
+        'neautorizovaný pozitív' => 'neautorizovaný pozitív',
         'neznámy' => 'neznámy',
         'originál' => 'originál',
         'reprodukcia' => 'reprodukcia',
+        'tlačová reprodukcia' => 'tlačová reprodukcia',
     ],
 ];

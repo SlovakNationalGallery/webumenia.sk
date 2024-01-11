@@ -51,10 +51,13 @@ class MgFotoImporter extends AbstractImporter
     ];
 
     protected array $stateEditions = [
+        'AP' => 'autorizovaný pozitív',
+        'F' => 'faksimile',
+        'J' => 'iný',
         'K' => 'kópia',
-        'N' => 'neznámy',
+        'NAP' => 'neautorizovaný pozitív',
         'O' => 'originál',
-        'P' => 'reprodukcia',
+        'RT' => 'tlačová reprodukcia',
     ];
 
     protected function hydrateTitle(array $record, string $locale): ?string
