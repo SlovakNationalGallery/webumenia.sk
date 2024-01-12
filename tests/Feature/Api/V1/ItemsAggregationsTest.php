@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Authority;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,6 +15,8 @@ class ItemsAggregationsTest extends TestCase
     use RecreateSearchIndex;
 
     private $initialized = false;
+    private Item $item1;
+    private Item $item2;
 
     public function setUp(): void
     {
@@ -23,7 +26,7 @@ class ItemsAggregationsTest extends TestCase
             return;
         }
 
-        Item::factory()->createMany([
+        [$this->item1, $this->item2] = Item::factory()->createMany([
             [
                 'author' => 'Galanda, Mikuláš',
                 'topic' => 'spring',
@@ -132,15 +135,23 @@ class ItemsAggregationsTest extends TestCase
 
     public function test_search_for_authors_with_same_name()
     {
-        $authorSameName = Item::factory()->create([
-            'author' => 'Galanda, Mikuláš',
-        ]);
+        $author1 = Authority::factory()->create(['name' => 'Galanda, Mikuláš']);
+        $author2 = Authority::factory()->create(['name' => 'Galanda, Mikuláš']);
+
+        $this->item1->authorities()->save($author1);
+        $this->item2->authorities()->save($author2);
+
+        app(ItemRepository::class)->refreshIndex();
 
         $this->getAggregations([
-            'filter' => ['author_id' => [1]],
+            'filter' => ['author' => 'Galanda, Mikuláš'],
             'terms' => ['author' => 'author'],
         ])->assertExactJson([
-            'author' => [['value' => 'Galanda, Mikuláš', 'count' => 1]],
+            'author' => [
+                ['value' => 'Galanda, Mikuláš', 'id' => $author1->id, 'count' => 1],
+                ['value' => 'Galanda, Mikuláš', 'id' => $author2->id, 'count' => 1],
+                ['value' => 'Wouwerman, Philips', 'id' => null, 'count' => 1],
+            ],
         ]);
     }
 }
