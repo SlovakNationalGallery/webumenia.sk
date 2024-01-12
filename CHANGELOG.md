@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- failed_jobs table to include the uuid column
 
 ## [2.87.1] - 2023-12-21
 ### Fixed
