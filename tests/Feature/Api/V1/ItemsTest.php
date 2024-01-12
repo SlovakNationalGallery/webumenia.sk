@@ -123,7 +123,8 @@ class ItemsTest extends TestCase
 
         $searchById = route('api.v1.items.index', [
             'size' => 10,
-            'filter[author_id]' => $author1->id,
+            'filter[author]' => 'Věšín, Jaroslav',
+            'filter[authority_id]' => $author1->id,
         ]);
 
         $this->getJson($searchById)->assertJson([

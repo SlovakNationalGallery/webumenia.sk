@@ -17,6 +17,7 @@ class ItemController extends Controller
 {
     private $filterables = [
         'author',
+        'authority_id',
         'topic',
         'work_type',
         'medium',
