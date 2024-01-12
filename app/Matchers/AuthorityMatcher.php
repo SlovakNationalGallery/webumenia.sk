@@ -34,7 +34,7 @@ class AuthorityMatcher
     public function match($author, Item $item, $onlyExisting = false)
     {
         $parsed = $this::parse($author);
-        if ($parsed['surname'] && $parsed['name']) {
+        if (isset($parsed['surname'], $parsed['name'])) {
             $fullname = sprintf('%s %s', $parsed['name'], $parsed['surname']);
         } else {
             $fullname = $parsed['name'];
