@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Authority;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -92,6 +93,41 @@ class ItemsTest extends TestCase
 
         $response->assertJson([
             'total' => 2,
+        ]);
+    }
+
+    public function test_distinguishes_authors_with_same_name()
+    {
+        $author1 = Authority::factory()->create(['name' => 'Věšín, Jaroslav']);
+        $author2 = Authority::factory()->create(['name' => 'Věšín, Jaroslav']);
+
+        Item::factory()
+            ->create()
+            ->authorities()
+            ->save($author1);
+        Item::factory()
+            ->create()
+            ->authorities()
+            ->save($author2);
+
+        app(ItemRepository::class)->refreshIndex();
+
+        $searchByName = route('api.v1.items.index', [
+            'size' => 10,
+            'filter[author]' => 'Věšín, Jaroslav',
+        ]);
+
+        $this->getJson($searchByName)->assertJson([
+            'total' => 2,
+        ]);
+
+        $searchById = route('api.v1.items.index', [
+            'size' => 10,
+            'filter[author_id]' => $author1->id,
+        ]);
+
+        $this->getJson($searchById)->assertJson([
+            'total' => 1,
         ]);
     }
 

@@ -129,4 +129,18 @@ class ItemsAggregationsTest extends TestCase
             ])['topic']
         );
     }
+
+    public function test_search_for_authors_with_same_name()
+    {
+        $authorSameName = Item::factory()->create([
+            'author' => 'Galanda, Mikuláš',
+        ]);
+
+        $this->getAggregations([
+            'filter' => ['author_id' => [1]],
+            'terms' => ['author' => 'author'],
+        ])->assertExactJson([
+            'author' => [['value' => 'Galanda, Mikuláš', 'count' => 1]],
+        ]);
+    }
 }
