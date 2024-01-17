@@ -63,10 +63,10 @@
                             <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                             @endif
                             @if ($item->isForReproduction())
-                            <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
+                            <a href="{!! URL::to('dilo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                             @endif
                             @if ($item->isFree() && $item->hasZoomableImages())
-                            <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                            <a href="{!! URL::to('dilo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                             @endif
                         </div>
                         @if (!empty($item->description))

@@ -180,7 +180,7 @@ class Item extends Model
 
     public function getUrl($params = [])
     {
-        $url = URL::to('dielo/' . $this->id);
+        $url = URL::to('dilo/' . $this->id);
         if ($params) {
             $url .= '?' . http_build_query($params);
         }

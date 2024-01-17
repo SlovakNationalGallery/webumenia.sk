@@ -56,7 +56,7 @@
                         <a href="{!! $item->getUrl() !!}">
                             <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
                         </a><br>
-                        <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
+                        <p class="item"><a href="{!! URL::to('dilo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
                         @if (!$item->hasZoomableImages())
                             <br><span class="bg-warning">{{ trans('objednavka.order_warning') }}</span>
                         @endif

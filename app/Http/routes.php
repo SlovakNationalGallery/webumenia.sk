@@ -58,7 +58,7 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
         return view('informacie-mg');
     });
 
-    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
+    Route::get('dilo/{id}/zoom', function ($subdomain, $tld, $id) {
 
         $item = Item::find($id);
 
@@ -200,7 +200,7 @@ function()
         return view('dakujeme');
     });
 
-    Route::get('dielo/{id}/zoom', function ($id) {
+    Route::get('dilo/{id}/zoom', function ($id) {
 
         $item = Item::find($id);
 
@@ -230,9 +230,9 @@ function()
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
-    Route::get('dielo/{id}/skicar', 'SkicareController@getZoom');
+    Route::get('dilo/{id}/skicar', 'SkicareController@getZoom');
 
-    Route::get('dielo/{id}/objednat', function ($id) {
+    Route::get('dilo/{id}/objednat', function ($id) {
 
         $item = Item::find($id);
 
@@ -250,7 +250,7 @@ function()
 
     });
 
-    Route::get('dielo/{id}/odstranit', function ($id) {
+    Route::get('dilo/{id}/odstranit', function ($id) {
 
         $item = Item::find($id);
 
@@ -264,7 +264,7 @@ function()
 
     });
 
-    Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
+    Route::get('dilo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
 
         $item = Item::find($id);
 
@@ -273,7 +273,7 @@ function()
         }
     }]);
 
-    Route::get('dielo/{id}', function ($id) {
+    Route::get('dilo/{id}', function ($id) {
 
         $item = Item::find($id);
         if (empty($item)) {
@@ -334,7 +334,7 @@ function()
         ));
     });
 
-    Route::get('dielo/nahlad/{id}/{width}', function ($id, $width) {
+    Route::get('dilo/nahlad/{id}/{width}', function ($id, $width) {
 
         if (
             ($width <= 800) &&

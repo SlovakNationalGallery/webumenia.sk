@@ -99,7 +99,7 @@
 	                umenia
 	            </a>
 	            {{--
-	            @if (Request::is('dielo/*') && isSet($collection))
+	            @if (Request::is('dilo/*') && isSet($collection))
 	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
 	            @endif
 	             --}}
@@ -107,7 +107,7 @@
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
-						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
+						<li class="{!! (Request::is('katalog') || Request::is('dilo/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
 						</li>
 						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">

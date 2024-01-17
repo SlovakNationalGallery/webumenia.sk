@@ -66,7 +66,7 @@ $(document).ready(function(){
           }
       }
     }).bind("typeahead:selected", function(obj, datum, name) {
-        window.location.href = "/dielo/" + datum.id;
+        window.location.href = "/dilo/" + datum.id;
     });
 
 });

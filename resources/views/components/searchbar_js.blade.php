@@ -170,7 +170,7 @@
                 window.location.href = datum.url;
                 break;
             default:
-                window.location.href = "/dielo/" + datum.id;
+                window.location.href = "/dilo/" + datum.id;
         }
     });
 
