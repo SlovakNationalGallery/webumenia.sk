@@ -15,6 +15,7 @@ use ElasticScoutDriverPlus\Searchable;
 use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
@@ -612,6 +613,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
+    public function scopeFrontend($query, string $frontend)
+    {
+        return $query->whereHas('frontends', fn($query) => $query->where('name', $frontend));
+    }
+
+    public function frontends(): BelongsToMany
+    {
+        return $this->belongsToMany(Frontend::class);
+    }
+
     public function related()
     {
         $relatedIds = Item::search()
@@ -765,6 +776,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
                     ];
                 })
                 ->values(),
+            'frontend' => $this->frontends->pluck('name'),
         ];
     }
 

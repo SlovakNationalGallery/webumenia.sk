@@ -67,14 +67,21 @@ class ItemRepository extends TranslatableRepository
             'size' => $size,
             'body' => [
                 'query' => [
-                    'multi_match' => [
-                        'query' => $search,
-                        'type' => 'cross_fields',
-                        'fields' => ['identifier', 'title.suggest', 'author.suggest'],
-                        'operator' => 'and',
-                    ]
-                ]
-            ]
+                    'bool' => [
+                        'must' => [
+                            'multi_match' => [
+                                'query' => $search,
+                                'type' => 'cross_fields',
+                                'fields' => ['identifier', 'title.suggest', 'author.suggest'],
+                                'operator' => 'and',
+                            ],
+                        ],
+                        'filter' => [
+                            ['term' => ['frontend' => config('app.frontend')]],
+                        ],
+                    ],
+                ],
+            ],
         ]);
 
         return $this->createSearchResult($response);

@@ -45,6 +45,8 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AcceptLanguage::class,
+            \App\Http\Middleware\ConfigureFrontendFromRequest::class,
+            \App\Http\Middleware\ApplyFrontendScope::class,
         ],
     ];
 

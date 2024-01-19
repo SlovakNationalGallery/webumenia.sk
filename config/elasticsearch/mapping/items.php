@@ -178,6 +178,9 @@ $mapping = [
         'location' => [
             'type' => 'keyword',
         ],
+        'frontend' => [
+            'type' => 'keyword',
+        ],
     ],
 ];
 
