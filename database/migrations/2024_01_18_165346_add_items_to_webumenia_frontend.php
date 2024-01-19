@@ -13,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         DB::table('frontends')->insert([
-            'name' => 'webumenia.sk',
+            'name' => 'webumenia',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         $frontendId = DB::table('frontends')
-            ->where('name', 'webumenia.sk')
+            ->where('name', 'webumenia')
             ->first()->id;
 
         DB::table('items')
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::table('frontends')->where('name', 'webumenia.sk')->delete();
+        DB::table('frontends')->where('name', 'webumenia')->delete();
     }
 };
