@@ -13,14 +13,14 @@ class ItemViewTest extends TestCase
 
     public function testGetItemDetail()
     {
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $response = $this->get("/dielo/{$item->id}");
         $response->assertStatus(200);
     }
 
     public function testListsAssociatedPublishedCollections()
     {
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $publishedCollection = Collection::factory()->create([
             'is_published' => true,
             'name' => 'a published collection',

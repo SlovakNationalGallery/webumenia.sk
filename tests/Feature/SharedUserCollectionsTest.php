@@ -13,7 +13,7 @@ class SharedUserCollectionsTest extends TestCase
 
     public function testCreation()
     {
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
 
         $this->get(
             route('frontend.shared-user-collections.create', ['ids' => [$item->id]])

@@ -17,7 +17,7 @@ class ItemsTest extends TestCase
     {
         $authority = Authority::factory()->create(['name' => 'Wouwerman, Philips']);
         $item_image = ItemImage::factory()->make(['iipimg_url' => 'test_iipimg_url']);
-        $item = Item::factory()->create([
+        $item = Item::factory()->webumeniaFrontend()->create([
             'id' => 'test_id',
             'title' => 'test_title',
             'author' => 'Věšín, Jaroslav',
