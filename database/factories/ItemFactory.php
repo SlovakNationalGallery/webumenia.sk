@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\FrontendEnum;
+use App\ItemFrontend;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -43,5 +45,14 @@ class ItemFactory extends Factory
             'created_at' => fake()->date,
             'updated_at' => fake()->date,
         ];
+    }
+
+    public function webumeniaFrontend()
+    {
+        return $this->has(
+            ItemFrontend::factory()
+                ->state(['frontend' => FrontendEnum::WEBUMENIA]),
+            'frontends'
+        );
     }
 }

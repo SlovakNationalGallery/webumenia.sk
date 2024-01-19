@@ -12,7 +12,7 @@ class ImageViewTest extends TestCase
 
     public function testGetResize()
     {
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $response = $this->get(sprintf('/dielo/nahlad/%s/800', $item->id));
         $response->assertStatus(200);
     }

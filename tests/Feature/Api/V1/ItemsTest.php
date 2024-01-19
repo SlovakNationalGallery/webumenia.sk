@@ -16,6 +16,7 @@ class ItemsTest extends TestCase
     public function test_no_filters_applied()
     {
         Item::factory()
+            ->webumeniaFrontend()
             ->count(3)
             ->create();
         app(ItemRepository::class)->refreshIndex();
@@ -29,8 +30,12 @@ class ItemsTest extends TestCase
 
     public function test_single_term_filtering()
     {
-        Item::factory()->create(['topic' => 'spring']);
-        Item::factory()->create(['topic' => 'summer']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['topic' => 'spring']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['topic' => 'summer']);
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [
@@ -44,9 +49,15 @@ class ItemsTest extends TestCase
 
     public function test_multi_terms_filtering()
     {
-        Item::factory()->create(['topic' => 'spring']);
-        Item::factory()->create(['topic' => 'summer']);
-        Item::factory()->create(['topic' => 'autumn']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['topic' => 'spring']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['topic' => 'summer']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['topic' => 'autumn']);
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [
@@ -60,8 +71,12 @@ class ItemsTest extends TestCase
 
     public function test_filtering_by_boolean_values()
     {
-        Item::factory()->create(['has_image' => true]);
-        Item::factory()->create(['has_image' => false]);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['has_image' => true]);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['has_image' => false]);
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [
@@ -75,9 +90,15 @@ class ItemsTest extends TestCase
 
     public function test_filtering_by_color()
     {
-        Item::factory()->create(['colors' => ['#ff0000' => 1]]);
-        Item::factory()->create(['colors' => ['#fe0000' => 1]]);
-        $different = Item::factory()->create(['colors' => ['#0000ff' => 1]]);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['colors' => ['#ff0000' => 1]]);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['colors' => ['#fe0000' => 1]]);
+        $different = Item::factory()
+            ->webumeniaFrontend()
+            ->create(['colors' => ['#0000ff' => 1]]);
 
         app(ItemRepository::class)->refreshIndex();
 
@@ -97,9 +118,15 @@ class ItemsTest extends TestCase
 
     public function test_sorting()
     {
-        Item::factory()->create(['title' => 'zebra']);
-        Item::factory()->create(['title' => 'aardvark']);
-        Item::factory()->create(['title' => 'cat']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['title' => 'zebra']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['title' => 'aardvark']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['title' => 'cat']);
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [
@@ -118,6 +145,7 @@ class ItemsTest extends TestCase
     public function test_random_sort()
     {
         Item::factory()
+            ->webumeniaFrontend()
             ->count(5)
             ->create(['has_image' => true]); // Images are required for random sort
         app(ItemRepository::class)->refreshIndex();
@@ -138,7 +166,9 @@ class ItemsTest extends TestCase
 
     public function test_formatted_authors()
     {
-        Item::factory()->create(['author' => 'Věšín, Jaroslav']);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->create(['author' => 'Věšín, Jaroslav']);
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [

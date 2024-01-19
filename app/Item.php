@@ -12,10 +12,9 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Searchable;
-use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -612,6 +611,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
+    public function scopeFrontend($query, string $frontend)
+    {
+        return $query->whereHas('frontends', fn($query) => $query->where('frontend', $frontend));
+    }
+
+    public function frontends(): HasMany
+    {
+        return $this->hasMany(ItemFrontend::class);
+    }
+
     public function related()
     {
         $relatedIds = Item::search()
@@ -765,6 +774,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
                     ];
                 })
                 ->values(),
+            'frontend' => $this->frontends->pluck('frontend'),
         ];
     }
 

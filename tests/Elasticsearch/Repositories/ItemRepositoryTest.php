@@ -5,9 +5,12 @@ namespace Tests\Elasticsearch\Repositories;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemSearchRequest;
 use App\Item;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ItemRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @var ItemRepository */
     protected $repository;
 
@@ -16,11 +19,9 @@ class ItemRepositoryTest extends TestCase
     public function testCount()
     {
         Item::factory()
+            ->webumeniaFrontend()
             ->count(5)
-            ->make()
-            ->each(function (Item $item) {
-                $this->repository->index($item);
-            });
+            ->create();
         $this->repository->refreshIndex();
 
         $count = $this->repository->count();
@@ -30,11 +31,9 @@ class ItemRepositoryTest extends TestCase
     public function testSearch()
     {
         Item::factory()
+            ->webumeniaFrontend()
             ->count(5)
-            ->make()
-            ->each(function (Item $item) {
-                $this->repository->index($item);
-            });
+            ->create();
         $this->repository->refreshIndex();
 
         $response = $this->repository->search(new ItemSearchRequest());
@@ -43,49 +42,59 @@ class ItemRepositoryTest extends TestCase
 
     public function testSimilar()
     {
-        /** @var Item[] $items */
-        $items = Item::factory()
-            ->count(5)
-            ->make();
-        $items[0]->title = 'testing title one';
-        $items[1]->title = 'testing title two';
-        $items[1]->has_image = true;
+        $item = Item::factory()
+            ->webumeniaFrontend()
+            ->create([
+                'title' => 'testing title one'
+            ]);
 
-        foreach ($items as $item) {
-            $this->repository->index($item);
-        }
+        $expectedItem = Item::factory()
+            ->webumeniaFrontend()
+            ->create([
+                'title' => 'testing title two',
+                'has_image' => true,
+            ]);
+
+        $otherItems = Item::factory()
+            ->webumeniaFrontend()
+            ->count(3)
+            ->create();
+
         $this->repository->refreshIndex();
 
         $mostSimilar = $this->repository
-            ->getSimilar(1, $items[0])
+            ->getSimilar(1, $item)
             ->getCollection()
             ->first();
-        $this->assertTrue($items[1]->is($mostSimilar));
+        $this->assertEquals($expectedItem->id, $mostSimilar->id);
     }
 
     public function testSimilarByColor()
     {
         /** @var Item[] $items */
-        $item = Item::factory()->make([
-            'colors' => ['#ff0000' => 1],
-        ]);
+        $item = Item::factory()
+            ->webumeniaFrontend()
+            ->create([
+                'colors' => ['#ff0000' => 1],
+            ]);
 
-        $similar_item = Item::factory()->make([
-            'colors' => ['#fe0000' => 1],
-        ]);
+        $similar_item = Item::factory()
+            ->webumeniaFrontend()
+            ->create([
+                'colors' => ['#fe0000' => 1],
+            ]);
 
-        $dissimilar_item = Item::factory()->make([
-            'colors' => ['#0000ff' => 1],
-        ]);
+        $dissimilar_item = Item::factory()
+            ->webumeniaFrontend()
+            ->create([
+                'colors' => ['#0000ff' => 1],
+            ]);
 
-        foreach ([$item, $dissimilar_item, $similar_item] as $index_item) {
-            $this->repository->index($index_item);
-        }
         $this->repository->refreshIndex();
 
         $similar_by_color = $this->repository->getSimilarByColor(2, $item)->getCollection();
 
-        $this->assertTrue($similar_by_color->first()->is($similar_item));
+        $this->assertEquals($similar_item->id, $similar_by_color->first()->id);
         $this->assertFalse($similar_by_color->contains($dissimilar_item));
     }
 }

@@ -23,20 +23,22 @@ class ItemsAggregationsTest extends TestCase
             return;
         }
 
-        Item::factory()->createMany([
-            [
-                'author' => 'Galanda, Mikuláš',
-                'topic' => 'spring',
-                'date_earliest' => 1000,
-                'date_latest' => 1000,
-            ],
-            [
-                'author' => 'Wouwerman, Philips',
-                'topic' => 'summer',
-                'date_earliest' => 2000,
-                'date_latest' => 2000,
-            ],
-        ]);
+        Item::factory()
+            ->webumeniaFrontend()
+            ->createMany([
+                [
+                    'author' => 'Galanda, Mikuláš',
+                    'topic' => 'spring',
+                    'date_earliest' => 1000,
+                    'date_latest' => 1000,
+                ],
+                [
+                    'author' => 'Wouwerman, Philips',
+                    'topic' => 'summer',
+                    'date_earliest' => 2000,
+                    'date_latest' => 2000,
+                ],
+            ]);
 
         app(ItemRepository::class)->refreshIndex();
         $this->initialized = true;

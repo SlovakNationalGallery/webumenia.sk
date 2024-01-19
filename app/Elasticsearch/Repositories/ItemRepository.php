@@ -67,14 +67,21 @@ class ItemRepository extends TranslatableRepository
             'size' => $size,
             'body' => [
                 'query' => [
-                    'multi_match' => [
-                        'query' => $search,
-                        'type' => 'cross_fields',
-                        'fields' => ['identifier', 'title.suggest', 'author.suggest'],
-                        'operator' => 'and',
-                    ]
-                ]
-            ]
+                    'bool' => [
+                        'must' => [
+                            'multi_match' => [
+                                'query' => $search,
+                                'type' => 'cross_fields',
+                                'fields' => ['identifier', 'title.suggest', 'author.suggest'],
+                                'operator' => 'and',
+                            ],
+                        ],
+                        'filter' => [
+                            ['term' => ['frontend' => config('app.frontend')]],
+                        ],
+                    ],
+                ],
+            ],
         ]);
 
         return $this->createSearchResult($response);
@@ -121,7 +128,10 @@ class ItemRepository extends TranslatableRepository
                     [
                         'term' => ['has_iip' => true]
                     ]
-                ]
+                ],
+                'filter' => [
+                    ['term' => ['frontend' => config('app.frontend')]],
+                ],
             ]
         ];
 
@@ -184,7 +194,7 @@ class ItemRepository extends TranslatableRepository
                                 ]
                             ]
                         ]
-                    ]
+                    ],
                 ]
             ];
         }
@@ -198,6 +208,7 @@ class ItemRepository extends TranslatableRepository
         }
         $query['bool']['must_not'][]['term']['id'] = $item->id;
         $query['bool']['minimum_should_match'] = '-30%';
+        $query['bool']['filter'][]['term']['frontend'] = config('app.frontend');
 
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
@@ -224,6 +235,9 @@ class ItemRepository extends TranslatableRepository
                             ['term' => ['has_iip' => true]],
                         ],
                     ],
+                    'filter' => [
+                        ['term' => ['frontend' => config('app.frontend')]],
+                    ],
                 ],
                 'sort' => [
                     '_score',
@@ -237,16 +251,15 @@ class ItemRepository extends TranslatableRepository
 
     public function buildQueryFromFilter(?Filter $filter): ?array
     {
-        if (!$filter) {
-            return null;
-        }
-
         $query = [];
-        $query = $this->addFilterablesQuery($query, $filter);
-        $query = $this->addSearchQuery($query, $filter->get('search'));
-        $query = $this->addYearsQuery($query, $filter->get('years'));
-        $query = $this->addColorQuery($query, $filter->get('color'));
-        return $query ?: null;
+        $query['bool']['filter'][]['term']['frontend'] = config('app.frontend');
+        if ($filter) {
+            $query = $this->addFilterablesQuery($query, $filter);
+            $query = $this->addSearchQuery($query, $filter->get('search'));
+            $query = $this->addYearsQuery($query, $filter->get('years'));
+            $query = $this->addColorQuery($query, $filter->get('color'));
+        }
+        return $query;
     }
 
     protected function addSearchQuery(array $query, ?string $search): array

@@ -17,7 +17,7 @@ class PatternLibViewTest extends TestCase
     public function testGetIndex()
     {
         Article::factory()->create();
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $image = ItemImage::factory()->make(['iipimg_url' => true]);
         $item->images()->save($image);
 

@@ -44,6 +44,7 @@ use App\Http\Controllers\UserCollectionController;
 use App\Http\Controllers\NewCatalogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
+use App\Http\Middleware\ApplyFrontendScope;
 use App\Http\Middleware\RedirectLegacyCatalogRequest;
 use App\Item;
 use App\Notice;
@@ -72,7 +73,11 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+    'middleware' => [
+        'localeSessionRedirect',
+        'localizationRedirect',
+        ApplyFrontendScope::class,
+    ],
 ],
 function()
 {

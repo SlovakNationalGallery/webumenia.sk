@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\FrontendEnum;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -224,4 +225,6 @@ return [
 
     'iip_private' => env('IIP_PRIVATE', 'http://127.0.0.1:8002'),
     'iip_public' => env('IIP_PUBLIC', 'https://img.webumenia.sk'),
+
+    'frontend' => env('APP_FRONTEND', FrontendEnum::WEBUMENIA->value),
 ];

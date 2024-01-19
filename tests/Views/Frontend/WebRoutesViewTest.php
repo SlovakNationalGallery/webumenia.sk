@@ -39,14 +39,14 @@ class WebRoutesViewTest extends TestCase
 
     public function testGetOrderItem()
     {
-        $item = Item::factory()->create(['gallery' => 'Slovenská národná galéria, SNG']);
+        $item = Item::factory()->webumeniaFrontend()->create(['gallery' => 'Slovenská národná galéria, SNG']);
         $response = $this->get(sprintf('/dielo/%s/objednat', $item->id));
         $response->assertRedirect(sprintf('/dielo/%s', $item->id));
     }
 
     public function testGetUnorderItem()
     {
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $response = $this->get(sprintf('/dielo/%s/odstranit', $item->id));
         $response->assertRedirect('/');
     }
@@ -55,7 +55,7 @@ class WebRoutesViewTest extends TestCase
     {
         $this->markTestSkipped();
 
-        $item = Item::factory()->create([
+        $item = Item::factory()->webumeniaFrontend()->create([
             'gallery' => 'Slovenská národná galéria, SNG',
             'author' => 'neznámy',
         ]);
@@ -76,7 +76,7 @@ class WebRoutesViewTest extends TestCase
             ->willReturn(new SearchResult(collect(), 0));
         $this->app->instance(ItemRepository::class, $itemRepositoryMock);
 
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $response = $this->get(sprintf('/dielo/%s', $item->id));
         $response->assertStatus(200);
     }
@@ -92,7 +92,7 @@ class WebRoutesViewTest extends TestCase
             ->willReturn(new SearchResult(collect(), 0));
         $this->app->instance(ItemRepository::class, $itemRepositoryMock);
 
-        $item = Item::factory()->create();
+        $item = Item::factory()->webumeniaFrontend()->create();
         $response = $this->get(sprintf('/dielo/%s/colorrelated', $item->id));
         $response->assertStatus(200);
     }
