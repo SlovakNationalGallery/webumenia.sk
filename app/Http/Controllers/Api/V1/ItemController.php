@@ -199,10 +199,6 @@ class ItemController extends Controller
 
     protected function createQueryBuilder($q, $filter)
     {
-        if (empty($q) && empty($filter)) {
-            return Query::matchAll();
-        }
-
         $builder = Query::bool();
 
         if ($q) {
@@ -248,6 +244,7 @@ class ItemController extends Controller
             }
         }
 
+        $builder->filter(['term' => ['frontend' => config('app.frontend')]]);
         return $builder;
     }
 }
