@@ -774,7 +774,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
                     ];
                 })
                 ->values(),
-            'frontend' => $this->frontends->pluck('name'),
+            'frontend' => $this->frontends->pluck('frontend'),
         ];
     }
 
