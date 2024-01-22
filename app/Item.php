@@ -625,6 +625,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     {
         $relatedIds = Item::search()
             ->where('related_work', $this->related_work)
+            ->where('frontend', config('app.frontend'))
             ->whereIn('author', $this->makeArray($this->author))
             ->take(1000) // Scout limits to 10 by default
             ->keys();
