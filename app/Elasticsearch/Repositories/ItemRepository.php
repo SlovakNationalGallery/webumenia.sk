@@ -128,7 +128,10 @@ class ItemRepository extends TranslatableRepository
                     [
                         'term' => ['has_iip' => true]
                     ]
-                ]
+                ],
+                'filter' => [
+                    ['term' => ['frontend' => config('app.frontend')]],
+                ],
             ]
         ];
 

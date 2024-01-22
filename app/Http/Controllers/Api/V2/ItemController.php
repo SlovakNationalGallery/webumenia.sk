@@ -44,4 +44,18 @@ class ItemController extends Controller
             ->get();
         return ItemResource::collection($related);
     }
+
+    public function similar(string $id)
+    {
+        $size = request()->get('size', 1);
+        $item = Item::findOrFail($id);
+        $ids = $this->itemRepository
+            ->getSimilar($size, $item)
+            ->getCollection()
+            ->pluck('id');
+        $similar = Item::with(['images', 'authorities', 'translations'])
+            ->whereIn('id', $ids)
+            ->get();
+        return ItemResource::collection($similar);
+    }
 }
