@@ -76,6 +76,11 @@ trait MgImporterTrait
         return sprintf('%s(_.*)?', preg_quote($filename));
     }
 
+    protected function hydrateAuthor(array $record): string
+    {
+        return str($record['Autor'])->swap([PHP_EOL => ' ']);
+    }
+
     protected function hydrateIdentifier(array $record): string
     {
         $identifier = sprintf('%s %s', $record['Rada_S'], (int) $record['PorC_S']);
