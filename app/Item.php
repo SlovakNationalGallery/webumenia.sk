@@ -12,11 +12,9 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Searchable;
-use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -615,12 +613,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function scopeFrontend($query, string $frontend)
     {
-        return $query->whereHas('frontends', fn($query) => $query->where('name', $frontend));
+        return $query->whereHas('frontends', fn($query) => $query->where('frontend', $frontend));
     }
 
-    public function frontends(): BelongsToMany
+    public function frontends(): HasMany
     {
-        return $this->belongsToMany(Frontend::class);
+        return $this->hasMany(ItemFrontend::class);
     }
 
     public function related()

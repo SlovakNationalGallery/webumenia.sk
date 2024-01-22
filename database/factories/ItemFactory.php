@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\FrontendEnum;
-use App\Frontend;
 use App\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -50,9 +49,8 @@ class ItemFactory extends Factory
 
     public function webumeniaFrontend()
     {
-        $webumeniaFrontend = Frontend::where('name', FrontendEnum::WEBUMENIA)->first();
         return $this->afterCreating(fn (Item $item) =>
-            $item->frontends()->attach($webumeniaFrontend)
+            $item->frontends()->create(['frontend' => FrontendEnum::WEBUMENIA])
         );
     }
 }

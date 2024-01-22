@@ -12,21 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('frontends')->insert([
-            'name' => 'webumenia',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $frontendId = DB::table('frontends')
-            ->where('name', 'webumenia')
-            ->first()->id;
-
         DB::table('items')
             ->chunkById(100, fn ($items) =>
                 $items->each(fn ($item) =>
-                    DB::table('frontend_item')->insert([
-                        'frontend_id' => $frontendId,
+                    DB::table('item_frontends')->insert([
+                        'frontend' => 'webumenia',
                         'item_id' => $item->id,
                     ])
                 )
@@ -38,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::table('frontends')->where('name', 'webumenia')->delete();
+        DB::table('item_frontends')->where('frontend', 'webumenia')->delete();
     }
 };
