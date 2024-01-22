@@ -10,11 +10,14 @@ class ItemFrontend extends Model
 {
     protected $fillable = [
         'frontend',
+        'item_id',
     ];
 
     protected $casts = [
         'frontend' => FrontendEnum::class,
     ];
+
+    public $timestamps = false;
 
     public function item(): BelongsTo
     {

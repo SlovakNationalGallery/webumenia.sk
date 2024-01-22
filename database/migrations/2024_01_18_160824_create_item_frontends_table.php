@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->string('frontend');
             $table->string('item_id');
             $table->foreign('item_id')->references('id')->on('items');
-            $table->timestamps();
             $table->primary(['item_id', 'frontend']);
         });
     }
