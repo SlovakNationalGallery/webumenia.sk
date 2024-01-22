@@ -13,7 +13,7 @@ class ItemController extends Controller
     {
     }
 
-    public function show($id)
+    public function show(string $id)
     {
         $item = Item::with('images')->findOrFail($id);
         return new ItemResource($item);
@@ -31,5 +31,17 @@ class ItemController extends Controller
             ->whereIn('id', $results->pluck('id'))
             ->get();
         return ItemResource::collection($items);
+    }
+
+    public function related(string $id)
+    {
+        $size = request()->get('size', 1);
+        $item = Item::findOrFail($id);
+        $related = $item
+            ->related()
+            ->with(['images', 'authorities', 'translations'])
+            ->take($size)
+            ->get();
+        return ItemResource::collection($related);
     }
 }
