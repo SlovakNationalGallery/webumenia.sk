@@ -317,9 +317,6 @@ function()
         ]);
     })->name('dielo.colorrelated');
 
-    Route::get('dielo/nahlad/{id}/{width}/{height?}', [ImageController::class, 'resize'])->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
-    Route::get('image/{id}/download', [ImageController::class, 'download'])->name('image.download');
-
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
     Route::get('katalog', function () {
@@ -394,6 +391,13 @@ function()
         ]);
     })->name('frontend.reproduction.index');
 });
+
+Route::get('dielo/nahlad/{id}/{width}/{height?}', [ImageController::class, 'resize'])
+    ->where('width', '[0-9]+')
+    ->where('height', '[0-9]+')
+    ->name('dielo.nahlad');
+Route::get('image/{id}/download', [ImageController::class, 'download'])
+    ->name('image.download');
 
 Route::group(array('middleware' => 'guest'), function () {
     Route::get('login', [AuthController::class, 'getLogin']);
