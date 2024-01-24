@@ -26,7 +26,6 @@ class MgImporter extends AbstractImporter
         'date_earliest' => 'RokOd',
         'date_latest' => 'Do',
         'acquisition_date' => 'RokAkv',
-        'author' => 'Autor',
         'dating:sk' => 'Datace',
         'dating:cs' => 'Datace',
         'place:sk' => 'MístoVz',

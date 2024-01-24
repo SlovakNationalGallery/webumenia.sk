@@ -27,7 +27,6 @@ class MgFotoImporter extends AbstractImporter
         'date_earliest' => 'RokVzOd',
         'date_latest' => 'RokVzDo',
         'acquisition_date' => 'RokAkv',
-        'author' => 'Autor',
         'dating:sk' => 'DatVz',
         'dating:cs' => 'DatVz',
         'description:sk' => 'Popis',
