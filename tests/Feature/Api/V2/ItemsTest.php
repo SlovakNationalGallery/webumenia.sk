@@ -69,4 +69,30 @@ class ItemsTest extends TestCase
             ],
         ]);
     }
+
+    public function test_suggestions()
+    {
+        $this->get('/api/v2/items/suggestions?search=test')
+            ->assertOk();
+    }
+
+    public function test_similar()
+    {
+        $item = Item::factory()
+            ->webumeniaFrontend()
+            ->create();
+
+        $this->get("/api/v2/items/{$item->id}/similar")
+            ->assertOk();
+    }
+
+    public function test_related()
+    {
+        $item = Item::factory()
+            ->webumeniaFrontend()
+            ->create();
+
+        $this->get("/api/v2/items/{$item->id}/related")
+            ->assertOk();
+    }
 }
