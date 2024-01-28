@@ -30,6 +30,7 @@ Route::prefix('v1')
         Route::get('items/aggregations', [V1ItemController::class, 'aggregations'])->name(
             'items.aggregations'
         );
+        Route::get('items/{id}/similar', [V1ItemController::class, 'similar'])->name('items.similar');
         Route::get('items/{id}', [V1ItemController::class, 'detail'])->name('items.show');
     });
 

@@ -152,4 +152,24 @@ class ItemsTest extends TestCase
             $response['data'][0]['content']['authors_formatted'][0]
         );
     }
+
+    public function test_similar()
+    {
+        [$item, $similar] = Item::factory()
+            ->count(2)
+            ->create([
+                'title' => fake()->word,
+                'has_image' => true,
+            ]);
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.similar', [
+            'id' => $item->id,
+            'size' => 10,
+        ]);
+
+        $this->get($url)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.id', $similar->id);
+    }
 }

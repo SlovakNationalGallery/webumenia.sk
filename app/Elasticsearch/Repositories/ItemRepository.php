@@ -80,7 +80,7 @@ class ItemRepository extends TranslatableRepository
         return $this->createSearchResult($response);
     }
 
-    public function getSimilar(int $size, Model $model, $locale = null): SearchResult
+    public function buildSimilarQuery(Model $model, string $locale = null): array
     {
         $query = [
             'bool' => [
@@ -137,12 +137,16 @@ class ItemRepository extends TranslatableRepository
             ];
         }
 
+        return $query;
+    }
 
+    public function getSimilar(int $size, Model $model, $locale = null): SearchResult
+    {
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
             'size' => $size,
             'body' => [
-                'query' => $query
+                'query' => $this->buildSimilarQuery($model, $locale)
             ]
         ]);
 
