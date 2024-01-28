@@ -162,4 +162,10 @@ class ItemsTest extends TestCase
 
         $this->assertEquals(1, $item->fresh()->view_count);
     }
+
+    public function test_suggestions()
+    {
+        $url = route('api.v1.items.suggestions', ['q' => 'test']);
+        $this->get($url)->assertOk();
+    }
 }

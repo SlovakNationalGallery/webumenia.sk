@@ -67,25 +67,30 @@ class ItemRepository extends TranslatableRepository
             'index' => $this->getLocalizedIndexName($locale),
             'size' => $size,
             'body' => [
-                'query' => [
-                    'bool' => [
-                        'must' => [
-                            'multi_match' => [
-                                'query' => $search,
-                                'type' => 'cross_fields',
-                                'fields' => ['identifier', 'title.suggest', 'author.suggest'],
-                                'operator' => 'and',
-                            ],
-                        ],
-                        'filter' => [
-                            ['term' => ['frontend' => Frontend::get()]],
-                        ],
-                    ],
-                ],
-            ],
+                'query' => self::buildSuggestionsQuery($search),
+            ]
         ]);
 
         return $this->createSearchResult($response);
+    }
+
+    public static function buildSuggestionsQuery(string $search): array
+    {
+        return [
+            'bool' => [
+                'must' => [
+                    'multi_match' => [
+                        'query' => $search,
+                        'type' => 'cross_fields',
+                        'fields' => ['identifier', 'title.suggest', 'author.suggest'],
+                        'operator' => 'and',
+                    ],
+                ],
+                'filter' => [
+                    ['term' => ['frontend' => Frontend::get()]],
+                ],
+            ],
+        ];
     }
 
     public function getSimilar(int $size, Model $model, $locale = null): SearchResult
@@ -252,6 +257,10 @@ class ItemRepository extends TranslatableRepository
 
     public function buildQueryFromFilter(?Filter $filter): ?array
     {
+        if (!$filter) {
+            return null;
+        }
+
         $query = [];
         $query['bool']['filter'][]['term']['frontend'] = Frontend::get();
         if ($filter) {
