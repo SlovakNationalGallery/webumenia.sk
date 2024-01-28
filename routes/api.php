@@ -31,6 +31,8 @@ Route::prefix('v1')
             'items.aggregations'
         );
         Route::get('items/{id}', [V1ItemController::class, 'detail'])->name('items.show');
+        Route::post('items/{id}/increment-view-count', [V1ItemController::class, 'incrementViewCount'])
+            ->name('items.increment-view-count');
     });
 
 Route::prefix('v2')->group(function () {
