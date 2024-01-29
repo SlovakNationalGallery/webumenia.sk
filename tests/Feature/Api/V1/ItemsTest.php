@@ -172,4 +172,10 @@ class ItemsTest extends TestCase
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.id', $similar->id);
     }
+
+    public function test_suggestions()
+    {
+        $url = route('api.v1.items.suggestions', ['q' => 'test']);
+        $this->get($url)->assertOk();
+    }
 }

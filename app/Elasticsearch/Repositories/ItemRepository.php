@@ -60,27 +60,32 @@ class ItemRepository extends TranslatableRepository
         ];
     }
 
+    public static function buildSuggestionsQuery(string $search): array
+    {
+        return [
+            'bool' => [
+                'must' => [
+                    'multi_match' => [
+                        'query' => $search,
+                        'type' => 'cross_fields',
+                        'fields' => ['identifier', 'title.suggest', 'author.suggest'],
+                        'operator' => 'and',
+                    ],
+                ],
+                'filter' => [
+                    ['term' => ['frontend' => config('app.frontend')]],
+                ],
+            ],
+        ];
+    }
+
     public function getSuggestions(int $size, string $search, string $locale = null): SearchResult
     {
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
             'size' => $size,
             'body' => [
-                'query' => [
-                    'bool' => [
-                        'must' => [
-                            'multi_match' => [
-                                'query' => $search,
-                                'type' => 'cross_fields',
-                                'fields' => ['identifier', 'title.suggest', 'author.suggest'],
-                                'operator' => 'and',
-                            ],
-                        ],
-                        'filter' => [
-                            ['term' => ['frontend' => config('app.frontend')]],
-                        ],
-                    ],
-                ],
+                'query' => self::buildSuggestionsQuery($search),
             ],
         ]);
 
