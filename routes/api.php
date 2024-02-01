@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SharedUserCollectionController;
 use App\Http\Controllers\Api\TrackFeaturedPieceClick;
@@ -22,6 +23,10 @@ Route::resource('/shared-user-collections', SharedUserCollectionController::clas
     ->parameters(['shared-user-collections' => 'collection:public_id']);
 
 Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
+
+Route::resource('/articles', ArticleController::class)
+    ->names('api.articles')
+    ->only(['show']);
 
 Route::prefix('v1')
     ->name('api.v1.')
