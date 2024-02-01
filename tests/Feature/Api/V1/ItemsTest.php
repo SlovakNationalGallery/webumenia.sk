@@ -157,7 +157,7 @@ class ItemsTest extends TestCase
     {
         $item = Item::factory()->create(['view_count' => 0]);
 
-        $this->postJson(route('api.v1.items.increment-view-count', ['id' => $item->id]))
+        $this->postJson(route('api.v1.items.views', ['id' => $item->id]))
             ->assertOk();
 
         $this->assertEquals(1, $item->fresh()->view_count);
