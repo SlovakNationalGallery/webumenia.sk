@@ -389,7 +389,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $authors = $this
             ->getAuthorsWithoutAuthority()
             ->map(fn ($author) => (object) [
-                'name' => $author
+                'name' => $author,
+                'authority' => null
             ]);
 
         return $authorities->concat($authors);
@@ -398,11 +399,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getUniqueAuthorsWithAuthorityNames()
     {
-        return $this->authorities
+        return $this->authors_with_authorities
             ->pluck('name')
-            ->merge($this->getAuthorsWithoutAuthority())
-            ->filter() // hotfix: names should be filled
-            ->values()
             ->toArray();
     }
 
@@ -478,7 +476,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             return $formated;
         }
         $trans = [
-            "/" => "–", 
+            "/" => "–",
             "-" => "–",
         ];
         if ($multi_line) {
@@ -720,6 +718,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'id' => $this->id,
             'identifier' => $this->identifier,
             'author' => $this->getUniqueAuthorsWithAuthorityNames(),
+            'authors' => $this->authors_with_authorities->map(
+                fn($a) => [
+                    'name' => $a->name,
+                    'authority' => $a->authority ? $a->authority->only(['id']) : null,
+                ]
+            ),
             'tag' => $this->tagNames(), // @TODO translate model
             'date_earliest' => $this->date_earliest,
             'date_latest' => $this->date_latest,
