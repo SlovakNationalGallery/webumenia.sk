@@ -34,6 +34,9 @@ abstract class AbstractImporter implements IImporter {
     /** @var string */
     protected static $name;
 
+    /** @var Collection */
+    protected $imageJp2Paths;
+
     /**
      * @param IFileRepository $repository
      */
@@ -60,6 +63,11 @@ abstract class AbstractImporter implements IImporter {
      */
     abstract protected function getItemImageFilenameFormat(array $record);
 
+    protected function getItemImageJp2FilenameFormat(array $record)
+    {
+        return $this->getItemImageFilenameFormat($record);
+    }
+
     public function import(Import $import, array $file)
     {
         $import_record = $this->createImportRecord(
@@ -70,6 +78,8 @@ abstract class AbstractImporter implements IImporter {
         );
 
         $import_record->save();
+
+        $this->loadImageJp2Paths($import, $import_record->filename);
 
         $records = $this->repository->getFiltered(
             storage_path(sprintf('app/%s', $file['path'])),
@@ -127,6 +137,7 @@ abstract class AbstractImporter implements IImporter {
         $item = $this->createItem($record);
 
         $image_filename_format = $this->getItemImageFilenameFormat($record);
+        $image_jp2_filename_format = $this->getItemImageJp2FilenameFormat($record);
 
         $jpg_paths = $this->getImageJpgPaths(
             $import,
@@ -139,11 +150,7 @@ abstract class AbstractImporter implements IImporter {
             $import_record->imported_images++;
         }
 
-        $jp2_paths = $this->getImageJp2Paths(
-            $import,
-            $import_record->filename,
-            $image_filename_format
-        );
+        $jp2_paths = $this->getImageJp2Paths($image_jp2_filename_format);
 
         foreach ($jp2_paths as $jp2_path) {
             $jp2_relative_path = $this->getImageJp2RelativePath($jp2_path);
@@ -299,25 +306,23 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param Import $import
      * @param string $csv_filename
-     * @param string $image_filename_format
-     * @return string[]
      */
-    protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format) {
+    protected function loadImageJp2Paths(Import $import, $csv_filename) {
         $path = sprintf(
-            '%s/%s/%s/%s.jp2',
+            '%s/%s/%s/*.jp2',
             config('importers.iip_base_path'),
             $import->iip_dir_path,
-            pathinfo($csv_filename, PATHINFO_FILENAME),
-            $image_filename_format
+            pathinfo($csv_filename, PATHINFO_FILENAME)
         );
 
-        $paths = glob($path, GLOB_BRACE);
+        $this->imageJp2Paths = collect(glob($path, GLOB_BRACE));
+    }
 
-        usort($paths, function ($a, $b) {
-            return filemtime($a) - filemtime($b);
+    protected function getImageJp2Paths($format) {
+        return $this->imageJp2Paths->filter(function ($path) use ($format) {
+            $filename = pathinfo($path, PATHINFO_BASENAME);
+            return preg_match($format, $filename);
         });
-
-        return $paths;
     }
 
     /**

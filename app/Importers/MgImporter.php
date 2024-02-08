@@ -123,6 +123,15 @@ class MgImporter extends AbstractImporter {
         return $filename . '{_*,}';
     }
 
+    protected function getItemImageJp2FilenameFormat(array $record) {
+        $filename = sprintf('%s%s', $record['Rada_S'], str_pad($record['PorC_S'], 6, '0', STR_PAD_LEFT));
+        if ($record['Lomeni_S'] != '_') {
+            $filename = sprintf('%s-%s', $filename, $record['Lomeni_S']);
+        }
+
+        return '/^' . preg_quote($filename) . '(_.*)?\.\w+$/';
+    }
+
     protected function hydrateIdentifier(array $record) {
         $identifier = sprintf('%s %s', $record['Rada_S'], (int)$record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
