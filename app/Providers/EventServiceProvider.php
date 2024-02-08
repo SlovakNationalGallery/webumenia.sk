@@ -4,9 +4,7 @@ namespace App\Providers;
 
 use App\Authority;
 use App\Item;
-use App\ItemFrontend;
 use App\Observers\AuthorityObserver;
-use App\Observers\ItemFrontendObserver;
 use App\Observers\ItemObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -34,7 +32,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Authority::observe(AuthorityObserver::class);
         Item::observe(ItemObserver::class);
-        ItemFrontend::observe(ItemFrontendObserver::class);
 
         // disable scout observers
         Item::disableSearchSyncing();

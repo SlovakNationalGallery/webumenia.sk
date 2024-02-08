@@ -16,7 +16,7 @@ class ZoomViewTest extends TestCase
 
     public function testMultipleImages()
     {
-        $item = Item::factory()->webumeniaFrontend()->create();
+        $item = Item::factory()->create();
 
         $image = ItemImage::factory()->make();
         $image->item()->associate($item);
@@ -32,7 +32,7 @@ class ZoomViewTest extends TestCase
     {
         $related_items = [];
         for ($i = 0; $i < ($count = 2); $i++) {
-            $item = Item::factory()->webumeniaFrontend()->create([
+            $item = Item::factory()->create([
                 'related_work' => 'some_related_work',
                 'related_work_order' => $i,
                 'author' => 'some_author',
@@ -57,13 +57,13 @@ class ZoomViewTest extends TestCase
     public function testPrioritizedMultipleImages()
     {
         $count = 2;
-        $item = Item::factory()->webumeniaFrontend()->create([
+        $item = Item::factory()->create([
             'related_work' => 'some_related_work',
             'related_work_order' => 2,
             'author' => 'some_author',
         ]);
 
-        $related_item = Item::factory()->webumeniaFrontend()->create([
+        $related_item = Item::factory()->create([
             'related_work' => 'some_related_work',
             'related_work_order' => 1,
             'author' => 'some_author',

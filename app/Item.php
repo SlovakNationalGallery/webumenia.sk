@@ -6,6 +6,7 @@ namespace App;
 
 use App\Contracts\IndexableModel;
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Enums\FrontendEnum;
 use App\Events\ItemPrimaryImageChanged;
 use App\Matchers\AuthorityMatcher;
 use Astrotomic\Translatable\Translatable;
@@ -14,7 +15,6 @@ use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -122,6 +122,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     protected $casts = [
         'colors' => 'json',
+        'frontends' => 'json',
     ];
 
     protected $observables = [
@@ -140,6 +141,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
     protected $appends = ['image_url'];
 
     protected $useTranslationFallback;
+
+    public function __construct(array $attributes = [])
+    {
+        $this->frontends = [FrontendEnum::WEBUMENIA->value];
+        parent::__construct($attributes);
+    }
 
     public function getCitation()
     {
@@ -611,16 +618,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function scopeFrontend($query, string $frontend)
-    {
-        return $query->whereHas('frontends', fn($query) => $query->where('frontend', $frontend));
-    }
-
-    public function frontends(): HasMany
-    {
-        return $this->hasMany(ItemFrontend::class);
-    }
-
     public function related()
     {
         $relatedIds = Item::search()
@@ -774,7 +771,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
                     ];
                 })
                 ->values(),
-            'frontend' => $this->frontends->pluck('frontend'),
+            'frontend' => $this->frontends,
         ];
     }
 

@@ -10,7 +10,7 @@ class ApplyFrontendScope
 {
     public function handle(Request $request, \Closure $next): Response
     {
-        Item::addGlobalScope('frontend', fn ($query) => $query->frontend(config('app.frontend')));
+        Item::addGlobalScope('frontend', fn ($query) => $query->whereJsonContains('frontends', config('app.frontend')));
 
         return $next($request);
     }

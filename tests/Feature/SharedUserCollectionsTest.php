@@ -13,7 +13,7 @@ class SharedUserCollectionsTest extends TestCase
 
     public function testCreation()
     {
-        $item = Item::factory()->webumeniaFrontend()->create();
+        $item = Item::factory()->create();
 
         $this->get(
             route('frontend.shared-user-collections.create', ['ids' => [$item->id]])
@@ -42,10 +42,7 @@ class SharedUserCollectionsTest extends TestCase
 
     public function testUpdateTokenIsNecessaryForEditing()
     {
-        $items = Item::factory()
-            ->webumeniaFrontend()
-            ->count(2)
-            ->create();
+        $items = Item::factory()->count(2)->create();
         $collection = SharedUserCollection::factory()->create([
             'items' => $items->map->only('id'),
         ]);
