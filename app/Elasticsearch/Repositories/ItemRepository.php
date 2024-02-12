@@ -3,6 +3,7 @@
 namespace App\Elasticsearch\Repositories;
 
 use App\Authority;
+use App\Facades\Frontend;
 use App\Filter\Contracts\Filter;
 use App\Filter\Contracts\SearchRequest;
 use App\IntegerRange;
@@ -77,7 +78,7 @@ class ItemRepository extends TranslatableRepository
                             ],
                         ],
                         'filter' => [
-                            ['term' => ['frontend' => config('app.frontend')]],
+                            ['term' => ['frontend' => Frontend::get()]],
                         ],
                     ],
                 ],
@@ -130,7 +131,7 @@ class ItemRepository extends TranslatableRepository
                     ]
                 ],
                 'filter' => [
-                    ['term' => ['frontend' => config('app.frontend')]],
+                    ['term' => ['frontend' => Frontend::get()]],
                 ],
             ]
         ];
@@ -208,7 +209,7 @@ class ItemRepository extends TranslatableRepository
         }
         $query['bool']['must_not'][]['term']['id'] = $item->id;
         $query['bool']['minimum_should_match'] = '-30%';
-        $query['bool']['filter'][]['term']['frontend'] = config('app.frontend');
+        $query['bool']['filter'][]['term']['frontend'] = Frontend::get();
 
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
@@ -236,7 +237,7 @@ class ItemRepository extends TranslatableRepository
                         ],
                     ],
                     'filter' => [
-                        ['term' => ['frontend' => config('app.frontend')]],
+                        ['term' => ['frontend' => Frontend::get()]],
                     ],
                 ],
                 'sort' => [
@@ -252,7 +253,7 @@ class ItemRepository extends TranslatableRepository
     public function buildQueryFromFilter(?Filter $filter): ?array
     {
         $query = [];
-        $query['bool']['filter'][]['term']['frontend'] = config('app.frontend');
+        $query['bool']['filter'][]['term']['frontend'] = Frontend::get();
         if ($filter) {
             $query = $this->addFilterablesQuery($query, $filter);
             $query = $this->addSearchQuery($query, $filter->get('search'));

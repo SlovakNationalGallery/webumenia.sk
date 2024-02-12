@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Facades\Frontend;
 use App\Http\Controllers\Controller;
 use App\Item;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
@@ -236,7 +237,7 @@ class ItemController extends Controller
             }
         }
 
-        $builder->filter(['term' => ['frontend' => config('app.frontend')]]);
+        $builder->filter(['term' => ['frontend' => Frontend::get()]]);
         return $builder;
     }
 }
