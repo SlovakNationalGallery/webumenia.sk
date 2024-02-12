@@ -18,6 +18,8 @@ return new class extends Migration
         });
 
         DB::statement('CREATE INDEX items_frontends_index ON items ( (CAST(frontends AS CHAR(32) ARRAY)) )');
+
+        DB::table('items')->update(['frontends' => ["webumenia"]]);
     }
 
     /**
