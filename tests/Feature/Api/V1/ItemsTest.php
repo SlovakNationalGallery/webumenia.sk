@@ -194,8 +194,7 @@ class ItemsTest extends TestCase
     {
         $item = Item::factory()->create(['view_count' => 0]);
 
-        $this->postJson(route('api.v1.items.views', ['id' => $item->id]))
-            ->assertOk();
+        $this->postJson(route('api.v1.items.views', ['id' => $item->id]))->assertOk();
 
         $this->assertEquals(1, $item->fresh()->view_count);
     }
@@ -224,5 +223,46 @@ class ItemsTest extends TestCase
         $this->get($url)
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('data.0.id', $similar->id);
+    }
+
+    public function test_detail()
+    {
+        $authorWithAuthority = Authority::factory()->create([
+            'id' => 'authority-id',
+            'name' => 'Věšín, Jaroslav',
+        ]);
+        Item::factory()
+            ->create([
+                'id' => 'item-id',
+                'author' => 'Věšín, Jaroslav; Viedenský maliar z konca 18. storočia',
+            ])
+            ->authorities()
+            ->save($authorWithAuthority);
+
+        app(ItemRepository::class)->refreshIndex();
+
+        $response = $this->getJson(
+            route('api.v1.items.show', [
+                'id' => 'item-id',
+            ])
+        );
+
+        $response->assertJson([
+            'id' => 'item-id',
+            'content' => [
+                'authors' => [
+                    [
+                        'name' => 'Věšín, Jaroslav',
+                        'name_formatted' => 'Jaroslav Věšín',
+                        'authority' => ['id' => 'authority-id'],
+                    ],
+                    [
+                        'name' => 'Viedenský maliar z konca 18. storočia',
+                        'name_formatted' => 'Viedenský maliar z konca 18. storočia',
+                        'authority' => null,
+                    ],
+                ],
+            ],
+        ]);
     }
 }

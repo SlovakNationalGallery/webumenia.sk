@@ -144,13 +144,13 @@ class ItemsAggregationsTest extends TestCase
         app(ItemRepository::class)->refreshIndex();
 
         $this->getAggregations([
-            'filter' => ['author' => 'Galanda, Mikuláš'],
-            'terms' => ['author' => 'author'],
+            'filter' => ['authors' => ['name' => 'Galanda, Mikuláš']],
+            'terms' => ['authors' => 'authors'],
         ])->assertExactJson([
             'author' => [
-                ['value' => 'Galanda, Mikuláš', 'id' => $author1->id, 'count' => 1],
-                ['value' => 'Galanda, Mikuláš', 'id' => $author2->id, 'count' => 1],
-                ['value' => 'Wouwerman, Philips', 'id' => null, 'count' => 1],
+                ['value' => 'Galanda, Mikuláš', 'authority_id' => $author1->id, 'count' => 1],
+                ['value' => 'Galanda, Mikuláš', 'authority_id' => $author2->id, 'count' => 1],
+                ['value' => 'Wouwerman, Philips', 'authority_id' => null, 'count' => 1],
             ],
         ]);
     }

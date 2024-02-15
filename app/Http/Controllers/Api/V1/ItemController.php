@@ -114,6 +114,29 @@ class ItemController extends Controller
         $aggregationsQuery = [];
 
         foreach ($terms as $aggregationName => $field) {
+            if ($field === 'authors') {
+                $aggregationsQuery[$aggregationName]['aggregations']['filtered'] = [
+                    'nested' => [
+                        'path' => 'authors',
+                    ],
+                    'aggs' => [
+                        'authors' => [
+                            'multi_terms' => [
+                                'terms' => [
+                                    [
+                                        'field' => 'authors.name.keyword',
+                                    ],
+                                    [
+                                        'field' => 'authors.authority.id.keyword',
+                                        'missing' => '',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ];
+                continue;
+            }
             $aggregationsQuery[$aggregationName]['aggregations']['filtered']['terms'] = [
                 'field' => $field,
                 'size' => $size,
@@ -150,6 +173,8 @@ class ItemController extends Controller
                 $termFilter
             )->buildQuery();
         }
+
+        // dd($aggregationsQuery);
 
         $searchRequest = Item::searchQuery()
             ->size(0) // No documents are needed, only aggregations
@@ -191,7 +216,11 @@ class ItemController extends Controller
             return response()->json(['message' => 'Not found'], 404);
         }
 
-        $document = $items->documents()->first()->toArray();
+        $document = $items
+            ->documents()
+            ->first()
+            ->toArray();
+
         $model = $items->models()->first();
 
         return [
@@ -204,6 +233,9 @@ class ItemController extends Controller
                     'inscription',
                     'acquisition_date',
                 ]),
+                'authors' => collect($document['content']['authors'])->map(
+                    fn($a) => [...$a, 'name_formatted' => formatName($a['name'])]
+                ),
             ],
         ];
     }
@@ -265,6 +297,10 @@ class ItemController extends Controller
 
                 $builder->filter($colorQuery);
                 continue;
+            }
+
+            if ($field === 'authors.authority.id.keyword') {
+                dd($field);
             }
             if (is_string($value) && in_array($field, $this->filterables, true)) {
                 if ($value === 'false') {
