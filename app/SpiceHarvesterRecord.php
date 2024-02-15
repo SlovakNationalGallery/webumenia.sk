@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App;
 
 use App\Harvest\Progress;
@@ -14,15 +12,12 @@ class SpiceHarvesterRecord extends Model
 {
     use SoftDeletes;
     use HasFactory;
-    
+
     protected $softDelete = true;
     protected $casts = [
         'deleted_at' => 'datetime',
     ];
-    protected $fillable = [
-        'identifier',
-        'type',
-    ];
+    protected $fillable = ['identifier', 'type', 'harvest_id'];
 
     public function harvest()
     {
