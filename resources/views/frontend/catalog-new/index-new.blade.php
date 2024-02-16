@@ -11,6 +11,7 @@
 @section('content')
     <section class="tailwind-rules" v-cloak>
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
+            title-static-part-separator="{{ trans('katalog.title') }}"
             v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                 <div class="tw-bg-gray-200">
@@ -489,7 +490,8 @@
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
-                                                    <x-filter.disclosure_view v-else-if="dc.view === 'author'"
+                                                    <x-filter.disclosure_view
+                                                        v-else-if="dc.view === 'author'"
                                                         v-on:close="dc.close">
                                                         @slot('header')
                                                             <x-filter.view_header_button
@@ -525,7 +527,8 @@
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
-                                                    <x-filter.disclosure_view v-else-if="dc.view === 'work_type'"
+                                                    <x-filter.disclosure_view
+                                                        v-else-if="dc.view === 'work_type'"
                                                         v-on:close="dc.close">
                                                         @slot('header')
                                                             <x-filter.view_header_button
@@ -619,7 +622,8 @@
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
-                                                    <x-filter.disclosure_view v-else-if="dc.view === 'gallery'"
+                                                    <x-filter.disclosure_view
+                                                        v-else-if="dc.view === 'gallery'"
                                                         v-on:close="dc.close">
                                                         @slot('header')
                                                             <x-filter.view_header_button
@@ -647,7 +651,8 @@
                                                             </x-filter.search_options>
                                                         @endslot
                                                     </x-filter.disclosure_view>
-                                                    <x-filter.disclosure_view v-else-if="dc.view === 'technique'"
+                                                    <x-filter.disclosure_view
+                                                        v-else-if="dc.view === 'technique'"
                                                         v-on:close="dc.close">
                                                         @slot('header')
                                                             <x-filter.view_header_button
@@ -678,7 +683,8 @@
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
-                                                    <x-filter.disclosure_view v-else-if="dc.view === 'topic'"
+                                                    <x-filter.disclosure_view
+                                                        v-else-if="dc.view === 'topic'"
                                                         v-on:close="dc.close">
                                                         @slot('header')
                                                             <x-filter.view_header_button
@@ -709,7 +715,8 @@
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
-                                                    <x-filter.disclosure_view v-else-if="dc.view === 'medium'"
+                                                    <x-filter.disclosure_view
+                                                        v-else-if="dc.view === 'medium'"
                                                         v-on:close="dc.close">
                                                         @slot('header')
                                                             <x-filter.view_header_button

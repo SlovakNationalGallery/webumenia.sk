@@ -17,7 +17,7 @@ class NewCatalogController extends Controller
         return view('frontend.catalog-new.index-new', ['title' => self::generateTitle($request)]);
     }
 
-    private static function generateTitle(Request $request)
+    public static function generateTitle(Request $request)
     {
         $filters = $request->input('filter');
 

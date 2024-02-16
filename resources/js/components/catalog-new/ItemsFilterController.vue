@@ -1,6 +1,7 @@
 <script>
 import qs from 'qs'
 import axios from 'axios'
+import { useTitleUpdater } from './useTitleUpdater'
 
 function getParsedFilterFromUrl() {
     const parsedUrl = qs.parse(window.location.search, {
@@ -24,6 +25,10 @@ function getParsedFilterFromUrl() {
 }
 
 function stringifyUrl({ url, params }) {
+    return url + '?' + stringifyUrlQuery(params)
+}
+
+function stringifyUrlQuery(params) {
     const { filter, size, terms, page, min, max } = params
     const {
         yearRange,
@@ -72,7 +77,8 @@ function stringifyUrl({ url, params }) {
         size,
         q,
     }
-    return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
+
+    return qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
 const PAGE_SIZE = 30
@@ -112,8 +118,14 @@ const AGGREGATIONS_TERMS = {
 }
 
 export default {
+    setup(props) {
+        const { refreshTitle } = useTitleUpdater(props.titleStaticPartSeparator)
+
+        return { refreshTitle }
+    },
     props: {
         locale: String,
+        titleStaticPartSeparator: String,
     },
     data() {
         return {
@@ -314,13 +326,16 @@ export default {
             }
         },
         query(newQuery) {
-            this.page = 1
-            this.fetchAggregations()
-            this.fetchArtworks({ append: false })
+            const newParams = { filter: { ...newQuery } }
             const newUrl = stringifyUrl({
                 url: window.location.pathname,
-                params: { filter: { ...newQuery } },
+                params: newParams,
             })
+
+            this.page = 1
+            this.refreshTitle(stringifyUrlQuery(newParams))
+            this.fetchAggregations()
+            this.fetchArtworks({ append: false })
 
             window.history.replaceState(
                 newUrl,
