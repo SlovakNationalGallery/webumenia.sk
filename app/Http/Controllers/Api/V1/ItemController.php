@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Facades\Frontend;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NewCatalogController;
 use App\Item;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
 use ElasticScoutDriverPlus\Support\Query;
@@ -236,6 +237,11 @@ class ItemController extends Controller
             ->execute();
 
         return ['data' => $items->documents()];
+    }
+
+    public function catalogTitle(Request $request)
+    {
+        return NewCatalogController::generateTitle($request);
     }
 
     protected function createQueryBuilder($q, $filter)
