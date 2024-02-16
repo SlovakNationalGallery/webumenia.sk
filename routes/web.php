@@ -49,6 +49,7 @@ use App\Http\Middleware\RedirectLegacyCatalogRequest;
 use App\Item;
 use App\Notice;
 use App\Order;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
@@ -319,9 +320,9 @@ function()
 
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
-    Route::get('katalog', function () {
+    Route::get('katalog', function (HttpRequest $request) {
         if (Experiment::is('new-catalog')) {
-            return app(NewCatalogController::class)->index();
+            return app(NewCatalogController::class)->index($request);
         }
 
         return app(CatalogController::class)->getIndex();

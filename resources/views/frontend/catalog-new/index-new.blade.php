@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@section('title')
+    @if ($title)
+        {{ $title }} |
+    @endif
+    {{ trans('katalog.title') }} |
+    @parent
+@endsection
+
 @section('content')
     <section class="tailwind-rules" v-cloak>
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
