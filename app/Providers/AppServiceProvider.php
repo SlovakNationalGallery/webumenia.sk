@@ -51,26 +51,6 @@ class AppServiceProvider extends ServiceProvider
             ->give(function () {
                 return new BaseAuthorityMapper();
             });
-
-        $this->app
-            ->when(GmuhkItemHarvester::class)
-            ->needs(MuseionItemImporter::class)
-            ->give(function () {
-                return new MuseionItemImporter(
-                    app(GmuhkItemMapper::class),
-                    app(AuthorityMatcher::class)
-                );
-            });
-
-        $this->app
-            ->when(MudbItemHarvester::class)
-            ->needs(MuseionItemImporter::class)
-            ->give(function () {
-                return new MuseionItemImporter(
-                    app(MudbItemMapper::class),
-                    app(AuthorityMatcher::class)
-                );
-            });
     }
 
     public function boot()
