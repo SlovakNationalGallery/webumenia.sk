@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Harvest\Harvesters\MudbItemHarvester;
 use App\Harvest\Progress;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ class SpiceHarvesterHarvest extends Model
     public static $types = [
         ItemHarvester::class => 'Dielo',
         GmuhkItemHarvester::class => 'Dielo (GMUHK)',
+        MudbItemHarvester::class => 'Dielo (MUDB)',
         AuthorityHarvester::class => 'Autorita',
     ];
 

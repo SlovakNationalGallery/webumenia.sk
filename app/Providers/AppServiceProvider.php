@@ -4,8 +4,14 @@ use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
 use App\Filter\Forms\Types\ItemSearchRequestType;
+use App\Harvest\Harvesters\GmuhkItemHarvester;
+use App\Harvest\Harvesters\MudbItemHarvester;
 use App\Harvest\Importers\ItemImporter;
+use App\Harvest\Importers\MuseionItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
+use App\Harvest\Mappers\GmuhkItemMapper;
+use App\Harvest\Mappers\MudbItemMapper;
+use App\Matchers\AuthorityMatcher;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -44,6 +50,26 @@ class AppServiceProvider extends ServiceProvider
             ->needs(BaseAuthorityMapper::class)
             ->give(function () {
                 return new BaseAuthorityMapper();
+            });
+
+        $this->app
+            ->when(GmuhkItemHarvester::class)
+            ->needs(MuseionItemImporter::class)
+            ->give(function () {
+                return new MuseionItemImporter(
+                    app(GmuhkItemMapper::class),
+                    app(AuthorityMatcher::class)
+                );
+            });
+
+        $this->app
+            ->when(MudbItemHarvester::class)
+            ->needs(MuseionItemImporter::class)
+            ->give(function () {
+                return new MuseionItemImporter(
+                    app(MudbItemMapper::class),
+                    app(AuthorityMatcher::class)
+                );
             });
     }
 

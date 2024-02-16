@@ -2,102 +2,63 @@
 
 namespace App\Harvest\Mappers;
 
-use App\Harvest\Mappers\AbstractMapper;
 use App\Item;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 
 class GmuhkItemMapper extends AbstractMapper
 {
+    use MuseionTrait;
+
     protected $modelClass = Item::class;
 
-    protected $translator;
-
-    public function __construct(Translator $translator)
+    public function __construct()
     {
         parent::__construct();
-        $this->translator = $translator;
+        $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
+        $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
     }
 
-    public function mapId(array $row)
+    protected array $workTypeTranslationKeys = [
+        'F' => 'fotografia',
+        'G' => 'grafika',
+        'K' => 'kresba',
+        'O' => 'maliarstvo',
+        'P' => 'sochárstvo/plastika',
+        'VA' => 'iné médiá/video',
+        'GVP' => 'sochárstvo/skulptúra',
+    ];
+
+    public function mapId(array $row): string
     {
         $matches = $this->parseIdentifier($row['id'][0]);
+
         return sprintf(
-            'CZE:%s.%s_%d%s',
+            'CZE:%s.%s%d%s',
             $matches['gallery'],
-            $matches['work_type'],
+            isset($matches['work_type']) ? $matches['work_type'] . '_' : '',
             $matches['number'],
-            isset($matches['part']) ? '_' . (int)$matches['part'] : ''
+            isset($matches['part']) ? '_' . (int) $matches['part'] : ''
         );
     }
 
-    public function mapIdentifier(array $row)
+    public function mapMeasurement(array $row, string $locale): ?string
     {
-        return $row['identifier'][0] ?? '';
-    }
+        if (!isset($row['measurement'][0])) {
+            return null;
+        }
 
-    public function mapAuthor(array $row)
-    {
-        return $row['author'][0];
-    }
-
-    public function mapTitle(array $row)
-    {
-        return $row['title'][0];
-    }
-
-    public function mapDating(array $row)
-    {
-        return $row['dating'][0] ?? null;
-    }
-
-    public function mapTechnique(array $row)
-    {
-        return $row['technique'][0] ?? null;
-    }
-
-    public function mapMedium(array $row)
-    {
-        return $row['medium'][0] ?? null;
-    }
-    
-    public function mapMeasurement(array $row, $locale)
-    {
-        $replacements = $this->translator->get('item.measurement_replacements', [], $locale);
+        $replacements = trans('item.measurement_replacements', locale: $locale);
         return strtr($row['measurement'][0], $replacements);
-    }
-    
-    public function mapGallery(array $row)
-    {
-        return $row['gallery'][0];
-    }
-
-    public function mapDateEarliest(array $row)
-    {
-        if (!isset($row['date_earliest'][0])) {
-            return null;
-        }
-
-        return Date::create($row['date_earliest'][0])->format('Y');
-    }
-
-    public function mapDateLatest(array $row)
-    {
-        if (!isset($row['date_latest'][0])) {
-            return null;
-        }
-
-        return Date::create($row['date_latest'][0])->format('Y');
     }
 
     public function mapWorkType(array $row, $locale)
     {
         $matches = $this->parseIdentifier($row['id'][0]);
-        return $this->translator->get(sprintf('gmuhk.work_types.%s', $matches['work_type']), [], $locale);
+        $key = $this->workTypeTranslationKeys[$matches['work_type']];
+        return trans("item.work_types.$key", locale: $locale);
     }
 
-    protected function parseIdentifier($id)
+
+    protected function parseIdentifier($id): array
     {
         preg_match('/^.*:(?<gallery>.*)~publikacePredmetu~(?<work_type>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?$/i', $id, $matches);
         return $matches;
