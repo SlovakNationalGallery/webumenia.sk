@@ -7,8 +7,9 @@ use Tests\TestCase;
 
 class GmuhkItemMapperTest extends TestCase
 {
-    public function testMap() {
-        $mapper = new GmuhkItemMapper(app('translator'));
+    public function testMap()
+    {
+        $mapper = new GmuhkItemMapper();
         $row = [
             'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
             'identifier' => ['G 259'],
@@ -31,24 +32,27 @@ class GmuhkItemMapperTest extends TestCase
             'identifier' => 'G 259',
             'author' => 'Kubišta Bohumil',
             'title:sk' => 'Kuřák',
-            'title:en' => 'Kuřák',
+            'title:en' => null,
             'title:cs' => 'Kuřák',
             'dating:sk' => '1907',
-            'dating:en' => '1907',
+            'dating:en' => null,
             'dating:cs' => '1907',
-            'date_earliest' => '1907',
-            'date_latest' => '1907',
+            'date_earliest' => 1907,
+            'date_latest' => 1907,
             'technique:sk' => 'lept',
-            'technique:en' => 'lept',
+            'technique:en' => 'etching',
             'technique:cs' => 'lept',
-            'medium:sk' => 'papír',
-            'medium:en' => 'papír',
+            'medium:sk' => 'papier',
+            'medium:en' => 'paper',
             'medium:cs' => 'papír',
-            'measurement:sk' => 'výška grafickej dosky 160mm; šírka grafickej plochy 162mm; celková výška/dĺžka 373mm; šírka 303mm',
-            'measurement:en' => 'height of the printing plate 160mm; width of the printing plate 162mm; overall height/length 373mm; width 303mm',
-            'measurement:cs' => 'výška grafické desky 160mm; šířka grafické desky 162mm; celková výška/délka 373mm; šířka 303mm',
+            'measurement:sk' =>
+                'výška grafickej dosky 160mm; šírka grafickej plochy 162mm; celková výška/dĺžka 373mm; šírka 303mm',
+            'measurement:en' =>
+                'height of the printing plate 160mm; width of the printing plate 162mm; overall height/length 373mm; width 303mm',
+            'measurement:cs' =>
+                'výška grafické desky 160mm; šířka grafické desky 162mm; celková výška/délka 373mm; šířka 303mm',
             'gallery:sk' => 'Galerie moderního umění v Hradci Králové',
-            'gallery:en' => 'Galerie moderního umění v Hradci Králové',
+            'gallery:en' => null,
             'gallery:cs' => 'Galerie moderního umění v Hradci Králové',
             'work_type:sk' => 'grafika',
             'work_type:en' => 'graphics',

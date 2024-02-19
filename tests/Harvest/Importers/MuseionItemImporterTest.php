@@ -3,7 +3,7 @@
 namespace Tests\Harvest\Importers;
 
 use App\Authority;
-use App\Harvest\Importers\GmuhkItemImporter;
+use App\Harvest\Importers\MuseionItemImporter;
 use App\Harvest\Mappers\GmuhkItemMapper;
 use App\Harvest\Progress;
 use App\Matchers\AuthorityMatcher;
@@ -12,9 +12,9 @@ use Tests\Harvest\FakeRecordFactory;
 use Tests\TestCase;
 use Tests\WithoutSearchIndexing;
 
-class GmuhkItemImporterTest extends TestCase
+class MuseionItemImporterTest extends TestCase
 {
-    private GmuhkItemImporter $importer;
+    private MuseionItemImporter $importer;
 
     use RefreshDatabase;
     use WithoutSearchIndexing;
@@ -23,7 +23,7 @@ class GmuhkItemImporterTest extends TestCase
     {
         parent::setUp();
 
-        $this->importer = new GmuhkItemImporter(
+        $this->importer = new MuseionItemImporter(
             app(GmuhkItemMapper::class),
             app(AuthorityMatcher::class)
         );

@@ -12,12 +12,8 @@ use Illuminate\Support\Carbon;
 
 abstract class AbstractHarvester
 {
-    /** @var AbstractImporter */
-    protected $importer;
-
-    public function __construct(AbstractRepository $repository, AbstractImporter $importer) {
-        $this->repository = $repository;
-        $this->importer = $importer;
+    public function __construct(protected AbstractRepository $repository, protected AbstractImporter $importer)
+    {
     }
 
     public function harvestFailed(SpiceHarvesterHarvest $harvest) {
@@ -49,22 +45,19 @@ abstract class AbstractHarvester
             $progress->setTotal($total);
 
             foreach ($rows as $row) {
-                $modelId = $this->importer->getModelId($row);
-                if ($modelId === null) {
+                $record = SpiceHarvesterRecord::firstOrNew([
+                    'identifier' => $this->importer->getIdentifier($row),
+                    'type' => $this->importer->getModelClass(),
+                    'harvest_id' => $harvest->id,
+                ]);
+
+                $record->item_id = $this->importer->getModelId($row);
+                if ($record->item_id === null) {
                     $progress->incrementSkipped();
                     continue;
                 }
 
-                $record = SpiceHarvesterRecord::firstOrNew([
-                    'identifier' => $this->importer->getIdentifier($row),
-                    'type' => $this->importer->getModelClass(),
-                ]);
-                $record->harvest()->associate($harvest);
-                $record->item_id = $modelId;
-
-                $record->process(function () use ($record, $progress, $row) {
-                    $this->harvestRecord($record, $progress, $row);
-                }, $progress);
+                $this->harvestRecord($record, $progress, $row);
                 $harvest->updateStatusMessages($progress);
             }
         });
