@@ -128,6 +128,7 @@ abstract class AbstractImporter
             $lastStartedAt = $import_record->import
                 ->records()
                 ->completed()
+                ->where('filename', '=', $import_record->filename)
                 ->max('started_at');
 
             if (Carbon::createFromTimestamp($lastModified) > Carbon::make($lastStartedAt)) {
