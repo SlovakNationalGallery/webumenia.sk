@@ -138,17 +138,22 @@ abstract class AbstractImporter
             }
         }
 
-        $this->getJp2Files($import_record, $image_filename_format)
-            ->filter(
-                fn(SplFileInfo $jp2File) => !$item
-                    ->images()
-                    ->where('iipimg_url', $jp2File)
-                    ->first()
-            )
-            ->each(function (SplFileInfo $jp2File) use ($item, $import_record) {
-                $item->images()->create(['iipimg_url' => $jp2File]);
-                $import_record->imported_iip++;
+        $jp2Files = $this->getJp2Files($import_record, $image_filename_format);
+        $jp2Files
+            ->each(function (SplFileInfo $jp2File, int $index) use ($item, $import_record) {
+                if ($image = $item->images()->where('iipimg_url', $jp2File)->first()) {
+                    $image->update(['order_column' => $index]);
+                } else {
+                    $item->images()->create([
+                        'iipimg_url' => $jp2File,
+                        'order_column' => $index,
+                    ]);
+                }
             });
+        $item
+            ->images()
+            ->whereNotIn('iipimg_url', $jp2Files)
+            ->delete();
 
         $ids = $this->authorityMatcher
             ->matchAll($item)
@@ -259,6 +264,7 @@ abstract class AbstractImporter
                     sprintf('#^%s\.jp2$#', $image_filename_format),
                     $file->getBasename()
                 )
-            );
+            )
+            ->sort(SORT_NATURAL);
     }
 }
