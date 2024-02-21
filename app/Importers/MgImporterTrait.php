@@ -36,10 +36,12 @@ trait MgImporterTrait
 
         $item = parent::importSingle($record, $import_record);
 
-        $item->frontends = [FrontendEnum::MORAVSKA_GALERIE];
+        $frontends = [FrontendEnum::MORAVSKA_GALERIE];
         if (!$files->isEmpty()) {
-            $item->frontends[] = FrontendEnum::WEBUMENIA;
+            $frontends[] = FrontendEnum::WEBUMENIA;
         }
+
+        $item->frontends = $frontends;
 
         return $item;
     }
