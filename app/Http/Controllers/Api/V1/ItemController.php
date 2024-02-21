@@ -211,6 +211,20 @@ class ItemController extends Controller
         Item::findOrFail($id)->increment('view_count');
     }
 
+    public function suggestions(Request $request)
+    {
+        $size = (int) $request->get('size', 1);
+        $q = (string) $request->get('q');
+
+        $query = ItemRepository::buildSuggestionsQuery($q);
+        $documents = Item::searchQuery($query)
+            ->size($size)
+            ->execute()
+            ->documents();
+
+        return ['data' => $documents];
+    }
+
     protected function createQueryBuilder($q, $filter)
     {
         $builder = Query::bool();

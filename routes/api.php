@@ -35,6 +35,7 @@ Route::prefix('v1')
         Route::get('items/aggregations', [V1ItemController::class, 'aggregations'])->name(
             'items.aggregations'
         );
+        Route::get('items/suggestions', [V1ItemController::class, 'suggestions'])->name('items.suggestions');
         Route::get('items/{id}', [V1ItemController::class, 'detail'])->name('items.show');
         Route::post('items/{id}/views', [V1ItemController::class, 'incrementViewCount'])
             ->name('items.views');
