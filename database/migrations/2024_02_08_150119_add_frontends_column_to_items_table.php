@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('items', function (Blueprint $table) {
-            $table->json('frontends')->nullable();
-        });
-
+        DB::statement("ALTER TABLE items ADD COLUMN frontends JSON DEFAULT (JSON_ARRAY('webumenia'))");
         DB::statement('CREATE INDEX items_frontends_index ON items ( (CAST(frontends AS CHAR(32) ARRAY)) )');
-
-        DB::table('items')->update(['frontends' => ["webumenia"]]);
     }
 
     /**

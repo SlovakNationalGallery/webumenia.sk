@@ -6,7 +6,6 @@ namespace App;
 
 use App\Contracts\IndexableModel;
 use App\Elasticsearch\Repositories\ItemRepository;
-use App\Enums\FrontendEnum;
 use App\Events\ItemPrimaryImageChanged;
 use App\Matchers\AuthorityMatcher;
 use Astrotomic\Translatable\Translatable;
@@ -122,7 +121,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     protected $casts = [
         'colors' => 'json',
-        'frontends' => 'json',
+        'frontends' => 'array',
     ];
 
     protected $observables = [
@@ -141,12 +140,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
     protected $appends = ['image_url'];
 
     protected $useTranslationFallback;
-
-    public function __construct(array $attributes = [])
-    {
-        $this->frontends = [FrontendEnum::WEBUMENIA->value];
-        parent::__construct($attributes);
-    }
 
     public function getCitation()
     {
