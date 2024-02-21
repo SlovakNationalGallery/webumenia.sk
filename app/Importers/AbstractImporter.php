@@ -151,6 +151,7 @@ abstract class AbstractImporter
                         'iipimg_url' => $jp2File,
                         'order_column' => $index,
                     ]);
+                    $import_record->imported_iip++;
                 }
             });
         $item
