@@ -187,7 +187,21 @@ class ItemController extends Controller
             return response()->json(['message' => 'Not found'], 404);
         }
 
-        return $items->documents()->first();
+        $document = $items->documents()->first()->toArray();
+        $model = $items->models()->first();
+
+        return [
+            ...$document,
+            'content' => [
+                ...$document['content'],
+                ...$model->only([
+                    'relationship_type',
+                    'state_edition',
+                    'inscription',
+                    'acquisition_date',
+                ]),
+            ],
+        ];
     }
 
     public function incrementViewCount($id)
