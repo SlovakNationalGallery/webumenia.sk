@@ -225,6 +225,19 @@ class ItemController extends Controller
         return ['data' => $documents];
     }
 
+    public function similar(Request $request, string $id)
+    {
+        $item = Item::findOrFail($id);
+        $size = (int) $request->get('size', 1);
+
+        $query = app(ItemRepository::class)->buildSimilarQuery($item);
+        $items = Item::searchQuery($query)
+            ->size($size)
+            ->execute();
+
+        return ['data' => $items->documents()];
+    }
+
     protected function createQueryBuilder($q, $filter)
     {
         $builder = Query::bool();
