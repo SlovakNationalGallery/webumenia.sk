@@ -152,4 +152,14 @@ class ItemsTest extends TestCase
             $response['data'][0]['content']['authors_formatted'][0]
         );
     }
+
+    public function test_increment_view_count()
+    {
+        $item = Item::factory()->create(['view_count' => 0]);
+
+        $this->postJson(route('api.v1.items.views', ['id' => $item->id]))
+            ->assertOk();
+
+        $this->assertEquals(1, $item->fresh()->view_count);
+    }
 }

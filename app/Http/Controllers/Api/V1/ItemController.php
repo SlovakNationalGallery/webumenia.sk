@@ -190,6 +190,11 @@ class ItemController extends Controller
         return $items->documents()->first();
     }
 
+    public function incrementViewCount($id)
+    {
+        Item::findOrFail($id)->increment('view_count');
+    }
+
     protected function createQueryBuilder($q, $filter)
     {
         $builder = Query::bool();
