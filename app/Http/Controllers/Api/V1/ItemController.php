@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Facades\Frontend;
 use App\Http\Controllers\Controller;
 use App\Item;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
@@ -55,11 +56,7 @@ class ItemController extends Controller
         $size = (int) $request->get('size', 1);
         $q = (string) $request->get('q');
 
-        try {
-            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
-        } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass()];
-        }
+        $query = $this->createQueryBuilder($q, $filter)->buildQuery();
 
         if (array_key_exists('random', $sort)) {
             $query = ItemRepository::buildRandomSortQuery($query, $request->get('page', 1) == 1);
@@ -180,13 +177,9 @@ class ItemController extends Controller
         $filter = (array) $request->get('filter');
         $q = (string) $request->get('q');
 
-        if ($q || $filter) {
-            $query = $this->createQueryBuilder($q, $filter)
-                ->must(Query::ids()->values([$id]))
-                ->buildQuery();
-        } else {
-            $query = Query::ids()->values([$id]);
-        }
+        $query = $this->createQueryBuilder($q, $filter)
+            ->must(Query::ids()->values([$id]))
+            ->buildQuery();
 
         $items = Item::searchQuery($query)->execute();
 
@@ -199,10 +192,6 @@ class ItemController extends Controller
 
     protected function createQueryBuilder($q, $filter)
     {
-        if (empty($q) && empty($filter)) {
-            return Query::matchAll();
-        }
-
         $builder = Query::bool();
 
         if ($q) {
@@ -248,6 +237,7 @@ class ItemController extends Controller
             }
         }
 
+        $builder->filter(['term' => ['frontend' => Frontend::get()]]);
         return $builder;
     }
 }

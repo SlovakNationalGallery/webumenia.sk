@@ -12,10 +12,8 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Searchable;
-use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -123,6 +121,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     protected $casts = [
         'colors' => 'json',
+        'frontends' => 'array',
     ];
 
     protected $observables = [
@@ -765,6 +764,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
                     ];
                 })
                 ->values(),
+            'frontend' => $this->frontends,
         ];
     }
 
