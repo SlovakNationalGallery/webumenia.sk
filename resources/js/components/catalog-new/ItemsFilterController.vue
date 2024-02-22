@@ -119,7 +119,7 @@ const AGGREGATIONS_TERMS = {
 
 export default {
     setup(props) {
-        const { refreshTitle } = useTitleUpdater(props.titleStaticPartSeparator)
+        const { refreshTitle } = useTitleUpdater(props.titleStaticPartSeparator, props.locale)
 
         return { refreshTitle }
     },

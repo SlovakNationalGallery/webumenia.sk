@@ -241,7 +241,7 @@ class ItemController extends Controller
 
     public function catalogTitle(Request $request)
     {
-        return NewCatalogController::generateTitle($request);
+        return ['title' => NewCatalogController::generateTitle($request)];
     }
 
     protected function createQueryBuilder($q, $filter)
