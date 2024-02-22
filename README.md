@@ -1,4 +1,5 @@
 # Welcome
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums.
@@ -26,21 +27,25 @@ We are committed to providing a welcoming and inspiring community for all and ex
 This software is built with the [Laravel framework](http://laravel.com/).
 
 It requires
-* PHP 8.1
-* MySQL 5.7
-* Elasticsearch 7.3
+
+-   PHP 8.1
+-   MySQL 8.0
+-   Elasticsearch 7.3
 
 We also provide a [Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) with a basic stack set-up.
 
 ## First-time setup
+
 In addition to the standard Laravel steps ([DB migrations](https://laravel.com/docs/8.x/migrations#running-migrations), [compiling assets](https://laravel.com/docs/8.x/mix#installation)), you'll so need to run the following once:
 
 Link storage (for file uploads)
+
 ```
 php artisan storage:link
 ```
 
 Set up Elasticsearch indices:
+
 ```
 php artisan es:setup
 ```
