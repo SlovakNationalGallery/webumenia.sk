@@ -1,6 +1,7 @@
 import { onMounted, ref } from 'vue'
+import axios from 'axios'
 
-export function useTitleUpdater(staticPartSeparator) {
+export function useTitleUpdater(staticPartSeparator, acceptLanguage) {
     const staticPart = ref('')
 
     onMounted(() => {
@@ -9,14 +10,19 @@ export function useTitleUpdater(staticPartSeparator) {
     })
 
     async function refreshTitle(querySearchParams) {
-        const response = await fetch(`/api/v1/items/catalog-title?${querySearchParams}`, {
-            headers: {
-                Accept: 'application/json',
-            },
-        })
-        if (!response.ok) return
+        if (!querySearchParams) {
+            document.title = staticPart.value
+            return
+        }
 
-        const title = await response.text()
+        const title = await axios
+            .get(`/api/v1/items/catalog-title?${querySearchParams}`, {
+                headers: {
+                    'Accept-Language': acceptLanguage,
+                },
+            })
+            .then(({ data }) => data.title)
+
         document.title = `${title} | ${staticPart.value}`
     }
 
