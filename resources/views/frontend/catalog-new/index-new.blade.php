@@ -10,8 +10,7 @@
 
 @section('content')
     <section class="tailwind-rules" v-cloak>
-        <filter-new-items-controller locale="{{ app()->getLocale() }}"
-            title-static-part-separator="{{ trans('katalog.title') }}"
+        <filter-new-items-controller title-static-part-separator="{{ trans('katalog.title') }}"
             v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                 <div class="tw-bg-gray-200">

@@ -1,8 +1,9 @@
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
+import { useApiClient } from '../useApiClient'
 
-export function useTitleUpdater(staticPartSeparator, acceptLanguage) {
+export function useTitleUpdater(staticPartSeparator) {
     const staticPart = ref('')
+    const apiClient = useApiClient()
 
     onMounted(() => {
         const titleParts = document.title.split(staticPartSeparator)
@@ -15,12 +16,8 @@ export function useTitleUpdater(staticPartSeparator, acceptLanguage) {
             return
         }
 
-        const title = await axios
-            .get(`/api/v1/items/catalog-title?${querySearchParams}`, {
-                headers: {
-                    'Accept-Language': acceptLanguage,
-                },
-            })
+        const title = await apiClient
+            .get(`/api/v1/items/catalog-title?${querySearchParams}`)
             .then(({ data }) => data.title)
 
         document.title = `${title} | ${staticPart.value}`

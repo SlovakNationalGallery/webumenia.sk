@@ -1,6 +1,6 @@
 <script>
 import qs from 'qs'
-import axios from 'axios'
+import { useApiClient } from '../useApiClient'
 import { useTitleUpdater } from './useTitleUpdater'
 
 function getParsedFilterFromUrl() {
@@ -119,12 +119,12 @@ const AGGREGATIONS_TERMS = {
 
 export default {
     setup(props) {
+        const apiClient = useApiClient()
         const { refreshTitle } = useTitleUpdater(props.titleStaticPartSeparator, props.locale)
 
-        return { refreshTitle }
+        return { apiClient, refreshTitle }
     },
     props: {
-        locale: String,
         titleStaticPartSeparator: String,
     },
     data() {
@@ -144,11 +144,6 @@ export default {
         this.fetchArtworks({ replaceArtworks: true })
     },
     computed: {
-        apiHeaders() {
-            return {
-                'Accept-Language': this.locale,
-            }
-        },
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) =>
@@ -264,7 +259,7 @@ export default {
         },
         async fetchAggregations() {
             try {
-                const aggregations = await axios
+                const aggregations = await this.apiClient
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items/aggregations',
@@ -275,8 +270,7 @@ export default {
                                 min: { date_earliest: 'date_earliest' },
                                 max: { date_latest: 'date_latest' },
                             },
-                        }),
-                        { headers: this.apiHeaders }
+                        })
                     )
                     .then(({ data }) => data)
 
@@ -292,7 +286,7 @@ export default {
         async fetchArtworks({ append }) {
             this.isFetchingArtworks = true
             try {
-                const fetchedArtworks = await axios
+                const fetchedArtworks = await this.apiClient
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items',
@@ -301,8 +295,7 @@ export default {
                                 size: PAGE_SIZE,
                                 page: this.page,
                             },
-                        }),
-                        { headers: this.apiHeaders }
+                        })
                     )
                     .then(({ data }) => data)
 
