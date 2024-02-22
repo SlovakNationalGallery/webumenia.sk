@@ -44,4 +44,5 @@ task('artisan:route:cache', artisan('route:trans:cache'));
 
 before('artisan:migrate', 'artisan:cache:clear');
 after('deploy:vendors', 'build');
+after('deploy:symlink', 'artisan:queue:restart');
 after('deploy:failed', 'deploy:unlock');
