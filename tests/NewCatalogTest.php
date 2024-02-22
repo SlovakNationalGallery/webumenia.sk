@@ -26,9 +26,9 @@ class NewCatalogTest extends TestCase
             'autor: Ladislav Mednyánszky, Giambologna • v rokoch 1651 — 1932 |'
         );
 
-        $this->get(route('api.v1.items.catalog-title', $filters))->assertSeeText(
-            'autor: Ladislav Mednyánszky, Giambologna • v rokoch 1651 — 1932'
-        );
+        $this->get(route('api.v1.items.catalog-title', $filters))->assertJson([
+            'title' => 'autor: Ladislav Mednyánszky, Giambologna • v rokoch 1651 — 1932',
+        ]);
     }
 
     public function test_title_works_with_authority_ids()
