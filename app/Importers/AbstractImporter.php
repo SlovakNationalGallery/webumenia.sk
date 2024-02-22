@@ -48,6 +48,8 @@ abstract class AbstractImporter
         'newline' => "\n",
     ];
 
+    protected \SplObjectStorage $iipFilesMap;
+
     public function __construct(
         AuthorityMatcher $authorityMatcher,
         IFileRepository $repository,
@@ -56,6 +58,7 @@ abstract class AbstractImporter
         $this->authorityMatcher = $authorityMatcher;
         $this->repository = $repository;
         $this->translator = $translator;
+        $this->iipFilesMap = new \SplObjectStorage();
         $this->init();
     }
 
@@ -148,6 +151,7 @@ abstract class AbstractImporter
                         'iipimg_url' => $jp2File,
                         'order_column' => $index,
                     ]);
+                    $import_record->imported_iip++;
                 }
             });
         $item
@@ -257,8 +261,8 @@ abstract class AbstractImporter
         ImportRecord $import_record,
         string $image_filename_format
     ): Collection {
-        return $import_record
-            ->iipFiles()
+        $this->iipFilesMap[$import_record] ??= $import_record->iipFiles();
+        return $this->iipFilesMap[$import_record]
             ->filter(
                 fn(SplFileInfo $file) => preg_match(
                     sprintf('#^%s\.jp2$#', $image_filename_format),
