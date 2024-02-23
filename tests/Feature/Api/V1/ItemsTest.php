@@ -123,7 +123,6 @@ class ItemsTest extends TestCase
 
         $searchById = route('api.v1.items.index', [
             'size' => 10,
-            'filter[author]' => 'Věšín, Jaroslav',
             'filter[authority_id]' => $author1->id,
         ]);
 

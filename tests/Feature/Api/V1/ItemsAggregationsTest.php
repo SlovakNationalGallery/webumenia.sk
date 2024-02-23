@@ -146,11 +146,19 @@ class ItemsAggregationsTest extends TestCase
         $this->getAggregations([
             'filter' => ['authors' => ['name' => 'Galanda, Mikuláš']],
             'terms' => ['authors' => 'authors'],
-        ])->assertExactJson([
-            'author' => [
-                ['value' => 'Galanda, Mikuláš', 'authority_id' => $author1->id, 'count' => 1],
-                ['value' => 'Galanda, Mikuláš', 'authority_id' => $author2->id, 'count' => 1],
-                ['value' => 'Wouwerman, Philips', 'authority_id' => null, 'count' => 1],
+        ])->assertSimilarJson([
+            'authors' => [
+                [
+                    'name' => 'Galanda, Mikuláš',
+                    'authority' => ['id' => $author1->id],
+                    'count' => 1,
+                ],
+                [
+                    'name' => 'Galanda, Mikuláš',
+                    'authority' => ['id' => $author2->id],
+                    'count' => 1,
+                ],
+                ['name' => 'Wouwerman, Philips', 'authority' => null, 'count' => 1],
             ],
         ]);
     }
