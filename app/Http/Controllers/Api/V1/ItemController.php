@@ -174,8 +174,6 @@ class ItemController extends Controller
             )->buildQuery();
         }
 
-        // dd($aggregationsQuery);
-
         $searchRequest = Item::searchQuery()
             ->size(0) // No documents are needed, only aggregations
             ->aggregateRaw([
@@ -187,7 +185,22 @@ class ItemController extends Controller
 
         return collect(Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items'))
             ->only(array_keys($aggregationsQuery))
-            ->map(function (array $aggregation) {
+            ->map(function (array $aggregation, $name) {
+                if ($name === 'authors') {
+                    return collect(Arr::get($aggregation, 'filtered.authors.buckets'))->map(
+                        function (array $bucket) {
+                            [$name, $authority_id] = $bucket['key'];
+                            $authority = $authority_id === '' ? null : ['id' => $authority_id];
+
+                            return [
+                                'name' => $name,
+                                'authority' => $authority,
+                                'count' => $bucket['doc_count'],
+                            ];
+                        }
+                    );
+                }
+
                 if (Arr::has($aggregation, 'filtered.value')) {
                     return Arr::get($aggregation, 'filtered.value');
                 }
@@ -299,9 +312,6 @@ class ItemController extends Controller
                 continue;
             }
 
-            if ($field === 'authors.authority.id.keyword') {
-                dd($field);
-            }
             if (is_string($value) && in_array($field, $this->filterables, true)) {
                 if ($value === 'false') {
                     $value = false;
