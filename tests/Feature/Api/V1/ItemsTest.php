@@ -224,7 +224,7 @@ class ItemsTest extends TestCase
             ->assertJsonPath('data.0.id', $similar->id);
     }
 
-    public function test_detail()
+    public function test_authors_field()
     {
         $authorWithAuthority = Authority::factory()->create([
             'id' => 'authority-id',
@@ -241,24 +241,28 @@ class ItemsTest extends TestCase
         app(ItemRepository::class)->refreshIndex();
 
         $response = $this->getJson(
-            route('api.v1.items.show', [
-                'id' => 'item-id',
+            route('api.v1.items.index', [
+                'size' => 100,
             ])
         );
 
         $response->assertJson([
-            'id' => 'item-id',
-            'content' => [
-                'authors' => [
-                    [
-                        'name' => 'Věšín, Jaroslav',
-                        'name_formatted' => 'Jaroslav Věšín',
-                        'authority' => ['id' => 'authority-id'],
-                    ],
-                    [
-                        'name' => 'Viedenský maliar z konca 18. storočia',
-                        'name_formatted' => 'Viedenský maliar z konca 18. storočia',
-                        'authority' => null,
+            'data' => [
+                [
+                    'id' => 'item-id',
+                    'content' => [
+                        'authors' => [
+                            [
+                                'name' => 'Věšín, Jaroslav',
+                                'name_formatted' => 'Jaroslav Věšín',
+                                'authority' => ['id' => 'authority-id'],
+                            ],
+                            [
+                                'name' => 'Viedenský maliar z konca 18. storočia',
+                                'name_formatted' => 'Viedenský maliar z konca 18. storočia',
+                                'authority' => null,
+                            ],
+                        ],
                     ],
                 ],
             ],
