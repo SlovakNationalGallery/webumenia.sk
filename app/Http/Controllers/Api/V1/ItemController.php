@@ -96,6 +96,9 @@ class ItemController extends Controller
                         'authors_formatted' => collect($document['content']['author'])->map(
                             fn($author) => formatName($author)
                         ),
+                        'authors' => collect($document['content']['authors'])->map(
+                            fn($a) => [...$a, 'name_formatted' => formatName($a['name'])]
+                        ),
                     ],
                 ]
             ),
@@ -246,9 +249,6 @@ class ItemController extends Controller
                     'inscription',
                     'acquisition_date',
                 ]),
-                'authors' => collect($document['content']['authors'])->map(
-                    fn($a) => [...$a, 'name_formatted' => formatName($a['name'])]
-                ),
             ],
         ];
     }
