@@ -98,23 +98,29 @@ class ItemsTest extends TestCase
 
     public function test_distinguishes_authors_with_same_name()
     {
-        $author1 = Authority::factory()->create(['name' => 'Věšín, Jaroslav']);
-        $author2 = Authority::factory()->create(['name' => 'Věšín, Jaroslav']);
+        Item::factory()
+            ->has(
+                Authority::factory()->state([
+                    'id' => 'same-name-1',
+                    'name' => 'Věšín, Jaroslav',
+                ])
+            )
+            ->create(['author' => 'Věšín, Jaroslav; Neznámy autor']);
 
         Item::factory()
-            ->create()
-            ->authorities()
-            ->save($author1);
-        Item::factory()
-            ->create()
-            ->authorities()
-            ->save($author2);
+            ->has(
+                Authority::factory()->state([
+                    'id' => 'same-name-2',
+                    'name' => 'Věšín, Jaroslav',
+                ])
+            )
+            ->create(['author' => 'Věšín, Jaroslav']);
 
         app(ItemRepository::class)->refreshIndex();
 
         $searchByName = route('api.v1.items.index', [
             'size' => 10,
-            'filter[author]' => 'Věšín, Jaroslav',
+            'filter[authors.name]' => 'Věšín, Jaroslav',
         ]);
 
         $this->getJson($searchByName)->assertJson([
@@ -123,11 +129,21 @@ class ItemsTest extends TestCase
 
         $searchById = route('api.v1.items.index', [
             'size' => 10,
-            'filter[authority_id]' => $author1->id,
+            'filter[authors.authority.id]' => 'same-name-1',
         ]);
 
         $this->getJson($searchById)->assertJson([
             'total' => 1,
+        ]);
+
+        $searchByNameOrId = route('api.v1.items.index', [
+            'size' => 10,
+            'filter[authors.authority.id]' => 'same-name-2',
+            'filter[authors.name]' => 'Neznámy autor',
+        ]);
+
+        $this->getJson($searchByNameOrId)->assertJson([
+            'total' => 2,
         ]);
     }
 
