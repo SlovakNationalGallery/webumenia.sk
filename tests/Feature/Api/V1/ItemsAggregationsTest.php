@@ -144,7 +144,7 @@ class ItemsAggregationsTest extends TestCase
         app(ItemRepository::class)->refreshIndex();
 
         $this->getAggregations([
-            'filter' => ['authors' => ['name' => 'Galanda, Mikuláš']],
+            'filter' => ['authors.name' => ['Galanda, Mikuláš']],
             'terms' => ['authors' => 'authors'],
         ])->assertSimilarJson([
             'authors' => [

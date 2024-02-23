@@ -17,7 +17,8 @@ class ItemController extends Controller
 {
     private $filterables = [
         'author',
-        'authority_id',
+        'authors.name',
+        'authors.authority.id',
         'topic',
         'work_type',
         'medium',
@@ -293,6 +294,7 @@ class ItemController extends Controller
     protected function createQueryBuilder($q, $filter)
     {
         $builder = Query::bool();
+        $authorsBuilder = null;
 
         if ($q) {
             $query = Query::multiMatch()
@@ -309,6 +311,16 @@ class ItemController extends Controller
                     ->query(ItemRepository::buildBoolQueryForColor($color));
 
                 $builder->filter($colorQuery);
+                continue;
+            }
+
+            if ($field === 'authors.name' || $field === 'authors.authority.id') {
+                $authorsBuilder ??= Query::bool();
+                $authorsBuilder->should(
+                    is_array($value)
+                        ? ['terms' => ["$field.keyword" => $value]]
+                        : ['term' => ["$field.keyword" => $value]]
+                );
                 continue;
             }
 
@@ -338,6 +350,13 @@ class ItemController extends Controller
             }
         }
 
+        if ($authorsBuilder) {
+            $builder->filter(
+                Query::nested()
+                    ->path('authors')
+                    ->query($authorsBuilder)
+            );
+        }
         $builder->filter(['term' => ['frontend' => Frontend::get()]]);
         return $builder;
     }
