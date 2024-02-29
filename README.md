@@ -30,7 +30,7 @@ It requires
 
 -   PHP 8.1
 -   MySQL 8.0
--   Elasticsearch 7.3
+-   Elasticsearch 7.17
 
 We also provide a [Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) with a basic stack set-up.
 
