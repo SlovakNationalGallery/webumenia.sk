@@ -244,9 +244,9 @@ class ItemRepository extends TranslatableRepository
                             ['term' => ['has_image' => true]],
                             ['term' => ['has_iip' => true]],
                         ],
-                    ],
-                    'filter' => [
-                        ['term' => ['frontend' => Frontend::get()]],
+                        'filter' => [
+                            ['term' => ['frontend' => Frontend::get()]],
+                        ],
                     ],
                 ],
                 'sort' => [
