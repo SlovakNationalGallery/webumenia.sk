@@ -390,13 +390,9 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         $this->attributes['biography'] = $value ?: '';
     }
 
-    public function incrementViewCount($save = true)
+    public function incrementViewCount()
     {
-        $this->timestamps = false;
-        $this->view_count++;
-        if ($save) {
-            $this->save();
-        }
+        $this->updateQuietly(['view_count' => $this->view_count + 1]);
     }
 
     public function isCorporateBody()
