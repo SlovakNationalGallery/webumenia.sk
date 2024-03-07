@@ -8,7 +8,6 @@ use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\AuthoritySearchRequest;
 use App\Filter\Contracts\Filter;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
-use Illuminate\Pagination\AbstractPaginator;
 
 class AuthorController extends AbstractSearchRequestController
 {
@@ -49,7 +48,7 @@ class AuthorController extends AbstractSearchRequestController
             'author' => $author,
             'description' => $description,
             'html_description' => $htmlDescription,
-            'previewItems' => $this->itemRepository->getPreviewItems(10, $author),
+            'previewItems' => $author->previewItems,
         ]);
     }
 
@@ -64,11 +63,18 @@ class AuthorController extends AbstractSearchRequestController
     protected function getIndexData()
     {
         $data = parent::getIndexData();
-        /** @var AbstractPaginator $paginator */
         $paginator = $data['paginator'];
-        $paginator->getCollection()->each(function (Authority $authority) {
-            $authority->previewItems = $this->itemRepository->getPreviewItems(10, $authority);
-        });
+        $authority_ids = $paginator->getCollection()->pluck('id');
+
+        // Retrieve from DB with unindexed relationships
+        $authorities = Authority::whereIn('id', $authority_ids)
+            ->with(['previewItems', 'translations'])
+            ->orderByRaw('FIELD(id, ' . $authority_ids->join(',') . ')')
+            ->paginate($paginator->perPage())
+            ->collect();
+
+        $paginator->setCollection($authorities);
+
         return $data;
     }
 

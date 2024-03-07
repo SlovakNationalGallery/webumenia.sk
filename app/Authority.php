@@ -8,7 +8,6 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -106,6 +105,16 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function items()
     {
         return $this->belongsToMany(\App\Item::class);
+    }
+
+    public function previewItems()
+    {
+        return $this->items()
+            ->with('translations')
+            ->orWhere('has_image', true)
+            ->orWhereHas('images')
+            ->orderBy('created_at', 'asc')
+            ->limit(10);
     }
 
     public function record()

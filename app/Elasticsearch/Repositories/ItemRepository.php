@@ -229,36 +229,6 @@ class ItemRepository extends TranslatableRepository
         return $this->createSearchResult($response);
     }
 
-    public function getPreviewItems(int $size, Authority $authority, string $locale = null): Collection
-    {
-        $response = $this->elasticsearch->search([
-            'index' => $this->getLocalizedIndexName($locale),
-            'body' => [
-                'size' => $size,
-                'query' => [
-                    'bool' => [
-                        'must' => [
-                            ['term' => ['authority_id' => $authority->id]],
-                        ],
-                        'should' => [
-                            ['term' => ['has_image' => true]],
-                            ['term' => ['has_iip' => true]],
-                        ],
-                        'filter' => [
-                            ['term' => ['frontend' => Frontend::get()]],
-                        ],
-                    ],
-                ],
-                'sort' => [
-                    '_score',
-                    ['created_at' => ['order' => 'asc']],
-                ]
-            ],
-        ]);
-
-        return $this->createSearchResult($response)->getCollection();
-    }
-
     public function buildQueryFromFilter(?Filter $filter): ?array
     {
         if (!$filter) {
