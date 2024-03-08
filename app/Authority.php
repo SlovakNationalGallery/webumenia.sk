@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Lang;
 
 class Authority extends Model implements IndexableModel, TranslatableContract
 {
@@ -24,13 +25,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     const ARTWORKS_DIR = '/images/autori/';
 
-    public $translatedAttributes = [
-        'type_organization',
-        'biography',
-        'roles',
-        'birth_place',
-        'death_place',
-    ];
+    public $translatedAttributes = ['type_organization', 'biography', 'birth_place', 'death_place'];
 
     protected $fillable = [
         'id',
@@ -215,6 +210,17 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return $return_names;
     }
 
+    public function getRolesAttribute($value)
+    {
+        return collect(json_decode($value))
+            ->map(function ($role) {
+                return Lang::hasForLocale("authority.roles.$role")
+                    ? Lang::get("authority.roles.$role")
+                    : Lang::get("authority.roles.$role", [], 'sk');
+            })
+            ->filter();
+    }
+
     public function getPlacesAttribute($html = false)
     {
         $places = array_merge(
@@ -342,8 +348,12 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             throw new \RuntimeException();
         }
 
-        $translation = $this->translateOrNew($locale);
-        return [
+        $oldLocale = Lang::locale();
+        Lang::setLocale($locale);
+
+        $translation = $this->translateOrNew();
+
+        $result = [
             'id' => $this->id,
             'identifier' => $this->id,
             'name' => $this->name,
@@ -351,7 +361,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'related_name' => $this->relationships()->pluck('name'),
             'nationality' => $this->nationalities()->pluck('code'),
             'place' => $this->places,
-            'role' => $translation->roles,
+            'role' => $this->roles,
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
             'sex' => $this->sex,
@@ -367,6 +377,9 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'birth_place' => $translation->birth_place,
             'death_place' => $translation->death_place,
         ];
+
+        Lang::setLocale($oldLocale);
+        return $result;
     }
 
     /* pre atributy vo viacerych jazykoch
