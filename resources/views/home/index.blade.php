@@ -361,7 +361,7 @@
                                 </a>
                             </h3>
                             <div class="tw-mt-3 lg:tw-text-lg lg:tw-leading-snug">
-                                @foreach ($featuredAuthor->roles as $role)
+                                @foreach ($featuredAuthor->translatedRoles as $role)
                                     <a href="{{ route('frontend.author.index', ['role' => $role->indexed]) }}"
                                         class="tw-cursor-pointer hover:tw-underline">{{ $role->formatted }}</a>{{ $loop->last ? '' : ', ' }}
                                 @endforeach
