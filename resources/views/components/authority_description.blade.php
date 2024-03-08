@@ -31,12 +31,12 @@
             @if (!$author->isCorporateBody()) itemprop="deathPlace" @endif>{{ $author->death_place }}</a>
     @endif
 </p>
-@if ($author->roles)
+@if ($author->roles->count())
     <p class="lead" aria-label="{{ utrans('authority.roles_label') }}">
-        @foreach (collect($author->roles)->filter() as $role)
-            <a href="{{ route('frontend.author.index', ['role' => $role]) }}">
+        @foreach ($author->roles as $role)
+            <a href="{{ route('frontend.author.index', ['role' => $role->indexed]) }}">
                 <strong
-                    itemprop="{{ $author->isCorporateBody() ? 'knowsAbout' : 'jobTitle' }}">{{ trans_choice($role, $author->sex) }}</strong>
+                    itemprop="{{ $author->isCorporateBody() ? 'knowsAbout' : 'jobTitle' }}">{{ $role->formatted }}</strong>
             </a>{{ !$loop->last ? ', ' : '' }}
         @endforeach
     </p>

@@ -214,9 +214,17 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         return collect(json_decode($value))
             ->map(function ($role) {
-                return Lang::hasForLocale("authority.roles.$role")
-                    ? Lang::get("authority.roles.$role")
-                    : Lang::get("authority.roles.$role", [], 'sk');
+                // Use SK as fallback locale
+                $locale = Lang::hasForLocale("authority.roles.$role") ? Lang::getLocale() : 'sk';
+
+                if (!Lang::hasForLocale("authority.roles.$role", $locale)) {
+                    return null;
+                }
+
+                return (object) [
+                    'indexed' => Lang::choice("authority.roles.$role", 'male', [], $locale),
+                    'formatted' => Lang::choice("authority.roles.$role", $this->sex, [], $locale),
+                ];
             })
             ->filter();
     }
@@ -361,7 +369,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'related_name' => $this->relationships()->pluck('name'),
             'nationality' => $this->nationalities()->pluck('code'),
             'place' => $this->places,
-            'role' => $this->roles,
+            'role' => $this->roles->map->indexed,
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
             'sex' => $this->sex,
