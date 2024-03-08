@@ -69,6 +69,7 @@ class AuthorController extends AbstractSearchRequestController
         // Retrieve from DB with unindexed relationships
         $authorities = Authority::whereIn('id', $authority_ids)
             ->with(['previewItems', 'translations'])
+            ->withCount('items')
             ->orderByRaw('FIELD(id, ' . $authority_ids->join(',') . ')')
             ->paginate($paginator->perPage())
             ->collect();
