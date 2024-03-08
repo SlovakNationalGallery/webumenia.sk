@@ -7,7 +7,8 @@ use Tests\TestCase;
 
 class AuthorityMapperTest extends TestCase
 {
-    public function testMap() {
+    public function testMap()
+    {
         $mapper = new AuthorityMapper();
         $row = [
             'id' => ['urn:svk:psi:per:sng:0000000954'],
@@ -36,7 +37,7 @@ class AuthorityMapperTest extends TestCase
             'death_date' => '30.11.1991',
             'birth_year' => 1904,
             'death_year' => 1991,
-            'roles:sk' => ['fotograf'],
+            'roles' => ['fotograf/photographer'],
             'type_organization:sk' => 'Zbierkotvorná galéria',
             'birth_place:sk' => 'Považská Bystrica',
             'death_place:sk' => 'Bratislava',
