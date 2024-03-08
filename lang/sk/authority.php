@@ -59,7 +59,7 @@ return [
     'authors_found' => 'nájdení autori pre',
     'authors_counted' => 'autorov a autoriek',
     'authors_none' => 'momentálne žiadni autori',
-    'roles' => 'role',
+    'roles_label' => 'role',
     'sex' => [
         'male' => 'muž',
         'female' => 'žena',

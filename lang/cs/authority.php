@@ -59,7 +59,7 @@ return [
     'authors_found' => 'nalezení autoři pro',
     'authors_counted' => 'autorů',
     'authors_none' => 'momentálně žádní autoři',
-    'roles' => 'role',
+    'roles_label' => 'role',
     'sex' => [
         'male' => 'muž',
         'female' => 'žena',

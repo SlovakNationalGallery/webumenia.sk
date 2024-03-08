@@ -56,7 +56,7 @@ return [
     'authors_found' => 'artists found for',
     'authors_counted' => 'artists',
     'authors_none' => 'currently no artists',
-    'roles' => 'roles',
+    'roles_label' => 'roles',
     'sex' => [
         'male' => 'male',
         'female' => 'female',
