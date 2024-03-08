@@ -77,8 +77,9 @@
                             </div>
                             <div>
                                 @foreach ($author->roles as $i => $role)
-                                    <a href="{!! route('frontend.author.index', ['role' => $role]) !!}">
-                                        <strong>{{ $role }}</strong>
+                                    <a
+                                        href="{{ route('frontend.author.index', ['role' => $role->indexed]) }}">
+                                        <strong>{{ $role->formatted }}</strong>
                                     </a>{!! $i + 1 < count($author->roles) ? ', ' : '' !!}
                                 @endforeach
                             </div>
