@@ -32,8 +32,7 @@
     @endif
 </p>
 @if ($author->roles)
-    <p class="lead">
-        <span class="hidden"> | {{ utrans('authority.roles') }}:</span>
+    <p class="lead" aria-label="{{ utrans('authority.roles_label') }}">
         @foreach (collect($author->roles)->filter() as $role)
             <a href="{{ route('frontend.author.index', ['role' => $role]) }}">
                 <strong
