@@ -636,7 +636,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             if ($authority->pivot->role != 'autor/author') {
                 $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>' . ' &ndash; ' .
                 (isset($roles[$authority->pivot->role])
-                    ? trans('authority.role.' . $roles[$authority->pivot->role])
+                    ? trans('item.authority_roles.' . $roles[$authority->pivot->role])
                     : Authority::formatMultiAttribute($authority->pivot->role)
                 );
             } else {

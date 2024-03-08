@@ -1,32 +1,31 @@
 <?php
 
-return array(
-
+return [
     /*
     |--------------------------------------------------------------------------
     | Language Lines for autor.blade.php template
     |--------------------------------------------------------------------------
     */
 
-    'artworks'    => '{0}   <a href=":artworks_url"><strong>:artworks_count</strong></a> díl
+    'artworks' => '{0}   <a href=":artworks_url"><strong>:artworks_count</strong></a> díl
                      |{1}   <a href=":artworks_url"><strong>:artworks_count</strong></a> dílo
                      |[2,4] <a href=":artworks_url"><strong>:artworks_count</strong></a> díla
                      |[5,*] <a href=":artworks_url"><strong>:artworks_count</strong></a> díl',
     'collections' => '{0}    v <strong>:collections_count</strong> kolekcích
                      |{1}    v <strong>:collections_count</strong> kolekcí
                      |[2, *] v <strong>:collections_count</strong> kolekcích',
-    'views'       => '{0}   <strong>:view_count</strong> vidění
+    'views' => '{0}   <strong>:view_count</strong> vidění
                      |{1}   <strong>:view_count</strong> vidění
                      |[2,4] <strong>:view_count</strong> vidění
                      |[5, *]<strong>:view_count</strong> vidění',
 
-    'tags'              => 'tagy',
-    'back-to-artists'   => 'seznam autorů a autorek',
+    'tags' => 'tagy',
+    'back-to-artists' => 'seznam autorů a autorek',
     'alternative_names' => 'příp.',
-    'places'            => 'působení',
-    'external_links'    => 'externí odkazy',
-    'source_links'      => 'použité zdroje',
-    'relationships'     => 'vztahy',
+    'places' => 'působení',
+    'external_links' => 'externí odkazy',
+    'source_links' => 'použité zdroje',
+    'relationships' => 'vztahy',
 
     'artworks_by_artist' => '{male}díla autora|{female}díla autorky',
 
@@ -61,39 +60,8 @@ return array(
     'authors_counted' => 'autorů',
     'authors_none' => 'momentálně žádní autoři',
     'roles' => 'role',
-    'role'=>[
-        "author" => "autor",
-        "after" => "autor předlohy",
-        "atelier" => "ateliér",
-        "circle" => "okruh autora",
-        "copyist" => "kopisty",
-        "draft" => "autor návrhu",
-        "drawer" => "kreslíř",
-        "engraver" => "rytec",
-        "epigone" => "napodobitel",
-        "follower" => "následovník",
-        "former" => "původní určení",
-        "graphic" => "grafik",
-        "modifier" => "autor úpravy záznamu",
-        "office" => "studio",
-        "original" => "autor originálu",
-        "printer" => "tiskař",
-        "probably" => "pravděpodobně",
-        "probablyAfter" => "Pravděpodobný autor předlohy",
-        "probablyCircle" => "Pravděpodobně okruh autora",
-        "probablyDrawer" => "pravděpodobně kreslíř",
-        "probablyEngraver" => "pravděpodobně rytec",
-        "probablyPrinter" => "pravděpodobně tiskař",
-        "probablyWorkshop" => "Pravděpodobně dílna autora",
-        "producer" => "výrobcem",
-        "publisher" => "vydavatel",
-        "restorer" => "restaurátor",
-        "workshop" => "dílna autora",
-        "concept" => "autor konceptu",
-        "photograph" => "autor fotografie",
-    ],
-    'sex'=>[
+    'sex' => [
         'male' => 'muž',
         'female' => 'žena',
-    ]
-);
+    ],
+];
