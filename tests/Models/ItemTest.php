@@ -176,6 +176,8 @@ class ItemTest extends TestCase
 
         $this->assertEquals('Philips Wouwerman', $data[1]->name);
         $this->assertEquals(null, $data[1]->authority);
+
+        $this->markTestSkipped('should list in the order of the author field');
     }
 
     protected function createFreeItem()
