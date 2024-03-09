@@ -64,12 +64,16 @@ class AuthorController extends AbstractSearchRequestController
     {
         $data = parent::getIndexData();
         $paginator = $data['paginator'];
-        $authority_ids = $paginator->getCollection()->pluck('id');
+        $authorityIds = $paginator->getCollection()->pluck('id');
 
-        $authorities = Authority::whereIn('id', $authority_ids)
+        if ($authorityIds->isEmpty()) {
+            return $data;
+        }
+
+        $authorities = Authority::query()
+            ->whereIn('id', $authorityIds)
             ->with(['previewItems', 'translations'])
-            ->withCount('items')
-            ->orderByRaw('FIELD(id, ' . $authority_ids->join(',') . ')')
+            ->orderByRaw('FIELD(id, ' . $authorityIds->join(',') . ')')
             ->get();
 
         $paginator->setCollection($authorities);
