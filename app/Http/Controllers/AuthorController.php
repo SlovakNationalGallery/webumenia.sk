@@ -70,8 +70,7 @@ class AuthorController extends AbstractSearchRequestController
             ->with(['previewItems', 'translations'])
             ->withCount('items')
             ->orderByRaw('FIELD(id, ' . $authority_ids->join(',') . ')')
-            ->paginate($paginator->perPage())
-            ->collect();
+            ->get();
 
         $paginator->setCollection($authorities);
 
