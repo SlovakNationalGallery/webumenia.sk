@@ -6,6 +6,7 @@ use App\Contracts\IndexableModel;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -111,8 +112,9 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         return $this->items()
             ->with('translations')
-            ->orWhere('has_image', true)
-            ->orWhereHas('images')
+            ->where(function (Builder $query) {
+                $query->where('has_image', true)->orWhereHas('images');
+            })
             ->orderBy('created_at', 'asc')
             ->limit(10);
     }
