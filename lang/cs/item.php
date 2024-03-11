@@ -142,10 +142,10 @@ return [
     'untitled' => 'bez názvu',
     'work_types' => [
         'architektúra' => 'architektura',
-        'dizajn' => 'dizajn',
+        'dizajn' => 'design',
         'fotografia' => 'fotografie',
         'fotografia/negatív' => 'fotografie/negativ',
-        'grafický dizajn' => 'grafický dizajn',
+        'grafický dizajn' => 'grafický design',
         'grafika' => 'grafika',
         'iné médiá/video' => 'jiná média/video',
         'kresba' => 'kresba',
