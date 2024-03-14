@@ -3,16 +3,13 @@
 namespace Tests\Models;
 
 use App\Authority;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthorityTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testRoles()
     {
-        $authority = Authority::factory()->create([
+        $authority = Authority::factory()->make([
             'roles' => ['maliar/painter', 'untranslated-role'],
             'sex' => 'female',
         ]);
