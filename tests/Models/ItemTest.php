@@ -147,7 +147,7 @@ class ItemTest extends TestCase
         ]);
 
         $item = Item::factory()->make([
-            'author' => 'Philips Wouwerman; Vladimír Boudník',
+            'author' => 'Philips Wouwerman; ; Vladimír Boudník',
         ]);
         $item->authorities()->attach($authority);
 
