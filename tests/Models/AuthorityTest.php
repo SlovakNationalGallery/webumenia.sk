@@ -15,7 +15,7 @@ class AuthorityTest extends TestCase
         ]);
 
         $this->assertEquals(['maliar'], $authority->getIndexedData('sk')['role']->toArray());
-        $this->assertEquals(['maliar'], $authority->getIndexedData('cs')['role']->toArray());
+        $this->assertEquals([], $authority->getIndexedData('cs')['role']->toArray());
         $this->assertEquals(['painter'], $authority->getIndexedData('en')['role']->toArray());
 
         $this->assertEquals(

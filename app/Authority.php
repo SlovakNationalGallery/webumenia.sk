@@ -215,11 +215,13 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getTranslatedRolesAttribute()
     {
-        return collect($this->roles)
-            ->map(function ($role) {
-                // Use SK as fallback locale
-                $locale = Lang::hasForLocale("authority.roles.$role") ? Lang::getLocale() : 'sk';
+        return $this->getTranslatedRoles(Lang::getLocale());
+    }
 
+    private function getTranslatedRoles(string $locale)
+    {
+        return collect($this->roles)
+            ->map(function ($role) use ($locale) {
                 if (!Lang::hasForLocale("authority.roles.$role", $locale)) {
                     return null;
                 }
@@ -355,16 +357,15 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getIndexedData($locale)
     {
+        $locale ??= Lang::locale();
+
         if ($this->type !== 'person') {
             throw new \RuntimeException();
         }
 
-        $oldLocale = Lang::locale();
-        Lang::setLocale($locale ?? $oldLocale);
+        $translation = $this->translateOrNew($locale);
 
-        $translation = $this->translateOrNew();
-
-        $result = [
+        return [
             'id' => $this->id,
             'identifier' => $this->id,
             'name' => $this->name,
@@ -372,7 +373,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'related_name' => $this->relationships()->pluck('name'),
             'nationality' => $this->nationalities()->pluck('code'),
             'place' => $this->places,
-            'role' => $this->translatedRoles->pluck('indexed'),
+            'role' => $this->getTranslatedRoles($locale)->pluck('indexed'),
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
             'sex' => $this->sex,
@@ -388,9 +389,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'birth_place' => $translation->birth_place,
             'death_place' => $translation->death_place,
         ];
-
-        Lang::setLocale($oldLocale);
-        return $result;
     }
 
     /* pre atributy vo viacerych jazykoch
