@@ -140,6 +140,8 @@ class ItemsAggregationsTest extends TestCase
 
         $this->item1->authorities()->save($author1);
         $this->item2->authorities()->save($author2);
+        $this->item2->author = 'Wouwerman, Philips; Galanda, Mikuláš';
+        $this->item2->save();
 
         app(ItemRepository::class)->refreshIndex();
 
