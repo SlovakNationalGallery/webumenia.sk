@@ -396,10 +396,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $authorities->concat($authors);
     }
 
-
     public function getUniqueAuthorsWithAuthorityNames()
     {
-        return $this->authors_with_authorities->pluck('name')->filter();
+        return $this->authors_with_authorities
+            ->pluck('name')
+            ->filter()
+            ->values();
     }
 
     public function getFirstAuthorAttribute($value)
