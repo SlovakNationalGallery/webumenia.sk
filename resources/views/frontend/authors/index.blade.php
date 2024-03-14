@@ -76,11 +76,11 @@
                                 @endif
                             </div>
                             <div>
-                                @foreach ($author->translatedRoles as $i => $role)
+                                @foreach ($author->translatedRoles as $role)
                                     <a
                                         href="{{ route('frontend.author.index', ['role' => $role->indexed]) }}">
                                         <strong>{{ $role->formatted }}</strong>
-                                    </a>{!! $i + 1 < count($author->translatedRoles) ? ', ' : '' !!}
+                                    </a>{{ !$loop->last ? ', ' : '' }}
                                 @endforeach
                             </div>
                             <div>
