@@ -170,18 +170,16 @@ class ItemTest extends TestCase
         $data = $item->authors_with_authorities;
         $this->assertCount(3, $data);
 
-        $this->assertEquals('Philips Wouwerman', $data[0]->name);
-        $this->assertEquals(null, $data[0]->authority);
-
-        $this->assertEquals('Boudník, Vladimír', $data[1]->name);
-        $this->assertInstanceOf(Authority::class, $data[1]->authority);
-        $this->assertEquals($authority->id, $data[1]->authority->id);
-
-        // Order of the authors is preserved
+        // Order of the author field is preserved
         $this->assertEquals(
             ['Philips Wouwerman', 'Boudník, Vladimír', 'Mikuláš Galanda'],
             $data->pluck('name')->toArray()
         );
+
+        $this->assertEquals(null, $data[0]->authority);
+
+        $this->assertInstanceOf(Authority::class, $data[1]->authority);
+        $this->assertEquals($authority->id, $data[1]->authority->id);
     }
 
     protected function createFreeItem()
