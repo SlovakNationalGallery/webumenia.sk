@@ -20,7 +20,7 @@ class ItemsTest extends TestCase
         $item = Item::factory()->create([
             'id' => 'test_id',
             'title' => 'test_title',
-            'author' => 'Věšín, Jaroslav',
+            'author' => 'Wouwerman, Philips; Věšín, Jaroslav',
             'dating' => 2000,
             'date_earliest' => 2000,
             'date_latest' => 2010,
