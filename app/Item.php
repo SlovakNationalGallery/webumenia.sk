@@ -399,9 +399,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getUniqueAuthorsWithAuthorityNames()
     {
-        return $this->authors_with_authorities
-            ->pluck('name')
-            ->toArray();
+        return $this->authors_with_authorities->pluck('name')->filter();
     }
 
     public function getFirstAuthorAttribute($value)
