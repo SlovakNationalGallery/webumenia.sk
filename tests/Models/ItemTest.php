@@ -157,6 +157,22 @@ class ItemTest extends TestCase
         $this->assertEquals('Philips Wouwerman', $data['author'][1]);
     }
 
+    public function testEmptyAuthorityName()
+    {
+        $authority = Authority::factory()->create([
+            'name' => '',
+        ]);
+
+        $item = Item::factory()->make([
+            'author' => 'Manufaktúra Augarten',
+        ]);
+        $item->authorities()->attach($authority);
+
+        $data = $item->getIndexedData('sk');
+        $this->assertCount(1, $data['author']);
+        $this->assertEquals('Manufaktúra Augarten', $data['author'][0]);
+    }
+
     public function testAuthorsWithAuthoritiesAttribute()
     {
         $item = Item::factory()->make([
