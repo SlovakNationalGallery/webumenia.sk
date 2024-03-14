@@ -36,7 +36,7 @@ class ItemAuthoritiesType extends AbstractType
         $view->vars['roles_choices'] = json_encode(array_map(function ($role) {
             return  [
                 "key" => $role,
-                "value" => trans('item.authority_roles.' . config('authorityRoles')[$role])
+                "value" => trans(config('authorityRoles')[$role])
             ];
         }, array_keys(config('authorityRoles'))));
     }
