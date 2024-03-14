@@ -12,6 +12,7 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Searchable;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
@@ -379,21 +380,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getAuthorsWithAuthoritiesAttribute()
     {
-        $authorities = $this
-            ->authorities
-            ->map(fn ($authority) => (object) [
-                'name' => $authority->name,
-                'authority' => $authority
-            ]);
-
-        $authors = $this
-            ->getAuthorsWithoutAuthority()
-            ->map(fn ($author) => (object) [
-                'name' => $author,
-                'authority' => null
-            ]);
-
-        return $authorities->concat($authors);
+        return app(AuthorityMatcher::class)
+            ->matchAll($this, onlyExisting: true)
+            ->map(function (EloquentCollection $authorities, string $author) {
+                $authority = $authorities->first();
+                return (object) [
+                    'name' => $authority->name ?? $author,
+                    'authority' => $authority,
+                ];
+            })
+            ->values();
     }
 
     public function getUniqueAuthorsWithAuthorityNames()

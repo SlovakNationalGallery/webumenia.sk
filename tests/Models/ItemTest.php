@@ -153,8 +153,8 @@ class ItemTest extends TestCase
 
         $data = $item->getIndexedData('sk');
         $this->assertCount(2, $data['author']);
-        $this->assertEquals('Boudník, Vladimír', $data['author'][0]);
-        $this->assertEquals('Philips Wouwerman', $data['author'][1]);
+        $this->assertEquals('Philips Wouwerman', $data['author'][0]);
+        $this->assertEquals('Boudník, Vladimír', $data['author'][1]);
     }
 
     public function testEmptyAuthorityName()
@@ -186,14 +186,18 @@ class ItemTest extends TestCase
         $data = $item->authors_with_authorities;
         $this->assertCount(3, $data);
 
-        $this->assertEquals('Boudník, Vladimír', $data[0]->name);
-        $this->assertInstanceOf(Authority::class, $data[0]->authority);
-        $this->assertEquals($authority->id, $data[0]->authority->id);
+        $this->assertEquals('Philips Wouwerman', $data[0]->name);
+        $this->assertEquals(null, $data[0]->authority);
 
-        $this->assertEquals('Philips Wouwerman', $data[1]->name);
-        $this->assertEquals(null, $data[1]->authority);
+        $this->assertEquals('Boudník, Vladimír', $data[1]->name);
+        $this->assertInstanceOf(Authority::class, $data[1]->authority);
+        $this->assertEquals($authority->id, $data[1]->authority->id);
 
-        $this->markTestSkipped('should list in the order of the author field');
+        // Order of the authors is preserved
+        $this->assertEquals(
+            ['Philips Wouwerman', 'Boudník, Vladimír', 'Mikuláš Galanda'],
+            $data->pluck('name')->toArray()
+        );
     }
 
     protected function createFreeItem()
