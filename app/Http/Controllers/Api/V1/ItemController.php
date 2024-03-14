@@ -128,10 +128,10 @@ class ItemController extends Controller
                             'multi_terms' => [
                                 'terms' => [
                                     [
-                                        'field' => 'authors.name.keyword',
+                                        'field' => 'authors.name',
                                     ],
                                     [
-                                        'field' => 'authors.authority.id.keyword',
+                                        'field' => 'authors.authority.id',
                                         'missing' => '',
                                     ],
                                 ],
@@ -318,8 +318,8 @@ class ItemController extends Controller
                 $authorsBuilder ??= Query::bool();
                 $authorsBuilder->should(
                     is_array($value)
-                        ? ['terms' => ["$field.keyword" => $value]]
-                        : ['term' => ["$field.keyword" => $value]]
+                        ? ['terms' => [$field => $value]]
+                        : ['term' => [$field => $value]]
                 );
                 continue;
             }
