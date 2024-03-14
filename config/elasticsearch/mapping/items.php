@@ -22,6 +22,18 @@ $mapping = [
         ],
         'authors' => [
             'type' => 'nested',
+            'properties' => [
+                'name' => [
+                    'type' => 'keyword',
+                ],
+                'authority' => [
+                    'properties' => [
+                        'id' => [
+                            'type' => 'keyword',
+                        ],
+                    ],
+                ],
+            ],
         ],
         'authority_id' => [
             'type' => 'keyword',
