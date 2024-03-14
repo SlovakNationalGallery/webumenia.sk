@@ -74,7 +74,7 @@ class AuthorController extends AbstractSearchRequestController
         $authorities = Authority::query()
             ->whereIn('id', $authorityIds)
             ->with(['translations'])
-            ->orderByRaw('FIELD(id, ' . $authorityIds->join(',') . ')')
+            ->orderByRaw('FIELD(id, ' . $authorityIds->map(fn($id) => "'$id'")->join(',') . ')')
             ->get()
             ->map(function (Authority $authority, $index) use ($itemCounts) {
                 // Use indexed items_count to speed things up
