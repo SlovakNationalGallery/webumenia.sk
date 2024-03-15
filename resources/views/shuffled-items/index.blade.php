@@ -10,7 +10,7 @@
         <div class="tw-container tw-mx-auto tw-pt-12">
 
             @if (session('message'))
-                <x-admin.alert info>
+                <x-admin.alert info dismissable>
                     {{ session('message') }}
                 </x-admin.alert>
             @endif

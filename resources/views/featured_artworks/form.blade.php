@@ -4,7 +4,7 @@
     <div class="tailwind-rules admin">
         <div class="tw-container tw-max-w-screen-md tw-pt-12 mx-auto">
             @if ($errors->any())
-                <x-admin.alert danger>
+                <x-admin.alert danger dismissable>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li class="error">{{ $error }}</li>
