@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
-import { useApiClient } from './composables/useApiClient'
-import { useNewsletterSignupFormEvent } from './composables/useNewsletterSignupFormEvent'
+import { useApiClient } from '../composables/useApiClient'
+import { useFormEvent } from './useFormEvent'
 
 const apiClient = useApiClient()
-const { track } = useNewsletterSignupFormEvent()
+const { track } = useFormEvent()
 
 const props = defineProps(['url', 'trackingVariant'])
 

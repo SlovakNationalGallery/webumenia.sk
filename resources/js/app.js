@@ -72,8 +72,8 @@ Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLin
 Vue.component('bottom-modal', require('./components/BottomModal.vue').default);
 Vue.component('user-interaction-context', require('./components/UserInteractionContext.vue').default);
 Vue.component('livewire-vue-adaptor', require('./components/LivewireVueAdaptor.vue').default);
-Vue.component('newsletter-signup-form-controller', require('./components/NewsletterSignupFormController.vue').default);
-Vue.component('newsletter-signup-form-bottom-modal-controller', require('./components/NewsletterSignupFormBottomModalController.vue').default);
+Vue.component('newsletter-signup.form-controller', require('./components/newsletter-signup/FormController.vue').default);
+Vue.component('newsletter-signup.bottom-modal-controller', require('./components/newsletter-signup/BottomModalController.vue').default);
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
 

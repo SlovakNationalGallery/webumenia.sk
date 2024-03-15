@@ -1,7 +1,7 @@
 @props(['openOnScrolledPercent'])
 
 @unless(Cookie::get('newsletterSubscribedAt') || Cookie::get('newsletterSignupModalDismissedAt'))
-    <newsletter-signup-form-bottom-modal-controller
+    <newsletter-signup.bottom-modal-controller
         dismissal-url="{{ route('api.newsletter-subscriptions.dismiss') }}"
         :show-on-scrolled-percent="{{ $openOnScrolledPercent }}" v-slot="c">
         <bottom-modal :show="c.show" @open="c.onOpen" @close="c.onDismiss">
@@ -20,5 +20,5 @@
                 </div>
             </div>
         </bottom-modal>
-    </newsletter-signup-form-bottom-modal-controller>
+    </newsletter-signup.bottom-modal-controller>
 @endunless

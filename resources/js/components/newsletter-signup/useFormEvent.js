@@ -1,4 +1,4 @@
-export function useNewsletterSignupFormEvent() {
+export function useFormEvent() {
     function track(action, label = undefined) {
         if (!window?.dataLayer) {
             return

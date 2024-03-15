@@ -1,6 +1,6 @@
 @props(['trackingVariant' => 'inline'])
 
-<newsletter-signup-form-controller url="{{ route('api.newsletter-subscriptions.store') }}"
+<newsletter-signup.form-controller v-cloak url="{{ route('api.newsletter-subscriptions.store') }}"
     tracking-variant="{{ $trackingVariant }}" v-slot="c">
     <div class="row text-black">
         <div class="col-md-6">
@@ -57,4 +57,4 @@
             </div>
         </div>
     </div>
-</newsletter-signup-form-controller>
+</newsletter-signup.form-controller>
