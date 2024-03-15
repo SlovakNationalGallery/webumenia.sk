@@ -8,6 +8,7 @@ use App\Filter\Forms\Types\ItemSearchRequestType;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Services\Frontend;
+use DrewM\MailChimp\MailChimp;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -35,20 +36,24 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthoritySearchRequestType::class);
         $this->app->bind(ItemSearchRequestType::class);
 
-        $this->app->when(AuthorityRepository::class)
+        $this->app
+            ->when(AuthorityRepository::class)
             ->needs('$locales')
             ->give(config('translatable.locales'));
-        $this->app->when(ItemRepository::class)
+        $this->app
+            ->when(ItemRepository::class)
             ->needs('$locales')
             ->give(config('translatable.locales'));
 
-        $this->app->when(ItemImporter::class)
+        $this->app
+            ->when(ItemImporter::class)
             ->needs(BaseAuthorityMapper::class)
             ->give(function () {
                 return new BaseAuthorityMapper();
             });
 
-        $this->app->singleton(Frontend::class, fn () => new Frontend(FrontendEnum::WEBUMENIA));
+        $this->app->singleton(Frontend::class, fn() => new Frontend(FrontendEnum::WEBUMENIA));
+        $this->app->bind(MailChimp::class, fn() => new MailChimp(config('mailchimp.apiKey')));
     }
 
     public function boot()
@@ -77,9 +82,10 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-
     private function formatDate($expression, $format)
     {
-        return $expression? "<?php echo \Carbon\Carbon::parse($expression)->locale(App::getLocale())->isoFormat('$format'); ?>": "";
+        return $expression
+            ? "<?php echo \Carbon\Carbon::parse($expression)->locale(App::getLocale())->isoFormat('$format'); ?>"
+            : '';
     }
 }
