@@ -32,6 +32,10 @@ Route::resource('/articles', ArticleController::class)
 Route::resource('/newsletter-subscriptions', NewsletterSubscriptionController::class)->names(
     'api.newsletter-subscriptions'
 );
+Route::post('/newsletter-subscriptions/dismissals', [
+    NewsletterSubscriptionController::class,
+    'storeDismissal',
+])->name('api.newsletter-subscriptions.dismiss');
 
 Route::prefix('v1')
     ->name('api.v1.')

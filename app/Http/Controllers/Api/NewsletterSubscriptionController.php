@@ -43,4 +43,15 @@ class NewsletterSubscriptionController extends Controller
                 ->diffInMinutes()
         );
     }
+
+    public function storeDismissal()
+    {
+        return response('')->cookie(
+            'newsletterSignupModalDismissedAt',
+            Date::now()->toIso8601String(),
+            Date::now()
+                ->addDays(30)
+                ->diffInMinutes()
+        );
+    }
 }

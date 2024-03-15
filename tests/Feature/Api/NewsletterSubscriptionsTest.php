@@ -21,4 +21,10 @@ class NewsletterSubscriptionsTest extends TestCase
             ->assertStatus(201)
             ->assertCookie('newsletterSubscribedAt');
     }
+    public function test_dismissal()
+    {
+        $this->post(route('api.newsletter-subscriptions.dismiss'))
+            ->assertSuccessful()
+            ->assertCookie('newsletterSignupModalDismissedAt');
+    }
 }
