@@ -53,20 +53,20 @@ class RoleTranslationsController extends Controller
             ->whereNotNull('roles')
             ->distinct()
             ->pluck('roles')
-            ->reduce(fn(Collection $carry, array $row) => $carry->concat($row), collect())
+            ->flatten()
             ->unique()
             ->sort()
             ->map(function (string $id) {
                 return (object) [
                     'id' => $id,
                     'sk' => Lang::hasForLocale("authority.roles.{$id}", 'sk')
-                        ? Lang::get("authority.roles.{$id}", [], 'sk')
+                        ? Lang::get("authority.roles.{$id}", locale: 'sk')
                         : null,
                     'cs' => Lang::hasForLocale("authority.roles.{$id}", 'cs')
-                        ? Lang::get("authority.roles.{$id}", [], 'cs')
+                        ? Lang::get("authority.roles.{$id}", locale: 'cs')
                         : null,
                     'en' => Lang::hasForLocale("authority.roles.{$id}", 'en')
-                        ? Lang::get("authority.roles.{$id}", [], 'en')
+                        ? Lang::get("authority.roles.{$id}", locale: 'en')
                         : null,
                 ];
             });
