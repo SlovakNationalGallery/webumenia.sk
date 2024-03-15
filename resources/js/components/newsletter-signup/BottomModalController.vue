@@ -2,10 +2,10 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { debounce } from 'debounce'
 import { computed } from 'vue'
-import { useNewsletterSignupFormEvent } from './composables/useNewsletterSignupFormEvent'
-import { useApiClient } from './composables/useApiClient'
+import { useApiClient } from '../composables/useApiClient'
+import { useFormEvent } from './useFormEvent'
 
-const { track } = useNewsletterSignupFormEvent()
+const { track } = useFormEvent()
 const apiClient = useApiClient()
 
 const maxScrolledPercent = ref(0)
