@@ -1,6 +1,6 @@
 <script>
 import qs from 'qs'
-import { useApiClient } from '../useApiClient'
+import { useApiClient } from '../composables/useApiClient'
 import { useTitleUpdater } from './useTitleUpdater'
 
 function getParsedFilterFromUrl() {

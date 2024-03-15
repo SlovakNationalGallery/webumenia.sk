@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useApiClient } from './useApiClient'
+import { useApiClient } from './composables/useApiClient'
 import { useNewsletterSignupFormEvent } from './composables/useNewsletterSignupFormEvent'
 
 const apiClient = useApiClient()

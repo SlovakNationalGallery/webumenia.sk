@@ -3,7 +3,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { debounce } from 'debounce'
 import { computed } from 'vue'
 import { useNewsletterSignupFormEvent } from './composables/useNewsletterSignupFormEvent'
-import { useApiClient } from './useApiClient'
+import { useApiClient } from './composables/useApiClient'
 
 const { track } = useNewsletterSignupFormEvent()
 const apiClient = useApiClient()
