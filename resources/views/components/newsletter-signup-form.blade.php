@@ -1,7 +1,7 @@
-@props(['tracking-variant' => 'inline'])
+@props(['trackingVariant' => 'inline'])
 
 <newsletter-signup-form-controller url="{{ route('api.newsletter-subscriptions.store') }}"
-    v-slot="c">
+    tracking-variant="{{ $trackingVariant }}" v-slot="c">
     <div class="row text-black">
         <div class="col-md-6">
             <template v-if="c.success">
