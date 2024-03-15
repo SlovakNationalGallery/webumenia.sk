@@ -18,7 +18,6 @@ require('jquery.easing')
 // Components
 require('./components/searchbar')
 require('./components/clipboard-button')
-require('./components/newsletter-signup-form-tracker')
 
 // Vue components
 import Vue from 'vue'
@@ -71,7 +70,6 @@ Vue.component('copy-to-clipboard-group', require('./components/CopyToClipboardGr
 Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default);
 Vue.component('bottom-modal', require('./components/BottomModal.vue').default);
 Vue.component('user-interaction-context', require('./components/UserInteractionContext.vue').default);
-Vue.component('livewire-vue-adaptor', require('./components/LivewireVueAdaptor.vue').default);
 Vue.component('newsletter-signup.form-controller', require('./components/newsletter-signup/FormController.vue').default);
 Vue.component('newsletter-signup.bottom-modal-controller', require('./components/newsletter-signup/BottomModalController.vue').default);
 Vue.component('slider', require('./components/vue/slider').default);
