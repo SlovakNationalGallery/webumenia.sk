@@ -31,9 +31,9 @@
                 </x-admin.alert>
             @endif
 
-            {{-- <x-admin.button btn primary outline :link="route('authority.role_translations.download')">
+            <x-admin.button sm btn primary outline :link="route('authority.role-translations.download')" class="ml-2">
                 <i class="fa fa-download"></i> Stiahnuť ako CSV
-            </x-admin.button> --}}
+            </x-admin.button>
 
             <div class="tw-mt-4 tw-overflow-hidden tw-rounded-sm">
                 <table class="tw-w-full tw-text-sm">

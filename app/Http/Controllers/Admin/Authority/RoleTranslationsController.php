@@ -6,12 +6,49 @@ use App\Authority;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Lang;
+use League\Csv\Writer;
 
 class RoleTranslationsController extends Controller
 {
     public function index()
     {
-        $translations = Authority::query()
+        $translations = $this->getTranslations();
+
+        $missingCount = $translations->reduce(function (int $carry, $translations) {
+            if ($translations->sk === null) {
+                $carry++;
+            }
+            if ($translations->cs === null) {
+                $carry++;
+            }
+            if ($translations->en === null) {
+                $carry++;
+            }
+            return $carry;
+        }, 0);
+
+        return view('authorities.role-translations.index', compact('translations', 'missingCount'));
+    }
+
+    public function download()
+    {
+        $csv = Writer::createFromString();
+        $csv->insertOne(['id', 'sk', 'cs', 'en']);
+
+        $rows = $this->getTranslations()
+            ->map(fn($t) => [$t->id, $t->sk, $t->cs, $t->en])
+            ->toArray();
+
+        $csv->insertAll($rows);
+
+        return response($csv->toString())
+            ->header('Content-Type', 'text/csv')
+            ->header('Content-Disposition', 'attachment; filename=role_translations.csv');
+    }
+
+    private function getTranslations()
+    {
+        return Authority::query()
             ->select('roles')
             ->whereNotNull('roles')
             ->distinct()
@@ -33,20 +70,5 @@ class RoleTranslationsController extends Controller
                         : null,
                 ];
             });
-
-        $missingCount = $translations->reduce(function (int $carry, $translations) {
-            if ($translations->sk === null) {
-                $carry++;
-            }
-            if ($translations->cs === null) {
-                $carry++;
-            }
-            if ($translations->en === null) {
-                $carry++;
-            }
-            return $carry;
-        }, 0);
-
-        return view('authorities.role_translations.index', compact('translations', 'missingCount'));
     }
 }

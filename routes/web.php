@@ -491,6 +491,9 @@ Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::get('authority/role-translations', [RoleTranslationsController::class, 'index'])->name(
         'authority.role-translations.index'
     );
+    Route::get('authority/role-translations/download', [RoleTranslationsController::class, 'download'])->name(
+        'authority.role-translations.download'
+    );
     Route::resource('authority', AuthorityController::class);
     Route::resource('sketchbook', SketchbookController::class);
     Route::resource('notices', NoticeController::class);
