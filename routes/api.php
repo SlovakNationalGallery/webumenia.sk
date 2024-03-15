@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\ArticleController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\NewsletterSubscriptionController;
 use App\Http\Controllers\Api\SharedUserCollectionController;
 use App\Http\Controllers\Api\TrackFeaturedPieceClick;
 use App\Http\Controllers\Api\V1\ItemController as V1ItemController;
 use App\Http\Controllers\Api\V2\ItemController as V2ItemController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
 Route::resource('/articles', ArticleController::class)
     ->names('api.articles')
     ->only(['show']);
+
+Route::resource('/newsletter-subscriptions', NewsletterSubscriptionController::class)->names(
+    'api.newsletter-subscriptions'
+);
 
 Route::prefix('v1')
     ->name('api.v1.')
