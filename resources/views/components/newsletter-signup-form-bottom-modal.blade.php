@@ -1,10 +1,10 @@
 @props(['openOnScrolledPercent'])
 
 @unless(Cookie::get('newsletterSubscribedAt') || Cookie::get('newsletterSignupModalDismissedAt'))
-    <user-interaction-context v-slot="interaction">
-        <bottom-modal
-            :show="interaction.maxScrolledPercent >= {{ $openOnScrolledPercent }} && interaction.timeSpentSeconds >= 1"
-            show {{-- @open="c.onOpen" @close="c.onDismiss" --}}>
+    <newsletter-signup-form-bottom-modal-controller
+        dismissal-url="{{ route('api.newsletter-subscriptions.dismiss') }}"
+        :show-on-scrolled-percent="{{ $openOnScrolledPercent }}" v-slot="c">
+        <bottom-modal :show="c.show" @open="c.onOpen" @close="c.onDismiss">
             <div class="row py-5">
                 <div class="visible-lg-block col-lg-1 col-lg-offset-2 text-right pl-0 pt-4">
                     <svg viewBox="0 0 101 110" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,5 +20,5 @@
                 </div>
             </div>
         </bottom-modal>
-    </user-interaction-context>
+    </newsletter-signup-form-bottom-modal-controller>
 @endunless
