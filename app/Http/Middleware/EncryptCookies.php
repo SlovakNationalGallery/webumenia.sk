@@ -12,6 +12,8 @@ class EncryptCookies extends BaseEncrypter
      * @var array
      */
     protected $except = [
-        //
+        // TODO replace newsletter cookies with encrypted cookies
+        'newsletterSubscribedAt',
+        'newsletterSignupModalDismissedAt',
     ];
 }

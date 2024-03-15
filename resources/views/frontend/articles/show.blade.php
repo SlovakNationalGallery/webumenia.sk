@@ -126,7 +126,7 @@
     </div>
 </section>
 
-<livewire:newsletter-signup-form-bottom-modal open-on-scrolled-percent="40" />
+<x-newsletter-signup-form-bottom-modal open-on-scrolled-percent="40" />
 
 {{--
 mapa??

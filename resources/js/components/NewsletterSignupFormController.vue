@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useApiClient } from './useApiClient'
+import { useNewsletterSignupFormEvent } from './composables/useNewsletterSignupFormEvent'
 
 const apiClient = useApiClient()
+const { track } = useNewsletterSignupFormEvent()
 
 const props = defineProps(['url', 'trackingVariant'])
 
@@ -25,19 +27,6 @@ async function submit(event) {
     } finally {
         loading.value = false
     }
-}
-
-function track(action, label = undefined) {
-    if (!window?.dataLayer) {
-        return
-    }
-
-    window.dataLayer.push({
-        event: 'NewsletterSignupFormEvent',
-        eventCategory: 'NewsletterSignupForm',
-        eventAction: action,
-        eventLabel: label,
-    })
 }
 </script>
 
