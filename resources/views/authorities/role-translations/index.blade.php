@@ -55,7 +55,7 @@
                                         {{ $t->sk }}
                                     @else
                                         <span
-                                            class="px-2 py-1 tw-inline-block tw-rounded-full tw-bg-orange-400 tw-text-xs tw-text-white">Chýba</span>
+                                            class="tw-inline-block tw-rounded-full tw-bg-orange-400 tw-px-1.5 tw-py-0.5 tw-text-xs tw-text-white">Chýba</span>
                                     @endif
                                 </td>
                                 <td class="tw-p-2 tw-align-top">
@@ -63,7 +63,7 @@
                                         {{ $t->cs }}
                                     @else
                                         <span
-                                            class="px-2 py-1 tw-inline-block tw-rounded-full tw-bg-orange-400 tw-text-xs tw-text-white">Chýba</span>
+                                            class="tw-inline-block tw-rounded-full tw-bg-orange-400 tw-px-1.5 tw-py-0.5 tw-text-xs tw-text-white">Chýba</span>
                                     @endif
                                 </td>
                                 <td class="tw-p-2 tw-align-top">
@@ -71,7 +71,7 @@
                                         {{ $t->en }}
                                     @else
                                         <span
-                                            class="px-2 py-1 tw-inline-block tw-rounded-full tw-bg-orange-400 tw-text-xs tw-text-white">Chýba</span>
+                                            class="tw-inline-block tw-rounded-full tw-bg-orange-400 tw-px-1.5 tw-py-0.5 tw-text-xs tw-text-white">Chýba</span>
                                     @endif
                                 </td>
                             </tr>
