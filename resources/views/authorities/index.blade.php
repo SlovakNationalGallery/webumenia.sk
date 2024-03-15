@@ -27,8 +27,9 @@ autority |
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{!! route('authority.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
-                <a href="{!! URL::to('authority/reindex') !!}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
+                <a href="{{ route('authority.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
+                <a href="{{ URL::to('authority/reindex') }}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
+                <a href="{{ route('authority.role-translations.index') }}" class="btn btn-primary btn-outline">Preklady rolí</a>
                 Akcie pre vybraté: <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
             </div>
             <!-- /.panel-heading -->
