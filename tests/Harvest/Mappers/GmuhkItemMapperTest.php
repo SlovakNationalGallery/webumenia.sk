@@ -22,7 +22,7 @@ class GmuhkItemMapperTest extends TestCase
             'medium' => ['papír'],
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
             'gallery' => ['Galerie moderního umění v Hradci Králové'],
-            'work_type' => ['publikacePredmetu:GMUHK:151:G'],
+            'work_type' => ['publikacePredmetu:GMUHK:151:G:Gr'],
         ];
 
         $mapped = $mapper->map($row);

@@ -18,13 +18,22 @@ class GmuhkItemMapper extends AbstractMapper
     }
 
     protected array $workTypeTranslationKeys = [
-        'F' => 'fotografia',
-        'G' => 'grafika',
-        'K' => 'kresba',
-        'O' => 'maliarstvo',
-        'P' => 'sochárstvo/plastika',
-        'VA' => 'iné médiá/video',
-        'GVP' => 'sochárstvo/skulptúra',
+        'publikacePredmetu:GMUHK:151:F' => 'fotografia',
+        'publikacePredmetu:GMUHK:151:F:Fo' => 'fotografia',
+        'publikacePredmetu:GMUHK:151:G:Gr' => 'grafika',
+        'publikacePredmetu:GMUHK:151:K:Kr' => 'kresba',
+        'publikacePredmetu:GMUHK:151:O:Ob' => 'maliarstvo',
+        'publikacePredmetu:GMUHK:151:P' => 'sochárstvo/plastika',
+        'publikacePredmetu:GMUHK:151:P:In' => 'sochárstvo/plastika',
+        'publikacePredmetu:GMUHK:151:P:So' => 'sochárstvo/plastika',
+        'publikacePredmetu:GMUHK:151:VA' => 'iné médiá/video',
+        'publikacePredmetu:GMUHK:VA:VA' => 'iné médiá/video',
+        'publikacePredmetu:GVP:2535:GVP:So' => 'sochárstvo/skulptúra',
+        'publikacePredmetu:SKT:2021:SKT:Fo' => 'fotografia',
+        'publikacePredmetu:SKT:2021:SKT:Gr' => 'grafika',
+        'publikacePredmetu:SKT:2021:SKT:Kr' => 'kresba',
+        'publikacePredmetu:SKT:2021:SKT:Ob' => 'maliarstvo',
+        'publikacePredmetu:SKT:2021:SKT:So' => 'sochárstvo',
     ];
 
     public function mapId(array $row): string
@@ -52,8 +61,7 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapWorkType(array $row, $locale)
     {
-        $matches = $this->parseIdentifier($row['id'][0]);
-        $key = $this->workTypeTranslationKeys[$matches['work_type']];
+        $key = $this->workTypeTranslationKeys[$row['work_type'][0]];
         return trans("item.work_types.$key", locale: $locale);
     }
 
