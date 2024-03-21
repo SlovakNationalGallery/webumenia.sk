@@ -2,7 +2,7 @@ FROM php:8.1-fpm
 
 ARG WITH_XDEBUG=false
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get update -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
