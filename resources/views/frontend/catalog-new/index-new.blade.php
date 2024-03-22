@@ -932,7 +932,7 @@
                                                         enter-active-class="tw-transition tw-duration-100"
                                                         leave-active-class="tw-transition tw-duration-100">
                                                         <div v-if="pc.isOpen"
-                                                            v-on-clickaway="pc.closeOpenedPopover"
+                                                            v-click-away="pc.closeOpenedPopover"
                                                             class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
 
                                                             <ul>

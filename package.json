@@ -59,10 +59,10 @@
         "slick-carousel": "1.7.1",
         "tinycolor2": "1.4.2",
         "typeahead.js": "^0.10.5",
-        "vue-clickaway": "^2.2.2",
         "vue-dragscroll": "^3.0.1",
         "vue-masonry": "^0.12.0",
         "vue-select": "^3.11.2",
-        "vue-slider-component": "^4.1.0-beta.7"
+        "vue-slider-component": "^4.1.0-beta.7",
+        "vue3-click-away": "^1.2.4"
     }
 }
