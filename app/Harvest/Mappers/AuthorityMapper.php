@@ -6,7 +6,8 @@ use Illuminate\Support\Str;
 
 class AuthorityMapper extends BaseAuthorityMapper
 {
-    public function mapType(array $row) {
+    public function mapType(array $row)
+    {
         if (!isset($row['type'])) {
             return null;
         }
@@ -15,21 +16,24 @@ class AuthorityMapper extends BaseAuthorityMapper
         }, $row['type']);
     }
 
-    public function mapTypeOrganization(array $row) {
+    public function mapTypeOrganization(array $row)
+    {
         if (!isset($row['type_organization'])) {
             return null;
         }
         return $row['type_organization'];
     }
 
-    public function mapName(array $row) {
+    public function mapName(array $row)
+    {
         if (!isset($row['name'])) {
             return null;
         }
         return $row['name'];
     }
 
-    public function mapSex(array $row) {
+    public function mapSex(array $row)
+    {
         if (!isset($row['sex'])) {
             return null;
         }
@@ -38,67 +42,69 @@ class AuthorityMapper extends BaseAuthorityMapper
         }, $row['sex']);
     }
 
-    public function mapBirthPlace(array $row, $locale) {
+    public function mapBirthPlace(array $row, $locale)
+    {
         if (isset($row['birth_place'][0])) {
             return $this->chooseTranslation($row['birth_place'][0], $locale);
         }
     }
 
-    public function mapDeathPlace(array $row, $locale) {
+    public function mapDeathPlace(array $row, $locale)
+    {
         if (isset($row['death_place'][0])) {
             return $this->chooseTranslation($row['death_place'][0], $locale);
         }
     }
 
-    public function mapBirthDate(array $row) {
+    public function mapBirthDate(array $row)
+    {
         if (!isset($row['birth_date'])) {
             return null;
         }
         return $row['birth_date'];
     }
 
-    public function mapDeathDate(array $row) {
+    public function mapDeathDate(array $row)
+    {
         if (!isset($row['death_date'])) {
             return null;
         }
         return $row['death_date'];
     }
 
-    public function mapBirthYear(array $row) {
+    public function mapBirthYear(array $row)
+    {
         if (isset($row['birth_date'][0])) {
             return $this->parseYear($row['birth_date'][0]);
         }
     }
 
-    public function mapDeathYear(array $row) {
+    public function mapDeathYear(array $row)
+    {
         if (isset($row['death_date'][0])) {
             return $this->parseYear($row['death_date'][0]);
         }
     }
 
-    public function mapRoles(array $row, $locale) {
+    public function mapRoles(array $row)
+    {
         if (!isset($row['roles'])) {
             return null;
         }
-
-        $roles = [];
-        foreach ($row['roles'] as $role) {
-            $roles[] = $this->chooseTranslation($role, $locale);
-        }
-
-        return $roles ?: null;
+        return $row['roles'];
     }
 
     /**
      * @param string $date
      * @return int|null
      */
-    public function parseYear($date) {
+    public function parseYear($date)
+    {
         $exploded = explode('.', $date);
         $end = end($exploded);
         if ($end === '') {
             return null;
         }
-        return (int)$end;
+        return (int) $end;
     }
 }

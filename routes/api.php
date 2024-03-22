@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SharedUserCollectionController;
 use App\Http\Controllers\Api\TrackFeaturedPieceClick;
@@ -23,6 +24,10 @@ Route::resource('/shared-user-collections', SharedUserCollectionController::clas
 
 Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
 
+Route::resource('/articles', ArticleController::class)
+    ->names('api.articles')
+    ->only(['show']);
+
 Route::prefix('v1')
     ->name('api.v1.')
     ->group(function () {
@@ -30,7 +35,19 @@ Route::prefix('v1')
         Route::get('items/aggregations', [V1ItemController::class, 'aggregations'])->name(
             'items.aggregations'
         );
+        Route::get('items/catalog-title', [V1ItemController::class, 'catalogTitle'])->name(
+            'items.catalog-title'
+        );
+        Route::get('items/suggestions', [V1ItemController::class, 'suggestions'])->name(
+            'items.suggestions'
+        );
         Route::get('items/{id}', [V1ItemController::class, 'detail'])->name('items.show');
+        Route::get('items/{id}/similar', [V1ItemController::class, 'similar'])->name(
+            'items.similar'
+        );
+        Route::post('items/{id}/views', [V1ItemController::class, 'incrementViewCount'])->name(
+            'items.views'
+        );
     });
 
 Route::prefix('v2')->group(function () {

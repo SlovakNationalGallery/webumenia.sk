@@ -1,6 +1,7 @@
 <script>
 import qs from 'qs'
-import axios from 'axios'
+import { useApiClient } from '../useApiClient'
+import { useTitleUpdater } from './useTitleUpdater'
 
 function getParsedFilterFromUrl() {
     const parsedUrl = qs.parse(window.location.search, {
@@ -24,6 +25,10 @@ function getParsedFilterFromUrl() {
 }
 
 function stringifyUrl({ url, params }) {
+    return url + '?' + stringifyUrlQuery(params)
+}
+
+function stringifyUrlQuery(params) {
     const { filter, size, terms, page, min, max } = params
     const {
         yearRange,
@@ -72,7 +77,8 @@ function stringifyUrl({ url, params }) {
         size,
         q,
     }
-    return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
+
+    return qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
 const PAGE_SIZE = 30
@@ -112,8 +118,14 @@ const AGGREGATIONS_TERMS = {
 }
 
 export default {
+    setup(props) {
+        const apiClient = useApiClient()
+        const { refreshTitle } = useTitleUpdater(props.titleStaticPartSeparator, props.locale)
+
+        return { apiClient, refreshTitle }
+    },
     props: {
-        locale: String,
+        titleStaticPartSeparator: String,
     },
     data() {
         return {
@@ -132,11 +144,6 @@ export default {
         this.fetchArtworks({ replaceArtworks: true })
     },
     computed: {
-        apiHeaders() {
-            return {
-                'Accept-Language': this.locale,
-            }
-        },
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) =>
@@ -252,7 +259,7 @@ export default {
         },
         async fetchAggregations() {
             try {
-                const aggregations = await axios
+                const aggregations = await this.apiClient
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items/aggregations',
@@ -263,8 +270,7 @@ export default {
                                 min: { date_earliest: 'date_earliest' },
                                 max: { date_latest: 'date_latest' },
                             },
-                        }),
-                        { headers: this.apiHeaders }
+                        })
                     )
                     .then(({ data }) => data)
 
@@ -280,7 +286,7 @@ export default {
         async fetchArtworks({ append }) {
             this.isFetchingArtworks = true
             try {
-                const fetchedArtworks = await axios
+                const fetchedArtworks = await this.apiClient
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items',
@@ -289,8 +295,7 @@ export default {
                                 size: PAGE_SIZE,
                                 page: this.page,
                             },
-                        }),
-                        { headers: this.apiHeaders }
+                        })
                     )
                     .then(({ data }) => data)
 
@@ -314,13 +319,16 @@ export default {
             }
         },
         query(newQuery) {
-            this.page = 1
-            this.fetchAggregations()
-            this.fetchArtworks({ append: false })
+            const newParams = { filter: { ...newQuery } }
             const newUrl = stringifyUrl({
                 url: window.location.pathname,
-                params: { filter: { ...newQuery } },
+                params: newParams,
             })
+
+            this.page = 1
+            this.refreshTitle(stringifyUrlQuery(newParams))
+            this.fetchAggregations()
+            this.fetchArtworks({ append: false })
 
             window.history.replaceState(
                 newUrl,

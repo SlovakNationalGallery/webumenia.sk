@@ -8,7 +8,6 @@ use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\AuthoritySearchRequest;
 use App\Filter\Contracts\Filter;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
-use Illuminate\Pagination\AbstractPaginator;
 
 class AuthorController extends AbstractSearchRequestController
 {
@@ -49,7 +48,7 @@ class AuthorController extends AbstractSearchRequestController
             'author' => $author,
             'description' => $description,
             'html_description' => $htmlDescription,
-            'previewItems' => $this->itemRepository->getPreviewItems(10, $author),
+            'previewItems' => $author->previewItems,
         ]);
     }
 
@@ -64,11 +63,27 @@ class AuthorController extends AbstractSearchRequestController
     protected function getIndexData()
     {
         $data = parent::getIndexData();
-        /** @var AbstractPaginator $paginator */
         $paginator = $data['paginator'];
-        $paginator->getCollection()->each(function (Authority $authority) {
-            $authority->previewItems = $this->itemRepository->getPreviewItems(10, $authority);
-        });
+        $authorityIds = $paginator->getCollection()->pluck('id');
+        $itemCounts = $paginator->getCollection()->pluck('items_count');
+
+        if ($authorityIds->isEmpty()) {
+            return $data;
+        }
+
+        $authorities = Authority::query()
+            ->whereIn('id', $authorityIds)
+            ->with(['translations'])
+            ->orderByRaw('FIELD(id, ' . $authorityIds->map(fn($id) => "'$id'")->join(',') . ')')
+            ->get()
+            ->map(function (Authority $authority, $index) use ($itemCounts) {
+                // Use indexed items_count to speed things up
+                $authority->items_count = $itemCounts[$index];
+                return $authority;
+            });
+
+        $paginator->setCollection($authorities);
+
         return $data;
     }
 

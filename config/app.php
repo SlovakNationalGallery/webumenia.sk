@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\FrontendEnum;
 use Illuminate\Support\Facades\Facade;
 
 return [

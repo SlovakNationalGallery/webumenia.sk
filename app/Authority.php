@@ -6,13 +6,14 @@ use App\Contracts\IndexableModel;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Lang;
 
 class Authority extends Model implements IndexableModel, TranslatableContract
 {
@@ -25,13 +26,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     const ARTWORKS_DIR = '/images/autori/';
 
-    public $translatedAttributes = [
-        'type_organization',
-        'biography',
-        'roles',
-        'birth_place',
-        'death_place',
-    ];
+    public $translatedAttributes = ['type_organization', 'biography', 'birth_place', 'death_place'];
 
     protected $fillable = [
         'id',
@@ -74,6 +69,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     protected $casts = [
         'has_image' => 'boolean',
+        'roles' => 'array',
     ];
 
     public $incrementing = false;
@@ -106,6 +102,17 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function items()
     {
         return $this->belongsToMany(\App\Item::class);
+    }
+
+    public function previewItems()
+    {
+        return $this->items()
+            ->with('translations')
+            ->where(function (Builder $query) {
+                $query->where('has_image', true)->orWhereHas('images');
+            })
+            ->orderBy('created_at', 'asc')
+            ->limit(10);
     }
 
     public function record()
@@ -204,6 +211,27 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         }
 
         return $return_names;
+    }
+
+    public function getTranslatedRolesAttribute()
+    {
+        return $this->getTranslatedRoles(Lang::getLocale());
+    }
+
+    private function getTranslatedRoles(string $locale)
+    {
+        return collect($this->roles)
+            ->map(function ($role) use ($locale) {
+                if (!Lang::hasForLocale("authority.roles.$role", $locale)) {
+                    return null;
+                }
+
+                return (object) [
+                    'indexed' => Lang::choice("authority.roles.$role", 'male', [], $locale),
+                    'formatted' => Lang::choice("authority.roles.$role", $this->sex, [], $locale),
+                ];
+            })
+            ->filter();
     }
 
     public function getPlacesAttribute($html = false)
@@ -329,11 +357,14 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getIndexedData($locale)
     {
+        $locale ??= Lang::locale();
+
         if ($this->type !== 'person') {
             throw new \RuntimeException();
         }
 
         $translation = $this->translateOrNew($locale);
+
         return [
             'id' => $this->id,
             'identifier' => $this->id,
@@ -342,7 +373,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'related_name' => $this->relationships()->pluck('name'),
             'nationality' => $this->nationalities()->pluck('code'),
             'place' => $this->places,
-            'role' => $translation->roles,
+            'role' => $this->getTranslatedRoles($locale)->pluck('indexed'),
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
             'sex' => $this->sex,
@@ -390,13 +421,9 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         $this->attributes['biography'] = $value ?: '';
     }
 
-    public function incrementViewCount($save = true)
+    public function incrementViewCount()
     {
-        $this->timestamps = false;
-        $this->view_count++;
-        if ($save) {
-            $this->save();
-        }
+        $this->updateQuietly(['view_count' => $this->view_count + 1]);
     }
 
     public function isCorporateBody()

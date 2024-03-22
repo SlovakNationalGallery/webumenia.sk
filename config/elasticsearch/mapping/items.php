@@ -17,17 +17,32 @@ $mapping = [
                     'type' => 'text',
                     'analyzer' => 'autocomplete_analyzer',
                     'search_analyzer' => 'asciifolding_analyzer',
-                ]
-            ]
+                ],
+            ],
+        ],
+        'authors' => [
+            'type' => 'nested',
+            'properties' => [
+                'name' => [
+                    'type' => 'keyword',
+                ],
+                'authority' => [
+                    'properties' => [
+                        'id' => [
+                            'type' => 'keyword',
+                        ],
+                    ],
+                ],
+            ],
         ],
         'authority_id' => [
             'type' => 'keyword',
         ],
         'color_descriptor' => [
-            'type' => 'float'
+            'type' => 'float',
         ],
         'contributor' => [
-            'type' => 'keyword'
+            'type' => 'keyword',
         ],
         'created_at' => [
             'type' => 'date',
@@ -52,8 +67,8 @@ $mapping = [
                 'stemmed' => [
                     'type' => 'text',
                     'analyzer' => 'default_analyzer',
-                ]
-            ]
+                ],
+            ],
         ],
         'free_download' => [
             'type' => 'boolean',
@@ -71,7 +86,7 @@ $mapping = [
             'type' => 'boolean',
         ],
         'image_ratio' => [
-            'type' => 'float'
+            'type' => 'float',
         ],
         'id' => [
             'type' => 'keyword',
@@ -93,9 +108,9 @@ $mapping = [
             'fields' => [
                 'folded' => [
                     'type' => 'text',
-                    'analyzer' => 'asciifolding_analyzer'
-                ]
-            ]
+                    'analyzer' => 'asciifolding_analyzer',
+                ],
+            ],
         ],
         'related_work' => [
             'type' => 'keyword',
@@ -110,8 +125,8 @@ $mapping = [
                 'stemmed' => [
                     'type' => 'text',
                     'analyzer' => 'default_analyzer',
-                ]
-            ]
+                ],
+            ],
         ],
         'technique' => [
             'type' => 'keyword',
@@ -131,8 +146,8 @@ $mapping = [
                     'type' => 'text',
                     'analyzer' => 'autocomplete_analyzer',
                     'search_analyzer' => 'asciifolding_analyzer',
-                ]
-            ]
+                ],
+            ],
         ],
         'topic' => [
             'type' => 'keyword',
@@ -140,8 +155,8 @@ $mapping = [
                 'folded' => [
                     'type' => 'text',
                     'analyzer' => 'asciifolding_analyzer',
-                ]
-            ]
+                ],
+            ],
         ],
         'updated_at' => [
             'type' => 'date',
@@ -164,7 +179,7 @@ $mapping = [
             'type' => 'nested',
         ],
         'additionals' => [
-            'type' => 'object'
+            'type' => 'object',
         ],
         'images' => [
             'type' => 'keyword',
@@ -176,6 +191,9 @@ $mapping = [
             'type' => 'keyword',
         ],
         'location' => [
+            'type' => 'keyword',
+        ],
+        'frontend' => [
             'type' => 'keyword',
         ],
     ],

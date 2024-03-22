@@ -233,4 +233,29 @@ class FakeRecordFactory
             $overrides
         );
     }
+
+    public static function buildMudbItem($overrides = [])
+    {
+        return array_merge(
+            [
+                'id' => ['oai:museion-online.cz:MUDB~publikacePredmetu~00288'],
+                'identifier' => ['K_288'],
+                'title' => ['Pro mír a život'],
+                'gallery' => ['Muzeum umění a designu Benešov'],
+                'datestamp' => ['2023-10-23T20:29:16Z'],
+                'author' => ['Jan Hejtmánek'],
+                'dating' => ['1983'],
+                'date_earliest' => ['1983-01-01'],
+                'date_latest' => ['1983-12-31'],
+                'technique' => ['dřevořez'],
+                'medium' => ['papír'],
+                'measurement' => ['délka=13cm; šířka=9cm'],
+                'image' => [
+                    'https://media.museion.cz/MUDB/Kresba/_/SUB_1/00288/PF_K288_primary.jpg',
+                ],
+                'work_type' => ['publikacePredmetu:MUDB:K:K'],
+            ],
+            $overrides
+        );
+    }
 }

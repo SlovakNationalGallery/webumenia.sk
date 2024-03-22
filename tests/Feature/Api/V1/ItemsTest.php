@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Authority;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -95,6 +96,57 @@ class ItemsTest extends TestCase
         ]);
     }
 
+    public function test_distinguishes_authors_with_same_name()
+    {
+        Item::factory()
+            ->has(
+                Authority::factory()->state([
+                    'id' => 'same-name-1',
+                    'name' => 'Věšín, Jaroslav',
+                ])
+            )
+            ->create(['author' => 'Věšín, Jaroslav; Neznámy autor']);
+
+        Item::factory()
+            ->has(
+                Authority::factory()->state([
+                    'id' => 'same-name-2',
+                    'name' => 'Věšín, Jaroslav',
+                ])
+            )
+            ->create(['author' => 'Věšín, Jaroslav']);
+
+        app(ItemRepository::class)->refreshIndex();
+
+        $searchByName = route('api.v1.items.index', [
+            'size' => 10,
+            'filter[authors.name]' => 'Věšín, Jaroslav',
+        ]);
+
+        $this->getJson($searchByName)->assertJson([
+            'total' => 2,
+        ]);
+
+        $searchById = route('api.v1.items.index', [
+            'size' => 10,
+            'filter[authors.authority.id]' => 'same-name-1',
+        ]);
+
+        $this->getJson($searchById)->assertJson([
+            'total' => 1,
+        ]);
+
+        $searchByNameOrId = route('api.v1.items.index', [
+            'size' => 10,
+            'filter[authors.authority.id]' => 'same-name-2',
+            'filter[authors.name]' => 'Neznámy autor',
+        ]);
+
+        $this->getJson($searchByNameOrId)->assertJson([
+            'total' => 2,
+        ]);
+    }
+
     public function test_sorting()
     {
         Item::factory()->create(['title' => 'zebra']);
@@ -151,5 +203,85 @@ class ItemsTest extends TestCase
             'Jaroslav Věšín',
             $response['data'][0]['content']['authors_formatted'][0]
         );
+    }
+
+    public function test_increment_view_count()
+    {
+        $item = Item::factory()->create(['view_count' => 0]);
+
+        $this->postJson(route('api.v1.items.views', ['id' => $item->id]))->assertOk();
+
+        $this->assertEquals(1, $item->fresh()->view_count);
+    }
+
+    public function test_suggestions()
+    {
+        $url = route('api.v1.items.suggestions', ['q' => 'test']);
+        $this->get($url)->assertOk();
+    }
+
+    public function test_similar()
+    {
+        [$item, $similar] = Item::factory()
+            ->count(2)
+            ->create([
+                'title' => fake()->word,
+                'has_image' => true,
+            ]);
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.similar', [
+            'id' => $item->id,
+            'size' => 10,
+        ]);
+
+        $this->get($url)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.id', $similar->id);
+    }
+
+    public function test_authors_field()
+    {
+        $authorWithAuthority = Authority::factory()->create([
+            'id' => 'authority-id',
+            'name' => 'Věšín, Jaroslav',
+        ]);
+        Item::factory()
+            ->create([
+                'id' => 'item-id',
+                'author' => 'Věšín, Jaroslav; Viedenský maliar z konca 18. storočia',
+            ])
+            ->authorities()
+            ->save($authorWithAuthority);
+
+        app(ItemRepository::class)->refreshIndex();
+
+        $response = $this->getJson(
+            route('api.v1.items.index', [
+                'size' => 100,
+            ])
+        );
+
+        $response->assertJson([
+            'data' => [
+                [
+                    'id' => 'item-id',
+                    'content' => [
+                        'authors' => [
+                            [
+                                'name' => 'Věšín, Jaroslav',
+                                'name_formatted' => 'Jaroslav Věšín',
+                                'authority' => ['id' => 'authority-id'],
+                            ],
+                            [
+                                'name' => 'Viedenský maliar z konca 18. storočia',
+                                'name_formatted' => 'Viedenský maliar z konca 18. storočia',
+                                'authority' => null,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 }

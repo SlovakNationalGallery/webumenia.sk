@@ -2,6 +2,10 @@
 
 namespace App\Importers;
 
+use App\Enums\FrontendEnum;
+use App\ImportRecord;
+use App\Item;
+
 trait MgImporterTrait
 {
     protected array $mediumTranslationKeys;
@@ -23,6 +27,23 @@ trait MgImporterTrait
         $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
         $this->workTypeTranslationKeys = array_flip(trans('item.work_types', locale: 'cs'));
         $this->topicTranslationKeys = array_flip(trans('item.topics', locale: 'cs'));
+    }
+
+    protected function importSingle(array $record, ImportRecord $import_record): ?Item
+    {
+        $image_filename_format = $this->getItemImageFilenameFormat($record);
+        $files = $this->getJp2Files($import_record, $image_filename_format);
+
+        $item = parent::importSingle($record, $import_record);
+
+        $frontends = [FrontendEnum::MORAVSKA_GALERIE];
+        if (!$files->isEmpty()) {
+            $frontends[] = FrontendEnum::WEBUMENIA;
+        }
+
+        $item->frontends = $frontends;
+
+        return $item;
     }
 
     protected function getItemId(array $record): string
@@ -47,6 +68,11 @@ trait MgImporterTrait
         }
 
         return sprintf('%s(_.*)?', preg_quote($filename));
+    }
+
+    protected function hydrateAuthor(array $record): string
+    {
+        return str($record['Autor'])->swap([PHP_EOL => ' ']);
     }
 
     protected function hydrateIdentifier(array $record): string

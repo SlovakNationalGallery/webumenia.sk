@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2023-11-28T21:39:38Z</responseDate>
+    <request metadataPrefix="edm" verb="ListRecords">http://museion.cz/w4m/oai/MUDB</request>
+    <ListRecords>
+        <record>
+            <header>
+                <identifier>oai:museion-online.cz:MUDB~publikacePredmetu~00288</identifier>
+                <datestamp>2023-10-23T20:29:16Z</datestamp>
+                <setSpec>publikacePredmetu</setSpec>
+                <setSpec>publikacePredmetu:MUDB</setSpec>
+                <setSpec>publikacePredmetu:MUDB:K</setSpec>
+                <setSpec>publikacePredmetu:MUDB:K:K</setSpec>
+            </header>
+            <metadata>
+                <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:ebucore="https://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:xalan="http://xml.apache.org/xalan-j/index.html" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdau="http://www.rdaregistry.info/Elements/u/" xmlns:odrl="https://www.w3.org/ns/odrl/2/" xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# EDM-INTERNAL.xsd">
+                    <edm:ProvidedCHO rdf:about="https://museion.cz/mudb/predmet/131696687">
+                        <dc:title xml:lang="cs">Pro mír a život</dc:title>
+                        <dc:description>Uloženo v papírové krabici Grafika 2</dc:description>
+                        <dc:coverage rdf:resource="#Predmet:131696687"/>
+                        <edm:type>IMAGE</edm:type>
+                        <dc:relation rdf:resource="#TypSbirky:133491167"/>
+                        <dc:identifier>K_288</dc:identifier>
+                        <dc:identifier>0288/1994</dc:identifier>
+                        <dc:date rdf:resource="#PredmetDatText:131696687"/>
+                        <dc:date>1983-1-1</dc:date>
+                        <dcterms:temporal rdf:resource="#PredmetDatHodn:131696687"/>
+                        <dcterms:created>1983-1-1</dcterms:created>
+                        <dc:creator rdf:resource="#PredmetAutor:131696687"/>
+                        <dc:format rdf:resource="#Technika:133490180"/>
+                        <dc:format>dřevořez</dc:format>
+                        <dcterms:extent>délka=13cm; šířka=9cm</dcterms:extent>
+                        <dcterms:medium>papír</dcterms:medium>
+                    </edm:ProvidedCHO>
+                    <edm:WebResource rdf:about="https://media.museion.cz/MUDB/Kresba/_/SUB_1/00288/PF_K288_primary.jpg">
+                        <dc:type>image</dc:type>
+                        <dc:format>image/tiff</dc:format>
+                        <dcterms:created>2023-10-23T14:08:54</dcterms:created>
+                        <dcterms:issued>2023-10-23T22:29:16</dcterms:issued>
+                        <edm:rights rdf:resource="http://www.europeana.eu/rights/rr-f/"/>
+                    </edm:WebResource>
+                    <edm:Agent rdf:about="#PredmetAutor:131696687">
+                        <skos:prefLabel xml:lang="cs">Jan Hejtmánek</skos:prefLabel>
+                    </edm:Agent>
+                    <edm:Place rdf:about="#Predmet:131696687">
+                        <skos:prefLabel xml:lang="cs">Československo</skos:prefLabel>
+                    </edm:Place>
+                    <edm:TimeSpan rdf:about="#PredmetDatText:131696687">
+                        <skos:prefLabel xml:lang="cs">1983</skos:prefLabel>
+                    </edm:TimeSpan>
+                    <edm:TimeSpan rdf:about="#PredmetDatHodn:131696687">
+                        <skos:prefLabel xml:lang="cs">1983</skos:prefLabel>
+                        <edm:begin>1983-01-01</edm:begin>
+                        <edm:end>1983-12-31</edm:end>
+                    </edm:TimeSpan>
+                    <skos:Concept rdf:about="#TypSbirky:133491167">
+                        <skos:prefLabel xml:lang="cs">Umělecké sbírky</skos:prefLabel>
+                    </skos:Concept>
+                    <skos:Concept rdf:about="#Technika:133490180">
+                        <skos:prefLabel xml:lang="cs">Kresba</skos:prefLabel>
+                    </skos:Concept>
+                    <ore:Aggregation rdf:about="https://museion.cz/mudb/predmet/131696687">
+                        <edm:aggregatedCHO rdf:resource="https://museion.cz/mudb/predmet/131696687"/>
+                        <edm:provider>Národní muzeum, National Museum, Czech Republic</edm:provider>
+                        <edm:dataProvider>Muzeum umění a designu Benešov</edm:dataProvider>
+                        <edm:isShownAt rdf:resource="https://museion.cz/mudb/predmet/131696687"/>
+                        <edm:isShownBy rdf:resource="https://media.museion.cz/MUDB/Kresba/_/SUB_1/00288/PF_K288_primary.jpg"/>
+                        <edm:object rdf:resource="https://media.museion.cz/MUDB/Kresba/_/SUB_1/00288/PF_K288_primary.jpg"/>
+                        <edm:rights rdf:resource="http://www.europeana.eu/rights/rr-f/"/>
+                    </ore:Aggregation>
+                </rdf:RDF>
+            </metadata>
+        </record>
+    </ListRecords>
+</OAI-PMH>

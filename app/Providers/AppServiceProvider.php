@@ -2,10 +2,12 @@
 
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Enums\FrontendEnum;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
 use App\Filter\Forms\Types\ItemSearchRequestType;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
+use App\Services\Frontend;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -45,6 +47,8 @@ class AppServiceProvider extends ServiceProvider
             ->give(function () {
                 return new BaseAuthorityMapper();
             });
+
+        $this->app->singleton(Frontend::class, fn () => new Frontend(FrontendEnum::WEBUMENIA));
     }
 
     public function boot()

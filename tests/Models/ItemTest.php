@@ -147,14 +147,30 @@ class ItemTest extends TestCase
         ]);
 
         $item = Item::factory()->make([
-            'author' => 'Philips Wouwerman; Vladimír Boudník',
+            'author' => 'Philips Wouwerman; ; Vladimír Boudník',
         ]);
         $item->authorities()->attach($authority);
 
         $data = $item->getIndexedData('sk');
         $this->assertCount(2, $data['author']);
-        $this->assertEquals('Boudník, Vladimír', $data['author'][0]);
-        $this->assertEquals('Philips Wouwerman', $data['author'][1]);
+        $this->assertEquals('Philips Wouwerman', $data['author'][0]);
+        $this->assertEquals('Boudník, Vladimír', $data['author'][1]);
+    }
+
+    public function testEmptyAuthorityName()
+    {
+        $authority = Authority::factory()->create([
+            'name' => '',
+        ]);
+
+        $item = Item::factory()->make([
+            'author' => 'Manufaktúra Augarten',
+        ]);
+        $item->authorities()->attach($authority);
+
+        $data = $item->getIndexedData('sk');
+        $this->assertCount(1, $data['author']);
+        $this->assertEquals('Manufaktúra Augarten', $data['author'][0]);
     }
 
     public function testAuthorsWithAuthoritiesAttribute()
@@ -170,12 +186,16 @@ class ItemTest extends TestCase
         $data = $item->authors_with_authorities;
         $this->assertCount(3, $data);
 
-        $this->assertEquals('Boudník, Vladimír', $data[0]->name);
-        $this->assertInstanceOf(Authority::class, $data[0]->authority);
-        $this->assertEquals($authority->id, $data[0]->authority->id);
+        // Order of the author field is preserved
+        $this->assertEquals(
+            ['Philips Wouwerman', 'Boudník, Vladimír', 'Mikuláš Galanda'],
+            $data->pluck('name')->toArray()
+        );
 
-        $this->assertEquals('Philips Wouwerman', $data[1]->name);
-        $this->assertFalse(property_exists($data[1], 'authority'));
+        $this->assertEquals(null, $data[0]->authority);
+
+        $this->assertInstanceOf(Authority::class, $data[1]->authority);
+        $this->assertEquals($authority->id, $data[1]->authority->id);
     }
 
     protected function createFreeItem()

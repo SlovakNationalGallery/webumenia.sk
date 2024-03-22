@@ -12,10 +12,9 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Searchable;
-use ElasticScoutDriverPlus\Support\Query;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -123,6 +122,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     protected $casts = [
         'colors' => 'json',
+        'frontends' => 'array',
     ];
 
     protected $observables = [
@@ -187,7 +187,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function images()
     {
-        return $this->hasMany(ItemImage::class)->orderBy('iipimg_url');
+        return $this->hasMany(ItemImage::class)
+            ->orderBy('order_column')
+            ->orderBy('iipimg_url');
     }
 
     public function getImages() {
@@ -378,31 +380,24 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getAuthorsWithAuthoritiesAttribute()
     {
-        $authorities = $this
-            ->authorities
-            ->map(fn ($authority) => (object) [
-                'name' => $authority->name,
-                'authority' => $authority
-            ]);
-
-        $authors = $this
-            ->getAuthorsWithoutAuthority()
-            ->map(fn ($author) => (object) [
-                'name' => $author
-            ]);
-
-        return $authorities->concat($authors);
+        return app(AuthorityMatcher::class)
+            ->matchAll($this, onlyExisting: true)
+            ->map(function (EloquentCollection $authorities, string $author) {
+                $authority = $authorities->first();
+                return (object) [
+                    'name' => $authority->name ?? $author,
+                    'authority' => $authority,
+                ];
+            })
+            ->values();
     }
-
 
     public function getUniqueAuthorsWithAuthorityNames()
     {
-        return $this->authorities
+        return $this->authors_with_authorities
             ->pluck('name')
-            ->merge($this->getAuthorsWithoutAuthority())
-            ->filter() // hotfix: names should be filled
-            ->values()
-            ->toArray();
+            ->filter()
+            ->values();
     }
 
     public function getFirstAuthorAttribute($value)
@@ -477,7 +472,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             return $formated;
         }
         $trans = [
-            "/" => "–", 
+            "/" => "–",
             "-" => "–",
         ];
         if ($multi_line) {
@@ -625,33 +620,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
             ->orderBy('related_work_order');
     }
 
-    public function getAuthorsWithLinks()
-    {
-        $used_authorities = array();
-        $authorities_with_link = array();
-        $not_authorities_with_link = array();
-        $roles = config('authorityRoles');
-        foreach ($this->authorities->sortBy('name') as $authority) {
-            if ($authority->pivot->role != 'autor/author') {
-                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>' . ' &ndash; ' .
-                (isset($roles[$authority->pivot->role])
-                    ? trans('authority.role.' . $roles[$authority->pivot->role])
-                    : Authority::formatMultiAttribute($authority->pivot->role)
-                );
-            } else {
-                $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
-            }
-            $used_authorities[]= trim($authority->name, ', ');
-        }
-        foreach ($this->authors as $author_unformated => $author) {
-            if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
-                $authorities_with_link[] = '<a class="underline" href="'. route('frontend.catalog.index', ['author' => $author_unformated]) .'">'. $author .'</a>';
-            }
-        }
-
-        return array_merge($authorities_with_link, $not_authorities_with_link);
-    }
-
     public function getTitleWithAuthors($html = false)
     {
         return implode(', ', $this->authors)  . ' – ' .  $this->title;
@@ -719,6 +687,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'id' => $this->id,
             'identifier' => $this->identifier,
             'author' => $this->getUniqueAuthorsWithAuthorityNames(),
+            'authors' => $this->authors_with_authorities->map(
+                fn($a) => [
+                    'name' => $a->name,
+                    'authority' => $a->authority ? $a->authority->only(['id']) : null,
+                ]
+            ),
             'tag' => $this->tagNames(), // @TODO translate model
             'date_earliest' => $this->date_earliest,
             'date_latest' => $this->date_latest,
@@ -765,6 +739,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
                     ];
                 })
                 ->values(),
+            'frontend' => $this->frontends,
         ];
     }
 

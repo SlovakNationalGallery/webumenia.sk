@@ -18,7 +18,8 @@ abstract class AbstractMapper
     /** @var string */
     protected $modelClass;
 
-    public function __construct() {
+    public function __construct()
+    {
         if ($this->modelClass) {
             $model = new $this->modelClass();
             if ($model->translatedAttributes) {
@@ -31,7 +32,8 @@ abstract class AbstractMapper
      * @param array $row
      * @return array
      */
-    public function map(array $row) {
+    public function map(array $row)
+    {
         $mapped = [];
 
         $methods = get_class_methods($this);
@@ -61,9 +63,10 @@ abstract class AbstractMapper
      * @param string $key
      * @param mixed $value
      */
-    protected function setMapped(array &$mapped, $key, $value) {
+    protected function setMapped(array &$mapped, $key, $value)
+    {
         // dont serialize roles - they are already casted as array
-        if (is_array($value) && !str_contains($key, 'roles:')) {
+        if (is_array($value) && !str_contains($key, 'roles')) {
             $value = $this->serialize($value);
         }
 
@@ -75,7 +78,8 @@ abstract class AbstractMapper
      * @param string $name
      * @param string $locale
      */
-    protected function getLocalized(array $row, $name, $locale) {
+    protected function getLocalized(array $row, $name, $locale)
+    {
         $localized = [];
         foreach ($row[$name] as $r) {
             if (!isset($r['lang'][0])) {
@@ -96,7 +100,8 @@ abstract class AbstractMapper
      * @param string $delimiter
      * @return string
      */
-    protected function chooseTranslation($string, $locale, $delimiter = '/') {
+    protected function chooseTranslation($string, $locale, $delimiter = '/')
+    {
         $locales = array_keys($this->localeToLangMap);
         $index = array_search($locale, $locales);
 
@@ -113,7 +118,8 @@ abstract class AbstractMapper
      * @param string $delimiter
      * @return string
      */
-    protected function serialize(array $attribute, $delimiter = '; ') {
+    protected function serialize(array $attribute, $delimiter = '; ')
+    {
         return implode($delimiter, $attribute);
     }
 
@@ -122,7 +128,8 @@ abstract class AbstractMapper
      * @param string $delimiter
      * @return string
      */
-    protected function parseId($string, $delimiter = ':') {
+    protected function parseId($string, $delimiter = ':')
+    {
         $exploded = explode($delimiter, $string);
         return end($exploded);
     }

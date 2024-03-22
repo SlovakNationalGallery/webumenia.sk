@@ -27,7 +27,6 @@ class MgFotoImporter extends AbstractImporter
         'date_earliest' => 'RokVzOd',
         'date_latest' => 'RokVzDo',
         'acquisition_date' => 'RokAkv',
-        'author' => 'Autor',
         'dating:sk' => 'DatVz',
         'dating:cs' => 'DatVz',
         'description:sk' => 'Popis',
@@ -51,10 +50,13 @@ class MgFotoImporter extends AbstractImporter
     ];
 
     protected array $stateEditions = [
+        'AP' => 'autorizovaný pozitív',
+        'F' => 'faksimile',
+        'J' => 'iný',
         'K' => 'kópia',
-        'N' => 'neznámy',
+        'NAP' => 'neautorizovaný pozitív',
         'O' => 'originál',
-        'P' => 'reprodukcia',
+        'RT' => 'tlačová reprodukcia',
     ];
 
     protected function hydrateTitle(array $record, string $locale): ?string

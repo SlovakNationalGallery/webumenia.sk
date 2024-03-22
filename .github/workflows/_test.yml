@@ -8,7 +8,7 @@ jobs:
 
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0.36
         env:
           MYSQL_DATABASE: webumenia_test
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
@@ -16,7 +16,7 @@ jobs:
           - 3306
 
       elasticsearch:
-        image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.3.1
+        image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.17.3
         env:
           discovery.type: single-node
         ports:
@@ -34,7 +34,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ hashFiles('**/composer.lock') }}
@@ -44,7 +44,7 @@ jobs:
       - name: Get npm cache directory
         id: npm-cache
         run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
           key: node-${{ hashFiles('**/package-lock.json') }}

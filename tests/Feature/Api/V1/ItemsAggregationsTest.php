@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Authority;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,6 +15,8 @@ class ItemsAggregationsTest extends TestCase
     use RecreateSearchIndex;
 
     private $initialized = false;
+    private Item $item1;
+    private Item $item2;
 
     public function setUp(): void
     {
@@ -23,7 +26,7 @@ class ItemsAggregationsTest extends TestCase
             return;
         }
 
-        Item::factory()->createMany([
+        [$this->item1, $this->item2] = Item::factory()->createMany([
             [
                 'author' => 'Galanda, Mikuláš',
                 'topic' => 'spring',
@@ -128,5 +131,37 @@ class ItemsAggregationsTest extends TestCase
                 'size' => 2,
             ])['topic']
         );
+    }
+
+    public function test_search_for_authors_with_same_name()
+    {
+        $author1 = Authority::factory()->create(['name' => 'Galanda, Mikuláš']);
+        $author2 = Authority::factory()->create(['name' => 'Galanda, Mikuláš']);
+
+        $this->item1->authorities()->save($author1);
+        $this->item2->authorities()->save($author2);
+        $this->item2->author = 'Wouwerman, Philips; Galanda, Mikuláš';
+        $this->item2->save();
+
+        app(ItemRepository::class)->refreshIndex();
+
+        $this->getAggregations([
+            'filter' => ['authors.name' => ['Galanda, Mikuláš']],
+            'terms' => ['authors' => 'authors'],
+        ])->assertSimilarJson([
+            'authors' => [
+                [
+                    'name' => 'Galanda, Mikuláš',
+                    'authority' => ['id' => $author1->id],
+                    'count' => 1,
+                ],
+                [
+                    'name' => 'Galanda, Mikuláš',
+                    'authority' => ['id' => $author2->id],
+                    'count' => 1,
+                ],
+                ['name' => 'Wouwerman, Philips', 'authority' => null, 'count' => 1],
+            ],
+        ]);
     }
 }

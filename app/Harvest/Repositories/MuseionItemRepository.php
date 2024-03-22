@@ -2,9 +2,7 @@
 
 namespace App\Harvest\Repositories;
 
-use App\Harvest\Repositories\AbstractRepository;
-
-class GmuhkItemRepository extends AbstractRepository
+class MuseionItemRepository extends AbstractRepository
 {
     protected $xPathNamespaces = [
         'dc' => 'http://purl.org/dc/elements/1.1/',

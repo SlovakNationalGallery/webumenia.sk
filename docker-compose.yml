@@ -3,7 +3,7 @@ services:
   web:
     image: nginx:latest
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - .:/var/www
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
@@ -26,17 +26,17 @@ services:
       REDIS_HOST: redis
 
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0.36
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
   elasticsearch:
-    image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.3.1
+    image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.17.3
     environment:
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - 'ES_JAVA_OPTS=-Xms1g -Xmx1g'
     ulimits:
       memlock:
         soft: -1

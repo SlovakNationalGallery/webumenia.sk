@@ -3,6 +3,7 @@
 namespace App\Elasticsearch\Repositories;
 
 use App\Authority;
+use App\Facades\Frontend;
 use App\Filter\Contracts\Filter;
 use App\Filter\Contracts\SearchRequest;
 use App\IntegerRange;
@@ -66,21 +67,33 @@ class ItemRepository extends TranslatableRepository
             'index' => $this->getLocalizedIndexName($locale),
             'size' => $size,
             'body' => [
-                'query' => [
-                    'multi_match' => [
-                        'query' => $search,
-                        'type' => 'cross_fields',
-                        'fields' => ['identifier', 'title.suggest', 'author.suggest'],
-                        'operator' => 'and',
-                    ]
-                ]
+                'query' => self::buildSuggestionsQuery($search),
             ]
         ]);
 
         return $this->createSearchResult($response);
     }
 
-    public function getSimilar(int $size, Model $model, $locale = null): SearchResult
+    public static function buildSuggestionsQuery(string $search): array
+    {
+        return [
+            'bool' => [
+                'must' => [
+                    'multi_match' => [
+                        'query' => $search,
+                        'type' => 'cross_fields',
+                        'fields' => ['identifier', 'title.suggest', 'author.suggest'],
+                        'operator' => 'and',
+                    ],
+                ],
+                'filter' => [
+                    ['term' => ['frontend' => Frontend::get()]],
+                ],
+            ],
+        ];
+    }
+
+    public function buildSimilarQuery(Model $model, string $locale = null): array
     {
         $query = [
             'bool' => [
@@ -121,7 +134,10 @@ class ItemRepository extends TranslatableRepository
                     [
                         'term' => ['has_iip' => true]
                     ]
-                ]
+                ],
+                'filter' => [
+                    ['term' => ['frontend' => Frontend::get()]],
+                ],
             ]
         ];
 
@@ -137,12 +153,16 @@ class ItemRepository extends TranslatableRepository
             ];
         }
 
+        return $query;
+    }
 
+    public function getSimilar(int $size, Model $model, $locale = null): SearchResult
+    {
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
             'size' => $size,
             'body' => [
-                'query' => $query
+                'query' => $this->buildSimilarQuery($model, $locale)
             ]
         ]);
 
@@ -184,7 +204,7 @@ class ItemRepository extends TranslatableRepository
                                 ]
                             ]
                         ]
-                    ]
+                    ],
                 ]
             ];
         }
@@ -198,6 +218,7 @@ class ItemRepository extends TranslatableRepository
         }
         $query['bool']['must_not'][]['term']['id'] = $item->id;
         $query['bool']['minimum_should_match'] = '-30%';
+        $query['bool']['filter'][]['term']['frontend'] = Frontend::get();
 
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
@@ -208,33 +229,6 @@ class ItemRepository extends TranslatableRepository
         return $this->createSearchResult($response);
     }
 
-    public function getPreviewItems(int $size, Authority $authority, string $locale = null): Collection
-    {
-        $response = $this->elasticsearch->search([
-            'index' => $this->getLocalizedIndexName($locale),
-            'body' => [
-                'size' => $size,
-                'query' => [
-                    'bool' => [
-                        'must' => [
-                            ['term' => ['authority_id' => $authority->id]],
-                        ],
-                        'should' => [
-                            ['term' => ['has_image' => true]],
-                            ['term' => ['has_iip' => true]],
-                        ],
-                    ],
-                ],
-                'sort' => [
-                    '_score',
-                    ['created_at' => ['order' => 'asc']],
-                ]
-            ],
-        ]);
-
-        return $this->createSearchResult($response)->getCollection();
-    }
-
     public function buildQueryFromFilter(?Filter $filter): ?array
     {
         if (!$filter) {
@@ -242,11 +236,14 @@ class ItemRepository extends TranslatableRepository
         }
 
         $query = [];
-        $query = $this->addFilterablesQuery($query, $filter);
-        $query = $this->addSearchQuery($query, $filter->get('search'));
-        $query = $this->addYearsQuery($query, $filter->get('years'));
-        $query = $this->addColorQuery($query, $filter->get('color'));
-        return $query ?: null;
+        $query['bool']['filter'][]['term']['frontend'] = Frontend::get();
+        if ($filter) {
+            $query = $this->addFilterablesQuery($query, $filter);
+            $query = $this->addSearchQuery($query, $filter->get('search'));
+            $query = $this->addYearsQuery($query, $filter->get('years'));
+            $query = $this->addColorQuery($query, $filter->get('color'));
+        }
+        return $query;
     }
 
     protected function addSearchQuery(array $query, ?string $search): array

@@ -3,82 +3,24 @@
 namespace Tests\Models;
 
 use App\Authority;
-use App\Elasticsearch\Repositories\AuthorityRepository;
-use Elasticsearch\Client;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;
 
 class AuthorityTest extends TestCase
 {
-    use RefreshDatabase;
-
-    public function testEmptyRoles()
+    public function testRoles()
     {
-        /** @var Client|MockObject $client */
-        $client = $this->createMock(Client::class);
-        $repository = new AuthorityRepository(['sk'], $client);
+        $authority = Authority::factory()->make([
+            'roles' => ['maliar/painter', 'untranslated-role'],
+            'sex' => 'female',
+        ]);
 
-        $authority = Authority::factory()->create();
+        $this->assertEquals(['maliar'], $authority->getIndexedData('sk')['role']->toArray());
+        $this->assertEquals([], $authority->getIndexedData('cs')['role']->toArray());
+        $this->assertEquals(['painter'], $authority->getIndexedData('en')['role']->toArray());
 
-        $client
-            ->expects($this->once())
-            ->method('get')
-            ->with([
-                'index' => $repository->getLocalizedIndexName('sk'),
-                'id' => $authority->id,
-            ])
-            ->willReturn([
-                '_source' => $authority->getIndexedData('sk'),
-            ]);
-
-        $authority = $repository->get($authority->id);
-        $this->assertEquals([], $authority->roles);
-    }
-
-    public function testSingleRole()
-    {
-        /** @var Client|MockObject $client */
-        $client = $this->createMock(Client::class);
-        $repository = new AuthorityRepository(['sk'], $client);
-
-        $authority = Authority::factory()->create(['roles' => 'foo']);
-
-        $client
-            ->expects($this->once())
-            ->method('get')
-            ->with([
-                'index' => $repository->getLocalizedIndexName('sk'),
-                'id' => $authority->id,
-            ])
-            ->willReturn([
-                '_source' => $authority->getIndexedData('sk'),
-            ]);
-
-        $authority = $repository->get($authority->id);
-        $this->assertEquals(['foo'], $authority->roles);
-    }
-
-    public function testMultipleRoles()
-    {
-        /** @var Client|MockObject $client */
-        $client = $this->createMock(Client::class);
-        $repository = new AuthorityRepository(['sk'], $client);
-
-        $authority = Authority::factory()->create(['roles' => ['foo', 'bar']]);
-
-        $client
-            ->expects($this->once())
-            ->method('get')
-            ->with([
-                'index' => $repository->getLocalizedIndexName('sk'),
-                'id' => $authority->id,
-            ])
-            ->willReturn([
-                '_source' => $authority->getIndexedData('sk'),
-            ]);
-
-        $authority = $repository->get($authority->id);
-        $this->assertEquals(['foo', 'bar'], $authority->roles);
+        $this->assertEquals(
+            [(object) ['indexed' => 'maliar', 'formatted' => 'maliarka']],
+            $authority->translatedRoles->toArray()
+        );
     }
 }

@@ -15,6 +15,7 @@ use App\Collection;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Facades\Experiment;
 use App\Filter\ItemFilter;
+use App\Http\Controllers\Admin\Authority\RoleTranslationsController;
 use App\Http\Controllers\Admin\FeaturedArtworkController;
 use App\Http\Controllers\Admin\FeaturedPieceController;
 use App\Http\Controllers\Admin\ItemTagsController;
@@ -44,10 +45,12 @@ use App\Http\Controllers\UserCollectionController;
 use App\Http\Controllers\NewCatalogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
+use App\Http\Middleware\ApplyFrontendScope;
 use App\Http\Middleware\RedirectLegacyCatalogRequest;
 use App\Item;
 use App\Notice;
 use App\Order;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
@@ -72,7 +75,11 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+    'middleware' => [
+        'localeSessionRedirect',
+        'localizationRedirect',
+        ApplyFrontendScope::class,
+    ],
 ],
 function()
 {
@@ -312,14 +319,11 @@ function()
         ]);
     })->name('dielo.colorrelated');
 
-    Route::get('dielo/nahlad/{id}/{width}/{height?}', [ImageController::class, 'resize'])->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
-    Route::get('image/{id}/download', [ImageController::class, 'download'])->name('image.download');
-
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
-    Route::get('katalog', function () {
+    Route::get('katalog', function (HttpRequest $request) {
         if (Experiment::is('new-catalog')) {
-            return app(NewCatalogController::class)->index();
+            return app(NewCatalogController::class)->index($request);
         }
 
         return app(CatalogController::class)->getIndex();
@@ -389,6 +393,13 @@ function()
         ]);
     })->name('frontend.reproduction.index');
 });
+
+Route::get('dielo/nahlad/{id}/{width}/{height?}', [ImageController::class, 'resize'])
+    ->where('width', '[0-9]+')
+    ->where('height', '[0-9]+')
+    ->name('dielo.nahlad');
+Route::get('image/{id}/download', [ImageController::class, 'download'])
+    ->name('image.download');
 
 Route::group(array('middleware' => 'guest'), function () {
     Route::get('login', [AuthController::class, 'getLogin']);
@@ -477,6 +488,12 @@ Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::get('authority/reindex', [AuthorityController::class, 'reindex']);
     Route::post('authority/destroySelected', [AuthorityController::class, 'destroySelected']);
     Route::get('authority/search', [AuthorityController::class, 'search']);
+    Route::get('authority/role-translations', [RoleTranslationsController::class, 'index'])->name(
+        'authority.role-translations.index'
+    );
+    Route::get('authority/role-translations/download', [RoleTranslationsController::class, 'download'])->name(
+        'authority.role-translations.download'
+    );
     Route::resource('authority', AuthorityController::class);
     Route::resource('sketchbook', SketchbookController::class);
     Route::resource('notices', NoticeController::class);

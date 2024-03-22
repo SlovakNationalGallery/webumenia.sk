@@ -3,24 +3,23 @@
 namespace App\Harvest\Importers;
 
 use App\Authority;
-use App\Harvest\Mappers\GmuhkItemMapper;
+use App\Harvest\Mappers\AbstractMapper;
 use App\Harvest\Progress;
 use App\Item;
 use App\Matchers\AuthorityMatcher;
 use Illuminate\Support\Facades\Date;
 
-class GmuhkItemImporter extends AbstractImporter
+class MuseionItemImporter extends AbstractImporter
 {
     protected $modelClass = Item::class;
 
-    protected $authorityMatcher;
-
-    public function __construct(GmuhkItemMapper $mapper, AuthorityMatcher $authorityMatcher) {
+    public function __construct(AbstractMapper $mapper, protected AuthorityMatcher $authorityMatcher)
+    {
         parent::__construct($mapper);
-        $this->authorityMatcher = $authorityMatcher;
     }
 
-    public function getModelId(array $row) {
+    public function getModelId(array $row)
+    {
         return $this->mapper->mapId($row);
     }
 
@@ -29,7 +28,8 @@ class GmuhkItemImporter extends AbstractImporter
         return $row['id'][0];
     }
 
-    public function import(array $row, Progress $result) {
+    public function import(array $row, Progress $result)
+    {
         $item = parent::import($row, $result);
 
         if (!empty($row['image'][0])) {
@@ -37,10 +37,7 @@ class GmuhkItemImporter extends AbstractImporter
             $lastModified = $this->getLastModified($url);
             if (!$lastModified || $item->getImageModificationDateTime() < $lastModified) {
                 $image = $item->saveImage($url);
-                touch(
-                    $image->basePath(),
-                    $lastModified ? $lastModified->getTimestamp() : time()
-                );
+                touch($image->basePath(), $lastModified ? $lastModified->getTimestamp() : time());
             }
         }
 
@@ -52,7 +49,9 @@ class GmuhkItemImporter extends AbstractImporter
             ->map->first()
             ->mapWithKeys(
                 fn(Authority $authority, $author) => [
-                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name'] ?? 'autor/author'],
+                    $authority->id => [
+                        'role' => AuthorityMatcher::parse($author)['alt_name'] ?? 'autor/author',
+                    ],
                 ]
             );
 
@@ -79,11 +78,6 @@ class GmuhkItemImporter extends AbstractImporter
                 return rawurlencode($part);
             })
             ->implode('/');
-        return sprintf(
-            '%s://%s%s',
-            $parsed['scheme'],
-            $parsed['host'],
-            $path,
-        );
+        return sprintf('%s://%s%s', $parsed['scheme'], $parsed['host'], $path);
     }
 }

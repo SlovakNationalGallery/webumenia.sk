@@ -42,6 +42,7 @@ class ItemFactory extends Factory
             ],
             'created_at' => fake()->date,
             'updated_at' => fake()->date,
+            'frontends' => ["webumenia"],
         ];
     }
 }

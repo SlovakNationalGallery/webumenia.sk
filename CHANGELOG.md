@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.88.0] - 2023-01-12
+### Changed
+- unisharp/laravel-filemanager to version 2.6.4
+### Fixed
+- failed_jobs table to include the uuid column
+
 ## [2.87.1] - 2023-12-21
 ### Fixed
 - v1 Item detail to not throw errors

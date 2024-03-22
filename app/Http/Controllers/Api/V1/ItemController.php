@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Facades\Frontend;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NewCatalogController;
 use App\Item;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
 use ElasticScoutDriverPlus\Support\Query;
@@ -15,6 +17,8 @@ class ItemController extends Controller
 {
     private $filterables = [
         'author',
+        'authors.name',
+        'authors.authority.id',
         'topic',
         'work_type',
         'medium',
@@ -33,6 +37,8 @@ class ItemController extends Controller
         'additionals.frontend.keyword',
         'additionals.set.keyword',
         'additionals.location.keyword',
+        'exhibition',
+        'box',
     ];
 
     private $rangeables = ['date_earliest', 'date_latest', 'additionals.order'];
@@ -55,11 +61,7 @@ class ItemController extends Controller
         $size = (int) $request->get('size', 1);
         $q = (string) $request->get('q');
 
-        try {
-            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
-        } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass()];
-        }
+        $query = $this->createQueryBuilder($q, $filter)->buildQuery();
 
         if (array_key_exists('random', $sort)) {
             $query = ItemRepository::buildRandomSortQuery($query, $request->get('page', 1) == 1);
@@ -95,6 +97,9 @@ class ItemController extends Controller
                         'authors_formatted' => collect($document['content']['author'])->map(
                             fn($author) => formatName($author)
                         ),
+                        'authors' => collect($document['content']['authors'])->map(
+                            fn($a) => [...$a, 'name_formatted' => formatName($a['name'])]
+                        ),
                     ],
                 ]
             ),
@@ -113,6 +118,29 @@ class ItemController extends Controller
         $aggregationsQuery = [];
 
         foreach ($terms as $aggregationName => $field) {
+            if ($field === 'authors') {
+                $aggregationsQuery[$aggregationName]['aggregations']['filtered'] = [
+                    'nested' => [
+                        'path' => 'authors',
+                    ],
+                    'aggs' => [
+                        'authors' => [
+                            'multi_terms' => [
+                                'terms' => [
+                                    [
+                                        'field' => 'authors.name',
+                                    ],
+                                    [
+                                        'field' => 'authors.authority.id',
+                                        'missing' => '',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ];
+                continue;
+            }
             $aggregationsQuery[$aggregationName]['aggregations']['filtered']['terms'] = [
                 'field' => $field,
                 'size' => $size,
@@ -161,7 +189,22 @@ class ItemController extends Controller
 
         return collect(Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items'))
             ->only(array_keys($aggregationsQuery))
-            ->map(function (array $aggregation) {
+            ->map(function (array $aggregation, $name) {
+                if ($name === 'authors') {
+                    return collect(Arr::get($aggregation, 'filtered.authors.buckets'))->map(
+                        function (array $bucket) {
+                            [$name, $authority_id] = $bucket['key'];
+                            $authority = $authority_id === '' ? null : ['id' => $authority_id];
+
+                            return [
+                                'name' => $name,
+                                'authority' => $authority,
+                                'count' => $bucket['doc_count'],
+                            ];
+                        }
+                    );
+                }
+
                 if (Arr::has($aggregation, 'filtered.value')) {
                     return Arr::get($aggregation, 'filtered.value');
                 }
@@ -180,13 +223,9 @@ class ItemController extends Controller
         $filter = (array) $request->get('filter');
         $q = (string) $request->get('q');
 
-        if ($q || $filter) {
-            $query = $this->createQueryBuilder($q, $filter)
-                ->must(Query::ids()->values([$id]))
-                ->buildQuery();
-        } else {
-            $query = Query::ids()->values([$id]);
-        }
+        $query = $this->createQueryBuilder($q, $filter)
+            ->must(Query::ids()->values([$id]))
+            ->buildQuery();
 
         $items = Item::searchQuery($query)->execute();
 
@@ -194,16 +233,68 @@ class ItemController extends Controller
             return response()->json(['message' => 'Not found'], 404);
         }
 
-        return $items->documents()->first();
+        $document = $items
+            ->documents()
+            ->first()
+            ->toArray();
+
+        $model = $items->models()->first();
+
+        return [
+            ...$document,
+            'content' => [
+                ...$document['content'],
+                ...$model->only([
+                    'relationship_type',
+                    'state_edition',
+                    'inscription',
+                    'acquisition_date',
+                ]),
+            ],
+        ];
+    }
+
+    public function incrementViewCount($id)
+    {
+        Item::findOrFail($id)->increment('view_count');
+    }
+
+    public function suggestions(Request $request)
+    {
+        $size = (int) $request->get('size', 1);
+        $q = (string) $request->get('q');
+
+        $query = ItemRepository::buildSuggestionsQuery($q);
+        $documents = Item::searchQuery($query)
+            ->size($size)
+            ->execute()
+            ->documents();
+
+        return ['data' => $documents];
+    }
+
+    public function similar(Request $request, string $id)
+    {
+        $item = Item::findOrFail($id);
+        $size = (int) $request->get('size', 1);
+
+        $query = app(ItemRepository::class)->buildSimilarQuery($item);
+        $items = Item::searchQuery($query)
+            ->size($size)
+            ->execute();
+
+        return ['data' => $items->documents()];
+    }
+
+    public function catalogTitle(Request $request)
+    {
+        return ['title' => NewCatalogController::generateTitle($request)];
     }
 
     protected function createQueryBuilder($q, $filter)
     {
-        if (empty($q) && empty($filter)) {
-            return Query::matchAll();
-        }
-
         $builder = Query::bool();
+        $authorsBuilder = null;
 
         if ($q) {
             $query = Query::multiMatch()
@@ -222,6 +313,17 @@ class ItemController extends Controller
                 $builder->filter($colorQuery);
                 continue;
             }
+
+            if ($field === 'authors.name' || $field === 'authors.authority.id') {
+                $authorsBuilder ??= Query::bool();
+                $authorsBuilder->should(
+                    is_array($value)
+                        ? ['terms' => [$field => $value]]
+                        : ['term' => [$field => $value]]
+                );
+                continue;
+            }
+
             if (is_string($value) && in_array($field, $this->filterables, true)) {
                 if ($value === 'false') {
                     $value = false;
@@ -248,6 +350,14 @@ class ItemController extends Controller
             }
         }
 
+        if ($authorsBuilder) {
+            $builder->filter(
+                Query::nested()
+                    ->path('authors')
+                    ->query($authorsBuilder)
+            );
+        }
+        $builder->filter(['term' => ['frontend' => Frontend::get()]]);
         return $builder;
     }
 }

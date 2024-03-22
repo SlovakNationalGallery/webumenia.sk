@@ -76,9 +76,11 @@
                                 @endif
                             </div>
                             <div>
-                                @foreach ($author->roles as $i => $role)
+                                @foreach ($author->translatedRoles as $role)
                                     <a
-                                        href="{!! route('frontend.author.index', ['role' => $role]) !!}"><strong>{!! trans_choice($role, $author->sex) !!}</strong></a>{!! $i + 1 < count($author->roles) ? ', ' : '' !!}
+                                        href="{{ route('frontend.author.index', ['role' => $role->indexed]) }}">
+                                        <strong>{{ $role->formatted }}</strong>
+                                    </a>{{ !$loop->last ? ', ' : '' }}
                                 @endforeach
                             </div>
                             <div>
