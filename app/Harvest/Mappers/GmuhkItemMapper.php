@@ -10,13 +10,6 @@ class GmuhkItemMapper extends AbstractMapper
 
     protected $modelClass = Item::class;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
-        $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
-    }
-
     protected array $workTypeTranslationKeys = [
         'publikacePredmetu:GMUHK:151:F' => 'fotografia',
         'publikacePredmetu:GMUHK:151:F:Fo' => 'fotografia',
@@ -35,6 +28,23 @@ class GmuhkItemMapper extends AbstractMapper
         'publikacePredmetu:SKT:2021:SKT:Ob' => 'maliarstvo',
         'publikacePredmetu:SKT:2021:SKT:So' => 'sochárstvo',
     ];
+
+    protected array $fallbackWorkTypeTranslationKeys = [
+        'F' => 'fotografia',
+        'G' => 'grafika',
+        'K' => 'kresba',
+        'O' => 'maliarstvo',
+        'P' => 'sochárstvo/plastika',
+        'VA' => 'iné médiá/video',
+        'GVP' => 'sochárstvo/skulptúra',
+    ];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
+        $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
+    }
 
     public function mapId(array $row): string
     {
@@ -61,7 +71,10 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapWorkType(array $row, $locale)
     {
-        $key = $this->workTypeTranslationKeys[$row['work_type'][0]];
+        $parsedId = $this->parseIdentifier($row['id'][0]);
+        $key = $this->workTypeTranslationKeys[$row['work_type'][0]]
+            ?? $this->fallbackWorkTypeTranslationKeys[$parsedId['work_type']];
+
         return trans("item.work_types.$key", locale: $locale);
     }
 
