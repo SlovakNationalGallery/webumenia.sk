@@ -24,7 +24,7 @@
 @stop
 
 @section('content')
-    <div class="tailwind-rules">
+    <div class="tailwind-rules tw-break-keep">
         @if ($shuffledItems->count() > 0)
             <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
                 @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif
@@ -50,14 +50,14 @@
                         v-bind:class="['tw-absolute tw-inset-0 tw-transition-all tw-bg-black tw-duration-500', orchestrator.isShuffling ? 'tw-opacity-50' : 'tw-opacity-0']">
                     </div>
                     <div
-                        class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
+                        class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 md:tw-p-8">
                         <h1
-                            class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
+                            class="tw-mt-20 tw-text-center tw-text-3xl tw-mb-0 tw-font-normal tw-text-white tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
                             {{ trans('home.shuffled_item.tagline') }}
                         </h1>
-                        <div class="tw-max-w-5xl tw-text-center">
+                        <div class="tw-max-w-5xl tw-text-center tw-text-white">
                             <p
-                                class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
+                                class="tw-mt-2 tw-mb-0 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
                                 {!! trans('home.shuffled_item.subtitle') !!}
                             </p>
                         </div>
@@ -81,18 +81,18 @@
                                                             @{{ filterAttribute.label }}
                                                         </div>
                                                         <div
-                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base', {'tw-opacity-40': orchestrator.isShuffling }]">
                                                             <a :href="filterAttribute.url"
-                                                                class="hover:tw-underline">@{{ filterAttribute.value }}</a>
+                                                                class="hover:tw-underline tw-text-white">@{{ filterAttribute.value }}</a>
                                                         </div>
                                                     </div>
                                                 </home.transition-in-place>
                                             </div>
                                         </div>
                                         <button v-on:click="orchestrator.shuffle"
-                                            class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
+                                            class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-[14px]">
                                             <i
-                                                class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
+                                                class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0 tw-pb-1"></i>
                                             {{ trans('home.shuffled_item.button_shuffle') }}
                                         </button>
                                     </div>
@@ -100,7 +100,7 @@
                                 </div>
 
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300 tw-text-center md:tw-hidden', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white hover:tw-bg-gray-300 tw-text-center md:tw-hidden', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
@@ -112,16 +112,16 @@
                                     { 'tw-opacity-0 tw-pointer-events-none tw-scale-95': orchestrator.isShuffling }
                                 ]">
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    class="tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300">
+                                    class="tw-bg-white hover:tw-bg-gray-300">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
                             <div
-                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-[14px] md:tw-leading-5 tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 <div
                                     class="tw-hidden tw-flex-col tw-items-end tw-justify-end tw-gap-x-1 tw-text-right md:tw-flex">
                                     <span>@{{ orchestrator.item.authors }}</span>
-                                    <strong>@{{ orchestrator.item.title }}</strong>
+                                    <strong class="tw-font-bold">@{{ orchestrator.item.title }}</strong>
                                     <span>@{{ orchestrator.item.dating }}</span>
                                 </div>
                                 <div class="text-center tw-justify-center md:tw-hidden">
@@ -132,7 +132,7 @@
 
                                 <div class="tw-mt-2 tw-text-center">
                                     <a v-bind:href="orchestrator.item.url"
-                                        class="tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
+                                        class="tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors tw-text-white/80 hover:tw-text-white">
                                         {{ trans('home.shuffled_item.go_to_item') }}
                                     </a>
                                 </div>
@@ -145,8 +145,8 @@
         @endif
         {{-- Counts blurb --}} <div class="tw-bg-gray-200">
             <div
-                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-2xl tw-px-6 tw-py-5 tw-text-gray-500 md:tw-px-8 lg:tw-py-10">
-                <p class="tw-text-center lg:tw-text-2xl">
+                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-2xl tw-px-6 tw-py-5 tw-text-gray-500 md:tw-px-8 lg:tw-py-10 tw-leading-6">
+                <p class="tw-text-center lg:tw-text-2xl tw-mb-0">
                     {{ utrans('home.definition_start') }}
                     <a href="{{ route('frontend.catalog.index') }}"
                         class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->items_count) }}</a>
@@ -173,10 +173,10 @@
                         <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
                             class="tw-absolute tw-inset-0"></a>
 
-                        <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
+                        <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg tw-mb-0">
                             {{ trans('home.featured_piece.title') }}
                         </h2>
-                        <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
+                        <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl tw-mb-0">
                             {{ $featuredPiece->title }}
                         </h3>
                         <div
@@ -185,7 +185,7 @@
                         </div>
                         <x-home.button href="{{ $featuredPiece->url }}"
                             v-on:click.once.prevent="track"
-                            class="tw-relative tw-mt-3 tw-bg-white/10 md:tw-mt-6">
+                            class="tw-relative tw-mt-3 tw-bg-white/10 md:tw-mt-6 tw-text-white">
                             {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
                         </x-home.button>
                     </div>
@@ -209,22 +209,22 @@
                         {{ trans('home.featured_artwork.title') }}
                     </h2>
                     <div>
-                        <h3 class="tw-text-3xl lg:tw-text-4xl">
-                            <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}">
+                        <h3 class="tw-text-3xl lg:tw-text-4xl tw-my-0">
+                            <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}" class="tw-text-inherit">
                                 {{ $featuredArtwork->title }}
                             </a>
                         </h3>
                         <div class="tw-mt-2 tw-text-sm lg:tw-mt-3 lg:tw-text-lg">
                             @foreach ($featuredArtwork->author_links as $l)
                                 <a href="{{ $l->url }}"
-                                    class="hover:tw-underline">{{ $l->label }}</a>
+                                    class="hover:tw-underline tw-text-inherit">{{ $l->label }}</a>
                             @endforeach
                         </div>
                         <div class="tw-text-sm tw-text-gray-500 lg:tw-text-lg">
                             @foreach ($featuredArtwork->metadataLinks as $m)
                                 @if ($m->url)
                                     <a href="{{ $m->url }}"
-                                        class="hover:tw-underline">{{ $m->label }}</a>{{ $loop->last ? '' : ', ' }}
+                                        class="hover:tw-underline tw-text-inherit">{{ $m->label }}</a>{{ $loop->last ? '' : ', ' }}
                                 @else
                                     {{ $m->label }}{{ $loop->last ? '' : ', ' }}
                                 @endif
@@ -245,12 +245,12 @@
 
         {{-- Latest content --}}
         <div class="tw-container tw-mx-auto tw-max-w-screen-2xl tw-px-6 tw-py-8 md:tw-py-16 md:tw-px-8">
-            <h2 class="tw-font-semibold md:tw-text-lg">
+            <h2 class="tw-font-semibold md:tw-text-lg tw-m-0">
                 {{ trans('home.latest_content.collections.title') }}
             </h2>
 
             <div class="tw-mt-4 tw-flex tw-items-end tw-justify-between">
-                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl">
+                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl tw-m-0">
                     {{ trans('home.latest_content.collections.tab') }}
                 </h3>
 
@@ -265,7 +265,7 @@
                         <div class="tw-relative tw-bg-sky-400">
                             <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                 <img src="{{ $c->getThumbnailImage() }}"
-                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                             </a>
 
                             <div
@@ -274,18 +274,18 @@
                                 {{ trans('home.latest_content.collections.item_count_suffix') }}
                             </div>
                         </div>
-                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                        <span class="tw-mt-4 tw-inline-block tw-text-gray-600">
                             {{ Str::ucfirst($c->type ?? trans('home.latest_content.collections.default_type')) }}
                         </span>
                         <h4
-                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black tw-m-0">
                             <a href="{{ route('frontend.collection.detail', $c->id) }}"
-                                title="{{ $c->name }}">
+                                title="{{ $c->name }}" class="tw-text-inherit">
                                 {{ $c->name }}
                             </a>
                         </h4>
-                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                            <a
+                        <div class="tw-mt-2 tw-truncate tw-text-gray-600">
+                            <a class="tw-text-inherit"
                                 href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">{{ $c->user->name }}</a>
                             ∙ {{ $c->published_at->format('d. m. Y') }}
                         </div>
@@ -300,7 +300,7 @@
             </x-home.carousel>
 
             <div class="tw-mt-8 tw-flex tw-items-end tw-justify-between">
-                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl">
+                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl tw-m-0">
                     {{ trans('home.latest_content.articles.tab') }}
                 </h3>
 
@@ -315,20 +315,20 @@
                         <a href="{{ route('frontend.article.detail', $a->slug) }}"
                             class="tw-block tw-bg-sky-400">
                             <img src="{{ $a->getThumbnailImage() }}"
-                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                         </a>
-                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                        <span class="tw-mt-4 tw-inline-block tw-text-gray-600">
                             {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}
                         </span>
                         <h4
-                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black tw-m-0">
                             <a href="{{ route('frontend.article.detail', $a->slug) }}"
                                 title="{{ $a->title }}">
                                 {{ $a->title }}
                             </a>
                         </h4>
-                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                            <a
+                        <div class="tw-mt-2 tw-truncate tw-text-gray-600">
+                            <a class="tw-text-inherit"
                                 href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
                             ∙ {{ $a->published_date->format('d. m. Y') }}
                         </div>
@@ -352,9 +352,9 @@
                             class="tw-mt-12 tw-mr-6 tw-hidden tw-h-52 tw-w-52 tw-rounded-full lg:tw-block"
                             alt="{{ $featuredAuthor->formated_name }}">
                         <div>
-                            <h2 class="tw-font-semibold lg:tw-text-lg">
+                            <h2 class="tw-font-semibold lg:tw-text-lg tw-m-0">
                                 {{ trans('home.featured_author.title') }}</h2>
-                            <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold lg:tw-text-4xl">
+                            <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold lg:tw-text-4xl tw-mb-0">
                                 <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
                                     class="tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current">
                                     {{ $featuredAuthor->formated_name }}
@@ -382,7 +382,7 @@
                             </x-home.button>
                             <br />
                             <a href="{{ route('frontend.author.index') }}"
-                                class="tw-mt-6 tw-hidden tw-cursor-pointer tw-text-sm tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current lg:tw-inline-block">
+                                class="tw-mt-6 tw-hidden tw-cursor-pointer tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current lg:tw-inline-block">
                                 {{ trans('home.featured_author.button_more') }}
                             </a>
                         </div>

@@ -61,7 +61,7 @@
                         @endforeach
 
                     </div>
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 tw-flex tw-justify-center">
 
                         {!! $paginator->appends(@Request::except('page'))->render() !!}
                         @include('components.load_more', ['paginator' => $paginator, 'isotopeContainerSelector' => '#iso'])

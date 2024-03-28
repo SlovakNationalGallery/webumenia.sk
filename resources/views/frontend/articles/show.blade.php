@@ -62,14 +62,14 @@
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="v-center min-h-3em">
+                            <div class="v-center tw-min-h-12">
                                 <a href="{!! route('frontend.article.index', ['author' => $article->author ]) !!}">
                                     {!! $article->author!!}
                                 </a>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="v-center min-h-3em">
+                            <div class="v-center tw-min-h-12">
                                 <i class='fa fa-calendar-o mr-3'></i>
                                 @date($article->published_date)
                             </div>
@@ -77,7 +77,7 @@
 
                         <div class="col-sm-4">
                             @if ($article->reading_time)
-                            <div class="v-center min-h-3em">
+                            <div class="v-center tw-min-h-12">
                                 <i class='fa fa-clock-o mr-3'></i>{!! $article->reading_time !!}
                             </div>
                             @endif

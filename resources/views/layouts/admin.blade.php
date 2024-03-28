@@ -17,17 +17,8 @@
 
         <!-- CSS are placed here -->
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ mix('/css/tailwind.css') }}" />
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
-        {!! Html::style('css/sb-admin.css') !!}
-        {!! Html::style('css/ladda-themeless.min.css') !!}
-        {!! Html::style('css/bootstrap-wysihtml5.css') !!}
-        {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
-        {!! Html::style('css/plugins/selectize.css') !!}
-        {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
-        {!! Html::style('css/plugins/bootstrap-switch.css') !!}
-        {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
-        {!! Html::style('/css/vue/vue-select.css') !!}
         {!! Html::style(mix('/css/admin.css')) !!}
 </head>
 
@@ -108,16 +99,16 @@
                         </li>
                         @endcan
                         @can('administer')
-                        <li class="uppercase text-sm font-semibold text-muted pl-4 pt-4 border-b-0">
+                        <li class="tw-uppercase tw-text-sm tw-font-semibold text-muted pl-4 pt-4 tw-border-b-0">
                             Homepage
                         </li>
-                        <li class="border-b-0">
+                        <li class="tw-border-b-0">
                             <a href="{{ route('shuffled-items.index') }}"><i class="fa fa-random fa-fw"></i> Náhodné diela</a>
                         </li>
-                        <li class="border-b-0">
+                        <li class="tw-border-b-0">
                             <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Odporúčaný obsah</a>
                         </li>
-                        <li class="border-b-0 mb-4">
+                        <li class="tw-border-b-0 mb-4">
                             <a href="{{ route('featured-artworks.index') }}"><i class="fa fa-image fa-fw"></i> Vybrané diela</a>
                         </li>
                         @endcan

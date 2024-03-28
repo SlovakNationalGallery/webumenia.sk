@@ -296,7 +296,7 @@
                                 {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
                                 <td><a rel="license" href="{{URL::to('katalog?is_free=' . '1')}}" target="_blank"
                                        class="no-border license" title="Public Domain" data-toggle="tooltip"><img
-                                             alt="Creative Commons License" style="height: 20px; width: auto"
+                                             alt="Creative Commons License" style="height: 20px" class="tw-inline-block"
                                              src="{{ asset('/images/license/zero.svg') }}">
                                         {{ trans('general.public_domain') }}</a>
                                 </td>
@@ -349,12 +349,12 @@
                         ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}"
-                           class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
+                           class="btn btn-cta btn-default btn-outline sans tw-w-full"><i class="fa fa-shopping-cart"></i>
                             {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && !$item->images->isEmpty())
                         <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}"
-                           class="btn btn-cta btn-default btn-outline sans w-100" id="download"><i
+                           class="btn btn-cta btn-default btn-outline sans tw-w-full" id="download"><i
                                class="fa fa-download"></i>
                             {{ trans('dielo.item_download') }} </a>
                         @endif
@@ -427,9 +427,9 @@
     <div class="container">
         <div class="row">
             <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
-                <div class="tailwind-rules">
+                <div class="tailwind-rules tw-break-keep">
                     <div class="tw-h-20 tw-text-lg">
-                        <h3 class="tw-mt-5">
+                        <h3 class="tw-mt-5 tw-mb-0">
                             {{ utrans('dielo.more-items_related-artworks') }}
                         </h3>
                         <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-1">
@@ -451,7 +451,7 @@
             </div>
             @if ($item->has_colors)
             <div class="col-sm-6 pl-sm-5" id="related-by-color">
-                <div class="tailwind-rules">
+                <div class="tailwind-rules tw-break-keep">
                     <div class="tw-h-20 tw-text-lg">
                         <h3 class="tw-mt-5 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
                         @include('components.color_list', ['colors' => $item->getColors()])
@@ -482,7 +482,7 @@
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"
-                            class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
+                            class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
         </div>
@@ -500,7 +500,7 @@
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"
-                            class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
+                            class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
         </div>

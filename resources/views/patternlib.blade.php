@@ -15,18 +15,18 @@ Pattern Library | @parent
 <script type="application/javascript">
     function toggle_source(event) {
         event.preventDefault();
-        $(event.target).parent().find('pre.js-source').toggleClass('hidden');                    
+        $(event.target).parent().find('pre.js-source').toggleClass('hidden');
         var txt = $(event.target).parent().find('pre.js-source').hasClass('hidden') ? '<i class="fa fa-code"></i> Show source' : '<i class="fa fa-code"></i> Hide source';
         $(event.target).html(txt);
     }
 </script>
 
-<section class="pattern-lib">
+<section>
     <div class="container">
         <h1>Pattern Library</h1>
-        
+
         @foreach ($components as $component)
-            
+
             <section class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default">
@@ -35,10 +35,10 @@ Pattern Library | @parent
                         </div>
                         <div class="panel-body">
                             <div class="clearfix">
-                                <div class="position-relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
+                                <div class="tw-relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
                                     @include($component['include_path'], $component['data'])
                                     @if (isset($component['include_path_js']))
-                                        @section('javascript')                                            
+                                        @section('javascript')
                                             @if (isset($component['data_js']))
                                                 @include($component['include_path_js'], array_merge($component['data'], $component['data_js']))
                                             @else
@@ -56,7 +56,7 @@ Pattern Library | @parent
                             </div>
 
                             @if (isset($component['usage_notes']))
-                            <h4>Usage notes</h4> 
+                            <h4>Usage notes</h4>
                             <p>{{$component['usage_notes']}}</p>
                             @endif
 

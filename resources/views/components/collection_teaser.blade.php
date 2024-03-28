@@ -1,6 +1,6 @@
 @props(['collection'])
 
-<div class="tailwind-rules">
+<div class="tailwind-rules tw-break-keep">
     <div class="tw-max-w-full tw-justify-center tw-align-middle tw-font-normal file:tw-flex">
         <div class="tw-bg-gray-200 tw-p-6 md:tw-pt-4">
             <div class="tw-mb-3 tw-text-base tw-font-medium">

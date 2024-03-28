@@ -185,7 +185,7 @@
                 </div>
 
 
-                {!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline  uppercase sans')) ) !!}
+                {!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline tw-uppercase sans')) ) !!}
 
                 {!!Former::close();!!}
 

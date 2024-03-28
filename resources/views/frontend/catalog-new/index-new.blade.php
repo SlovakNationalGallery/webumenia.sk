@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <section class="tailwind-rules" v-cloak>
+    <section class="tailwind-rules tw-break-keep" v-cloak>
         <filter-new-items-controller title-static-part-separator="{{ trans('katalog.title') }}"
             v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">

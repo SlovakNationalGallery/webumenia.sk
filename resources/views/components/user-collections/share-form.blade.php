@@ -15,7 +15,7 @@
                 name="name"
                 placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
                 value="{{ old('name', $collection->name ?? null) }}"
-                class="text-4xl text-center"
+                class="tw-text-4xl text-center"
                 :disabled="@json($disabled)"
                 :focused="@json($creating)"
                 spellcheck="false"
@@ -29,7 +29,7 @@
                 name="author"
                 placeholder="Tvoje meno" {{-- TODO i18n --}}
                 value="{{ old('author', $collection->author ?? null) }}"
-                class="mt-5 pb-2 text-xl"
+                class="mt-5 pb-2 tw-text-xl"
                 :disabled="@json($disabled)"
                 spellcheck="false"
                 v-on:focus="form.setEditing(true)"
@@ -42,7 +42,7 @@
                 name="description"
                 placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                 value="{{ old('description', $collection->description ?? null) }}"
-                class="mt-5 pb-2 text-lg font-serif text-center"
+                class="mt-5 pb-2 tw-text-lg font-serif text-center"
                 :disabled="@json($disabled)"
                 spellcheck="false"
                 v-on:focus="form.setEditing(true)"
@@ -57,12 +57,12 @@
                     leave-active-class="animated fadeOut faster"
                     mode="out-in"
                 >
-                    <button v-if="form.editing" type="submit" class="btn btn-dark font-light p-3 px-5 mt-5" key="save">
+                    <button v-if="form.editing" type="submit" class="btn btn-dark tw-font-light p-3 px-5 mt-5" key="save">
                         uložiť úpravy {{-- TODO i18n --}}
                     </button>
                     @if (!$creating)
                     <div v-else class="row bg-gray-300 py-5">
-                        <h5 class="text-xl font-semibold mt-0 mb-4">
+                        <h5 class="tw-text-xl tw-font-semibold mt-0 mb-4">
                             @if (session('user-collection-created'))Výborne! @endif
                             Zdieľaj svoj výber s ostatnými:
                         </h5>
