@@ -21,25 +21,14 @@ require('./components/searchbar')
 require('./components/clipboard-button')
 
 // Vue
-import { createApp, configureCompat } from 'vue'
+import { createApp } from 'vue'
 import { VueMasonryPlugin } from 'vue-masonry'
 import VueClickAway from 'vue3-click-away'
 import { Lang } from 'laravel-vue-lang'
 import { ZiggyVue } from 'ziggy'
 
-configureCompat({
-    RENDER_FUNCTION: false,
-    INSTANCE_SCOPED_SLOTS: false,
-    TRANSITION_GROUP_ROOT: false,
-    INSTANCE_LISTENERS: false,
-    INSTANCE_ATTRS_CLASS_STYLE: false,
-    ATTR_ENUMERATED_COERCION: false,
-    WATCH_ARRAY: false,
-})
-
 createApp({
     compilerOptions: {
-        whitespace: 'preserve', // TODO remove after upgrade to Vue3
         isCustomElement: (tag) => tag === 'lottie-player',
     },
 })
