@@ -33,9 +33,9 @@ configureCompat({
 })
 
 createApp({
-    // TODO remove after upgrade to Vue3
     compilerOptions: {
-        whitespace: 'preserve',
+        whitespace: 'preserve', // TODO remove after upgrade to Vue3
+        isCustomElement: (tag) => tag === 'lottie-player',
     },
 })
     .use(VueMasonryPlugin)
