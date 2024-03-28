@@ -11,7 +11,7 @@ export default {
     },
     methods: {
         tooltip(command) {
-            $(this.$refs.link).tooltip(command);
+            $(this.$refs.link).tooltip(command)
         },
         copy() {
             navigator.clipboard.writeText(this.value)
@@ -30,8 +30,8 @@ export default {
             title: this.__('general.copied_to_clipboard'),
         })
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.tooltip('destroy')
-    }
+    },
 }
 </script>
