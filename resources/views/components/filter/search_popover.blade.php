@@ -1,4 +1,4 @@
-<filter-popover-controller {{ $attributes }}>
+<filter-popover-controller {{ $attributes->except('v-bind:is-active') }}>
     <template #button="pc">
         <div class="tw-border"
             v-bind:class="pc.isOpen ?'tw-border-gray-800' : 'tw-border-transparent'">
