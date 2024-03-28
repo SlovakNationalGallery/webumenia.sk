@@ -259,11 +259,11 @@
                                                 class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-semibold hover:tw-border-gray-800">
                                                 <div class="tw-flex tw-items-center tw-pr-4">
                                                     <x-icons.minus v-if="tc.isOn"
-                                                        class="tw-h-6 tw-w-6 tw-fill-current">
-                                                    </x-icons.minus>
-                                                    <x-icons.sliders-horizontal
-                                                        class="tw-h-6 tw-w-6 tw-fill-current" v-else>
-                                                    </x-icons.sliders-horizontal>
+                                                        class="tw-h-6 tw-w-6 tw-fill-current" />
+                                                    <template v-else>
+                                                        <x-icons.sliders-horizontal
+                                                            class="tw-h-6 tw-w-6 tw-fill-current" />
+                                                    </template>
                                                 </div>
                                                 <span
                                                     v-if="tc.isOn">{{ trans('item.filter.hide_extended') }}</span>
