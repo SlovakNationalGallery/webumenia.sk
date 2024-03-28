@@ -150,7 +150,5 @@ createApp({
         'newsletter-signup.bottom-modal-controller',
         require('./components/newsletter-signup/BottomModalController.vue').default
     )
-    .component('slider', require('./components/vue/slider').default)
-    .component('color-slider', require('./components/vue/color-slider').default)
 
     .mount('#app')
