@@ -33,7 +33,6 @@
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/magnific-popup.css') !!}
-		@livewireStyles
 
 		{{-- JS --}}
 		@include('googletagmanager::head')
@@ -97,7 +96,6 @@
 	    </a>
 	</div>
 
-	@livewireScripts
 	<script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>

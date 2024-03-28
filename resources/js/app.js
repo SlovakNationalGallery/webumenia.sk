@@ -22,7 +22,6 @@ require('./components/clipboard-button')
 // Vue components
 import Vue from 'vue'
 import { ZiggyVue } from 'ziggy';
-import 'livewire-vue'
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 import { VueMasonryPlugin } from 'vue-masonry'
 import { Lang } from 'laravel-vue-lang';
