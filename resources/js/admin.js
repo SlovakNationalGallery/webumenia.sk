@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import { Lang } from 'laravel-vue-lang'
 
+import 'vue-select/dist/vue-select.css'
+
 Vue.use(Lang, { fallback: 'sk' })
 
 window.Vue = Vue
