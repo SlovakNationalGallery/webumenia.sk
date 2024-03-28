@@ -15,6 +15,7 @@ use App\Collection;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Facades\Experiment;
 use App\Filter\ItemFilter;
+use App\Http\Controllers\Admin\Authority\RoleTranslationsController;
 use App\Http\Controllers\Admin\FeaturedArtworkController;
 use App\Http\Controllers\Admin\FeaturedPieceController;
 use App\Http\Controllers\Admin\ItemTagsController;
@@ -487,6 +488,12 @@ Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::get('authority/reindex', [AuthorityController::class, 'reindex']);
     Route::post('authority/destroySelected', [AuthorityController::class, 'destroySelected']);
     Route::get('authority/search', [AuthorityController::class, 'search']);
+    Route::get('authority/role-translations', [RoleTranslationsController::class, 'index'])->name(
+        'authority.role-translations.index'
+    );
+    Route::get('authority/role-translations/download', [RoleTranslationsController::class, 'download'])->name(
+        'authority.role-translations.download'
+    );
     Route::resource('authority', AuthorityController::class);
     Route::resource('sketchbook', SketchbookController::class);
     Route::resource('notices', NoticeController::class);

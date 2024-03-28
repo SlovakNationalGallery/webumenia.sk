@@ -22,7 +22,7 @@ class GmuhkItemMapperTest extends TestCase
             'medium' => ['papír'],
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
             'gallery' => ['Galerie moderního umění v Hradci Králové'],
-            'work_type' => ['publikacePredmetu:GMUHK:151:G'],
+            'work_type' => ['publikacePredmetu:GMUHK:151:G:Gr'],
         ];
 
         $mapped = $mapper->map($row);
@@ -59,5 +59,18 @@ class GmuhkItemMapperTest extends TestCase
             'work_type:cs' => 'grafika',
         ];
         $this->assertEquals($expected, $mapped);
+    }
+
+    public function testMapWorkTypeFallback()
+    {
+        $mapper = new GmuhkItemMapper();
+        $row = [
+            'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
+            'work_type' => ['publikacePredmetu:GMUHK:151'],
+        ];
+
+        $this->assertEquals('grafika', $mapper->mapWorkType($row, 'sk'));
+        $this->assertEquals('grafika', $mapper->mapWorkType($row, 'cs'));
+        $this->assertEquals('graphics', $mapper->mapWorkType($row, 'en'));
     }
 }
