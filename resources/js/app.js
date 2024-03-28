@@ -30,6 +30,7 @@ import { ZiggyVue } from 'ziggy'
 configureCompat({
     RENDER_FUNCTION: false,
     INSTANCE_SCOPED_SLOTS: false,
+    TRANSITION_GROUP_ROOT: false,
 })
 
 createApp({

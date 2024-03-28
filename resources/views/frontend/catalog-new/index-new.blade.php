@@ -796,10 +796,12 @@
                                 leave-to-class="tw-opacity-0"
                                 enter-active-class="tw-transition tw-duration-100"
                                 leave-active-class="tw-transition tw-duration-100"
-                                class="tw-flex tw-space-x-3 tw-pb-4">
+                                class="tw-flex tw-space-x-3 tw-pb-4"
+                                tag="span">
                                 <button
                                     class="tw-flex tw-items-center tw-whitespace-nowrap tw-bg-gray-300 tw-py-1 tw-px-1.5"
-                                    v-for="option in selectedOptionsAsLabels"
+                                    v-for="(option, index) in selectedOptionsAsLabels"
+                                    :key="index"
                                     v-on:click="removeSelection(option)">
                                     <span v-if="option.filterName === 'color'"
                                         class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
