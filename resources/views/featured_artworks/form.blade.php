@@ -15,21 +15,23 @@
 
             <x-admin.form :model="$artwork">
                 <x-admin.label value="Dielo" />
-                <query-string v-slot="qs" class="sm:tw-w-2/3">
-                    <autocomplete v-bind:remote="{ url: '/katalog/suggestions?search=%QUERY' }"
-                        placeholder="Zadaj názov, autora, ..." value="{{ request('itemId') }}"
-                        v-on:input="({id}) => qs.set('itemId', id)" option-label="id">
-                        <template v-slot:option="option">
-                            <div class="tw-flex">
-                                <img :src="option.image" class="tw-h-16 tw-w-16 tw-object-cover">
-                                <div class="tw-px-4 tw-py-2 tw-max-w-full tw-truncate">
-                                    <h4 class="tw-font-semibold">@{{ option.title }}</h4>
-                                    <span>@{{ option.author }} ∙ @{{ option.id }}</span>
+                <div class="sm:tw-w-2/3">
+                    <query-string v-slot="qs">
+                        <autocomplete v-bind:remote="{ url: '/katalog/suggestions?search=%QUERY' }"
+                            placeholder="Zadaj názov, autora, ..." value="{{ request('itemId') }}"
+                            v-on:input="({id}) => qs.set('itemId', id)" option-label="id">
+                            <template v-slot:option="option">
+                                <div class="tw-flex">
+                                    <img :src="option.image" class="tw-h-16 tw-w-16 tw-object-cover">
+                                    <div class="tw-px-4 tw-py-2 tw-max-w-full tw-truncate">
+                                        <h4 class="tw-font-semibold">@{{ option.title }}</h4>
+                                        <span>@{{ option.author }} ∙ @{{ option.id }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </template>
-                    </autocomplete>
-                </query-string>
+                            </template>
+                        </autocomplete>
+                    </query-string>
+                </div>
 
                 @if ($artwork->item)
                     <div class="tw-grid sm:tw-grid-cols-3 tw-gap-x-8 tw-mt-8">

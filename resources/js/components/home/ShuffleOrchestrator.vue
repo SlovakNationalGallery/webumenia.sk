@@ -75,7 +75,7 @@ export default {
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             isShuffling: this.isShuffling,
             filter: this.filter,
             item: this.item,

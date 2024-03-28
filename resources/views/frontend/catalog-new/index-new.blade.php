@@ -259,11 +259,11 @@
                                                 class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-semibold hover:tw-border-gray-800">
                                                 <div class="tw-flex tw-items-center tw-pr-4">
                                                     <x-icons.minus v-if="tc.isOn"
-                                                        class="tw-h-6 tw-w-6 tw-fill-current">
-                                                    </x-icons.minus>
-                                                    <x-icons.sliders-horizontal
-                                                        class="tw-h-6 tw-w-6 tw-fill-current" v-else>
-                                                    </x-icons.sliders-horizontal>
+                                                        class="tw-h-6 tw-w-6 tw-fill-current" />
+                                                    <template v-else>
+                                                        <x-icons.sliders-horizontal
+                                                            class="tw-h-6 tw-w-6 tw-fill-current" />
+                                                    </template>
                                                 </div>
                                                 <span
                                                     v-if="tc.isOn">{{ trans('item.filter.hide_extended') }}</span>
@@ -796,10 +796,12 @@
                                 leave-to-class="tw-opacity-0"
                                 enter-active-class="tw-transition tw-duration-100"
                                 leave-active-class="tw-transition tw-duration-100"
-                                class="tw-flex tw-space-x-3 tw-pb-4">
+                                class="tw-flex tw-space-x-3 tw-pb-4"
+                                tag="span">
                                 <button
                                     class="tw-flex tw-items-center tw-whitespace-nowrap tw-bg-gray-300 tw-py-1 tw-px-1.5"
-                                    v-for="option in selectedOptionsAsLabels"
+                                    v-for="(option, index) in selectedOptionsAsLabels"
+                                    :key="index"
                                     v-on:click="removeSelection(option)">
                                     <span v-if="option.filterName === 'color'"
                                         class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
@@ -1006,11 +1008,11 @@
                                 <div name="artwork-image">
                                     <catalog.artwork-image-controller v-slot="ic">
                                         <div>
-                                            <a v-bind:href="$route('dielo', {id: artwork.id})">
+                                            <a v-bind:href="route('dielo', {id: artwork.id})">
                                                 <img v-bind:class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']"
                                                     v-on:load="ic.onImgLoad"
-                                                    v-bind:src="$route('dielo.nahlad', {id: artwork.id, width: 220})"
-                                                    v-bind:srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
+                                                    v-bind:src="route('dielo.nahlad', {id: artwork.id, width: 220})"
+                                                    v-bind:srcset="`${route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                     sizes="(max-width: 768px) 250vw, 100vw">
                                             </a>
                                             <div v-bind:class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-animate-pulse tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']"
@@ -1020,11 +1022,11 @@
                                     </catalog.artwork-image-controller>
                                     <div class="tw-mt-6 tw-flex tw-gap-3">
                                         <div class="tw-flex tw-grow tw-flex-col">
-                                            <a v-bind:href="$route('dielo', {id: artwork.id})"
+                                            <a v-bind:href="route('dielo', {id: artwork.id})"
                                                 class="tw-pb-1.5 tw-text-lg tw-font-light tw-italic">@{{ artwork.content.authors_formatted.join(', ') }}</a>
-                                            <a v-bind:href="$route('dielo', {id: artwork.id})"
+                                            <a v-bind:href="route('dielo', {id: artwork.id})"
                                                 class="tw-pb-2 tw-text-lg">@{{ artwork.content.title }}</a>
-                                            <a v-bind:href="$route('dielo', {id: artwork.id})"
+                                            <a v-bind:href="route('dielo', {id: artwork.id})"
                                                 class="tw-text-base tw-font-light">@{{ artwork.content.dating }}</a>
                                         </div>
                                         <div class="tw-flex tw-items-start tw-gap-4">
@@ -1048,7 +1050,7 @@
                                                 </button>
                                             </user-collections-store>
                                             <a v-if="artwork.content.has_iip"
-                                                v-bind:href="$route('item.zoom', {id: artwork.id})">
+                                                v-bind:href="route('item.zoom', {id: artwork.id})">
                                                 <svg class="tw-h-5 tw-w-5 tw-fill-current"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 256 256">

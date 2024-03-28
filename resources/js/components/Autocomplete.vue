@@ -27,6 +27,7 @@ export default {
     components: {
         'v-select': VueSelect,
     },
+    emits: ['input'],
     props: {
         remote: Object,
         optionLabel: String,

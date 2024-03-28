@@ -1,4 +1,4 @@
-<filter-popover-controller {{ $attributes }}>
+<filter-popover-controller {{ $attributes->except('v-bind:is-active') }}>
     <template #button="pc">
         <div class="tw-border"
             v-bind:class="pc.isOpen ?'tw-border-gray-800' : 'tw-border-transparent'">
@@ -9,10 +9,10 @@
                 <div class="tw-flex">
                     {{ $popover_label }}
                     <div class="tw-flex tw-items-center tw-pl-4">
-                        <x-icons.caret-up v-if="pc.isOpen" class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                        </x-icons.caret-up>
-                        <x-icons.caret-down v-else class="tw-h-4 tw-w-4 tw-fill-current">
-                        </x-icons.caret-down>
+                        <x-icons.caret-up v-if="pc.isOpen" class="tw-h-4 tw-w-4 tw-fill-sky-300" />
+                        <template v-else>
+                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current" />
+                        </template>
                     </div>
                 </div>
             </button>

@@ -12,7 +12,7 @@
         </div>
         <div
             class="md:tw-min-h-80 tw-flex tw-h-[calc(100vh-18rem)] tw-flex-col tw-overflow-auto tw-bg-white tw-scrollbar tw-scrollbar-track-gray-200 tw-scrollbar-thumb-gray-600 tw-scrollbar-track-rounded tw-scrollbar-thumb-rounded tw-scrollbar-w-1 md:tw-max-h-80 md:tw-px-0 md:tw-pr-3">
-            <label v-if="sc.options.length > 0" v-for="option in sc.options" v-bind:for="option.id"
+            <label v-for="option in sc.options" v-bind:for="option.id"
                 v-bind:class="['tw-flex md:tw-px-2 tw-px-4 tw-my-0.5 tw-py-1 hover:tw-bg-gray-200 tw-cursor-pointer', { 'tw-bg-gray-200': option.checked }]">
                 <input
                     class="tw-form-checkbox tw-m-0 tw-mr-3 tw-h-6 tw-w-6 tw-border-gray-300 focus:tw-outline-none focus:tw-ring-0 focus:tw-ring-offset-0"
@@ -27,7 +27,7 @@
                     </span>
                 </span>
             </label>
-            <div v-else class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4">
+            <div v-if="sc.options.length === 0" class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4">
                 <lottie-player autoplay loop mode="normal"
                     src="{{ asset('animations/empty.json') }}">
                 </lottie-player>

@@ -5,7 +5,9 @@
             v-on:click="toggle">
             {{ $header }}
             <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-current" v-if="isOn" />
-            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current" v-else />
+            <template v-else="">
+                <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current" />
+            </template>
         </button>
         <div v-if="isOn" class="tw-px-4 tw-pb-6">
             {{ $body }}

@@ -1,30 +1,40 @@
 <template>
-  <div class="color-picker" :id="htmlId">
-    <input type="hidden" :name="htmlName" :value="color.hex.substring(1)" />
-    <color-slider v-model="color" @changemouseup="onChange" />
-  </div>
+    <div class="color-picker" :id="htmlId">
+        <input type="hidden" :name="htmlName" :value="color.hex.substring(1)" />
+        <ColorSlider v-model="color" @changemouseup="onChange" />
+    </div>
 </template>
 
 <script>
+import ColorSlider from './vue/color-slider'
 // TODO figure out why this is necessary
-window.addEventListener('touchstart', function onFirstTouch() {
-    document.body.classList.add('user-using-touch');
-    window.removeEventListener('touchstart', onFirstTouch, false);
-}, false);
+window.addEventListener(
+    'touchstart',
+    function onFirstTouch() {
+        document.body.classList.add('user-using-touch')
+        window.removeEventListener('touchstart', onFirstTouch, false)
+    },
+    false
+)
 
 export default {
-  props: ["htmlId", "htmlName", "selectedColor"],
-  methods: {
-    onChange() {
-      $("#" + this.htmlId).parents("form").submit()
+    props: ['htmlId', 'htmlName', 'selectedColor'],
+    components: {
+        ColorSlider,
     },
-  },
-  data() {
-    return {
-      color: {
-        hex: this.selectedColor,
-      },
-    }
-  },
+    methods: {
+        onChange() {
+            $('#' + this.htmlId)
+                .parents('form')
+                .submit()
+        },
+    },
+    data() {
+        return {
+            color: {
+                hex: this.selectedColor,
+            },
+        }
+    },
 }
 </script>

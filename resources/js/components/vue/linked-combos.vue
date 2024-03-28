@@ -30,6 +30,7 @@
 
 <script>
 import VueSelect from 'vue-select'
+import { debounce } from 'debounce'
 
 export default {
   name: "linked-combos",

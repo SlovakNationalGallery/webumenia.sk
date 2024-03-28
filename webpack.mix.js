@@ -17,16 +17,7 @@ mix
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
     .js('resources/js/zoom.js', 'public/js')
-    .vue({
-        version: 3,
-        options: {
-            compilerOptions: {
-                compatConfig: {
-                    MODE: 2,
-                },
-            },
-        },
-    })
+    .vue()
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
@@ -55,7 +46,6 @@ mix
         resolve: {
             alias: {
                 '@lang': path.resolve('./lang'),
-                vue: '@vue/compat',
                 ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue'),
             },
         },
