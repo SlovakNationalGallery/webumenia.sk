@@ -60,7 +60,7 @@
         "tinycolor2": "1.4.2",
         "typeahead.js": "^0.10.5",
         "vue-dragscroll": "^3.0.1",
-        "vue-masonry": "^0.12.0",
+        "vue-masonry": "^0.16.0",
         "vue-select": "^4.0.0-beta.6",
         "vue-slider-component": "^4.1.0-beta.7",
         "vue3-click-away": "^1.2.4"
