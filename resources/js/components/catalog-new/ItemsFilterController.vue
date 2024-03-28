@@ -338,7 +338,7 @@ export default {
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             isFetchingArtworks: this.isFetchingArtworks,
             hasError: this.hasError,
             query: this.query,

@@ -22,13 +22,15 @@ export default {
                     )
                     .map((selected) => ({ value: selected, count: 0, checked: true })),
             ]
-            return this.search ? matchSorter(optionsWithSelected, this.search, {
-                keys: [(option) => formatAuthorName(option.value)],
-            }) : optionsWithSelected
+            return this.search
+                ? matchSorter(optionsWithSelected, this.search, {
+                      keys: [(option) => formatAuthorName(option.value)],
+                  })
+                : optionsWithSelected
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             search: this.search,
             onSearchInput: (e) => (this.search = e.target.value),
             options: this.filteredOptions,

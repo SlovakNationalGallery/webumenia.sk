@@ -11,7 +11,7 @@ export default {
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             isOn: this.isOn,
             toggle: this.toggle,
         })
