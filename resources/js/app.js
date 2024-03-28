@@ -31,6 +31,8 @@ configureCompat({
     RENDER_FUNCTION: false,
     INSTANCE_SCOPED_SLOTS: false,
     TRANSITION_GROUP_ROOT: false,
+    INSTANCE_LISTENERS: false,
+    INSTANCE_ATTRS_CLASS_STYLE: false,
 })
 
 createApp({
