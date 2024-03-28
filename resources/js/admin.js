@@ -1,7 +1,17 @@
-import { createApp } from 'vue'
+import { createApp, configureCompat } from 'vue'
 import { Lang } from 'laravel-vue-lang'
 
 import 'vue-select/dist/vue-select.css'
+
+configureCompat({
+    RENDER_FUNCTION: false,
+    INSTANCE_SCOPED_SLOTS: false,
+    TRANSITION_GROUP_ROOT: false,
+    INSTANCE_LISTENERS: false,
+    INSTANCE_ATTRS_CLASS_STYLE: false,
+    ATTR_ENUMERATED_COERCION: false,
+    WATCH_ARRAY: false,
+})
 
 createApp()
     .use(Lang, { fallback: 'sk' })

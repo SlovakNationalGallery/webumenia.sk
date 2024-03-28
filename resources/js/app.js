@@ -34,6 +34,7 @@ configureCompat({
     INSTANCE_LISTENERS: false,
     INSTANCE_ATTRS_CLASS_STYLE: false,
     ATTR_ENUMERATED_COERCION: false,
+    WATCH_ARRAY: false,
 })
 
 createApp({
