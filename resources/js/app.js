@@ -21,13 +21,23 @@ require('./components/searchbar')
 require('./components/clipboard-button')
 
 // Vue
-import { createApp } from 'vue'
+import { createApp, configureCompat } from 'vue'
 import { VueMasonryPlugin } from 'vue-masonry'
 import VueClickAway from 'vue3-click-away'
 import { Lang } from 'laravel-vue-lang'
 import { ZiggyVue } from 'ziggy'
 
-createApp()
+configureCompat({
+    RENDER_FUNCTION: false,
+    INSTANCE_SCOPED_SLOTS: false,
+})
+
+createApp({
+    // TODO remove after upgrade to Vue3
+    compilerOptions: {
+        whitespace: 'preserve',
+    },
+})
     .use(VueMasonryPlugin)
     .use(VueClickAway)
     .use(Lang, { fallback: 'sk' })

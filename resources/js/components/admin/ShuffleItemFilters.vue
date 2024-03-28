@@ -76,7 +76,7 @@ export default {
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             filters: this.filtersOutput,
             remove: (filter) => {
                 this.filters = this.filters.filter(({ _id }) => _id !== filter._id)

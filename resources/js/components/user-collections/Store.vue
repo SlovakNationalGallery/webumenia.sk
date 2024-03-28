@@ -24,7 +24,7 @@ export default {
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             items: this.items,
             sharedCollections: this.sharedCollections,
             toggleItem: this.store.toggleItem.bind(this.store),

@@ -11,7 +11,7 @@ export default {
         },
     },
     render() {
-        return this.$scopedSlots.default({
+        return this.$slots.default({
             track: () => {
                 fetch('/api/track-featured-piece-click', {
                     method: 'POST',
