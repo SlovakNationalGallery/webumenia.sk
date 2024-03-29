@@ -1,5 +1,5 @@
 import { onMounted, ref } from 'vue'
-import { useApiClient } from '../useApiClient'
+import { useApiClient } from '../composables/useApiClient'
 
 export function useTitleUpdater(staticPartSeparator) {
     const staticPart = ref('')

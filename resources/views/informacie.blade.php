@@ -109,7 +109,7 @@
     <div class="container">
         <div class="row py-5">
             <div class="col-lg-8 col-lg-offset-2">
-                <livewire:newsletter-signup-form variant="info-page" />
+                <x-newsletter-signup-form tracking-variant="info-page" />
             </div>
         </div>
     </div>

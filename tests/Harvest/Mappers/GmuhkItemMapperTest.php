@@ -60,4 +60,17 @@ class GmuhkItemMapperTest extends TestCase
         ];
         $this->assertEquals($expected, $mapped);
     }
+
+    public function testMapWorkTypeFallback()
+    {
+        $mapper = new GmuhkItemMapper();
+        $row = [
+            'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
+            'work_type' => ['publikacePredmetu:GMUHK:151'],
+        ];
+
+        $this->assertEquals('grafika', $mapper->mapWorkType($row, 'sk'));
+        $this->assertEquals('grafika', $mapper->mapWorkType($row, 'cs'));
+        $this->assertEquals('graphics', $mapper->mapWorkType($row, 'en'));
+    }
 }

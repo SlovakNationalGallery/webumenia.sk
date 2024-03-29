@@ -5,8 +5,9 @@ require 'recipe/laravel.php';
 require 'contrib/npm.php';
 
 // Config
-set('bin/php', 'php8.1');
 set('repository', 'https://github.com/SlovakNationalGallery/webumenia.sk.git');
+set('bin/php', 'php8.1');
+set('bin/npm', 'n --offline exec 20 npm');
 
 add('shared_files', ['public/sitemap.xml']);
 add('shared_dirs', [

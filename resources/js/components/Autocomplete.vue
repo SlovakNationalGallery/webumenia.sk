@@ -7,7 +7,7 @@
         :clearable="false"
         :value="value"
         :placeholder="placeholder"
-        v-on:input="(value) => $emit('input', value)"
+        v-on:option:selected="(value) => $emit('input', value)"
     >
         <template v-slot:option="option">
             <slot name="option" v-bind="option">{{ option.id }}</slot>
@@ -16,16 +16,16 @@
 </template>
 
 <script>
-import Bloodhound from "corejs-typeahead/dist/bloodhound"
-import VueSelect from "vue-select"
+import Bloodhound from 'corejs-typeahead/dist/bloodhound'
+import VueSelect from 'vue-select'
 
 const defaultRemote = {
-    wildcard: "%QUERY",
+    wildcard: '%QUERY',
 }
 
 export default {
     components: {
-        "v-select": VueSelect,
+        'v-select': VueSelect,
     },
     props: {
         remote: Object,

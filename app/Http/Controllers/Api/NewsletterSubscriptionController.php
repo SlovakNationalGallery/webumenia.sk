@@ -1,30 +1,24 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use DrewM\MailChimp\MailChimp;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
-use Livewire\Component;
 
-class NewsletterSignupForm extends Component
+class NewsletterSubscriptionController extends Controller
 {
-    public $email;
-    public string $variant = 'inline';
-    public bool $success = false;
-
-    protected $rules = [
-        'email' => 'required|email',
-    ];
-
-    public function subscribe()
+    public function store(Request $request, MailChimp $mailChimp)
     {
-        $this->validate();
-        $mailChimp = new MailChimp(config('mailchimp.apiKey'));
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
         $listId = config('mailchimp.lists.webumenia-newsletter.id');
 
         $mailChimp->post("lists/{$listId}/members", [
-            'email_address' => $this->email,
+            'email_address' => $request->email,
             'status' => 'pending',
             'email_type' => 'html',
             'marketing_permissions' => [
@@ -38,23 +32,26 @@ class NewsletterSignupForm extends Component
         ]);
 
         if (!$mailChimp->success()) {
-            $this->addError('subscription', $mailChimp->getLastError());
-            return;
+            abort(500, $mailChimp->getLastError());
         }
 
-        $this->success = true;
-        Cookie::queue(
+        return response('', 201)->cookie(
             'newsletterSubscribedAt',
             Date::now()->toIso8601String(),
             Date::now()
                 ->addYears(10)
                 ->diffInMinutes()
         );
-        $this->emit('trackNewsletterSignup', 'signupSuccessful', $this->variant);
     }
 
-    public function render()
+    public function storeDismissal()
     {
-        return view('livewire.newsletter-signup-form');
+        return response('')->cookie(
+            'newsletterSignupModalDismissedAt',
+            Date::now()->toIso8601String(),
+            Date::now()
+                ->addDays(30)
+                ->diffInMinutes()
+        );
     }
 }

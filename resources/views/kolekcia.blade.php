@@ -163,7 +163,7 @@
                 <div class="col-md-8 col-md-push-2">
                     <div class="bg-blue p-4 p-md-5">
                         <div class="mx-md-2">
-                            <livewire:newsletter-signup-form />
+                            <x-newsletter-signup-form />
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
     </div>
 </section>
 
-<livewire:newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" />
+<x-newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" />
 @stop
 
 @section('javascript')

@@ -18,19 +18,18 @@ require('jquery.easing')
 // Components
 require('./components/searchbar')
 require('./components/clipboard-button')
-require('./components/newsletter-signup-form-tracker')
 
 // Vue components
 import Vue from 'vue'
 import { ZiggyVue } from 'ziggy';
-import 'livewire-vue'
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 import { VueMasonryPlugin } from 'vue-masonry'
 import { Lang } from 'laravel-vue-lang';
-import { directive as onClickaway } from 'vue-clickaway'
+import VueClickAway from "vue3-click-away";
 
 window.Vue = Vue
 Vue.use(VueMasonryPlugin)
+Vue.use(VueClickAway)
 Vue.use(Lang, { fallback: 'sk' })
 Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
@@ -71,7 +70,8 @@ Vue.component('copy-to-clipboard-group', require('./components/CopyToClipboardGr
 Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default);
 Vue.component('bottom-modal', require('./components/BottomModal.vue').default);
 Vue.component('user-interaction-context', require('./components/UserInteractionContext.vue').default);
-Vue.component('livewire-vue-adaptor', require('./components/LivewireVueAdaptor.vue').default);
+Vue.component('newsletter-signup.form-controller', require('./components/newsletter-signup/FormController.vue').default);
+Vue.component('newsletter-signup.bottom-modal-controller', require('./components/newsletter-signup/BottomModalController.vue').default);
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
 
@@ -82,5 +82,4 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  */
 
 Vue.prototype.$route = route;
-Vue.directive('onClickaway', onClickaway)
 new Vue({ el: '#app' });
