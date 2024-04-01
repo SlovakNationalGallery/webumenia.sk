@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Stringable;
 
 class Collection extends Model implements TranslatableContract
 {
@@ -144,6 +145,16 @@ class Collection extends Model implements TranslatableContract
 
         $url = parse_url($this->url);
         parse_str($url['query'] ?? '', $query);
+
+        if (str($url['host'])->contains('sbirky.moravska-galerie.cz')) {
+            $filter = collect($query)->map(
+                fn($value, $attribute) => str($value)->whenContains(
+                    '|',
+                    fn(Stringable $value) => $value->explode('|')
+                )
+            );
+            $query = ['filter' => $filter->toArray()];
+        }
 
         return route('api.v1.items.index', $query);
     }

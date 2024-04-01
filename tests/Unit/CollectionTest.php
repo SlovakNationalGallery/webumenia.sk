@@ -22,4 +22,19 @@ class CollectionTest extends TestCase
 
         $this->assertEquals($expected, $collection->filter_items_url);
     }
+
+    public function testFilterItemsUrlFromMoravskaGalerieUrl()
+    {
+        $collection = Collection::factory()->make([
+            'url' => 'https://sbirky.moravska-galerie.cz/?work_type=maliarstvo|fotografia',
+        ]);
+
+        $expected = route('api.v1.items.index', [
+            'filter' => [
+                'work_type' => ['maliarstvo', 'fotografia'],
+            ],
+        ]);
+
+        $this->assertEquals($expected, $collection->filter_items_url);
+    }
 }
