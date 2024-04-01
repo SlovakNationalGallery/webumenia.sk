@@ -30,7 +30,7 @@ class Collection extends Model implements TranslatableContract
         return '/images/kolekcie/';
     }
 
-    public $translatedAttributes = ['name', 'type', 'text'];
+    public $translatedAttributes = ['name', 'type', 'text', 'url'];
 
     public static $rules = [
         'sk.name' => 'required',

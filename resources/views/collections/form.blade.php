@@ -50,6 +50,11 @@
 				</div>
 
 				<div class="form-group">
+					{{ Form::label($locale . "[url]", 'URL') }}
+					{{ Form::text($locale . "[url]", isset($collection) ? @$collection->translate($locale)->url : '', array('class' => 'form-control')) }}
+				</div>
+
+				<div class="form-group">
 				{{ Form::label($locale . "[type]", 'Typ') }}
 				{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
 				</div>
