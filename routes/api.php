@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\NewsletterSubscriptionController;
 use App\Http\Controllers\Api\SharedUserCollectionController;
 use App\Http\Controllers\Api\TrackFeaturedPieceClick;
@@ -28,6 +29,10 @@ Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
 Route::resource('/articles', ArticleController::class)
     ->names('api.articles')
     ->only(['show']);
+
+Route::resource('/collections', CollectionController::class)
+    ->names('api.collections')
+    ->only(['index', 'show']);
 
 Route::resource('/newsletter-subscriptions', NewsletterSubscriptionController::class)->names(
     'api.newsletter-subscriptions'
