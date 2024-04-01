@@ -135,4 +135,16 @@ class Collection extends Model implements TranslatableContract
     {
         return getEstimatedReadingTime($this->text, \App::getLocale());
     }
+
+    public function getFilterItemsUrlAttribute(): ?string
+    {
+        if (!$this->url) {
+            return null;
+        }
+
+        $url = parse_url($this->url);
+        parse_str($url['query'] ?? '', $query);
+
+        return route('api.v1.items.index', $query);
+    }
 }
