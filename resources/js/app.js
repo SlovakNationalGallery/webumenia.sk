@@ -28,7 +28,7 @@ console.log('Hello from app.js!', $)
 import { createApp } from 'vue'
 import { VueMasonryPlugin } from 'vue-masonry'
 import VueClickAway from 'vue3-click-away'
-import { Lang } from 'laravel-vue-lang'
+import { i18nVue } from 'laravel-vue-i18n'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.es'
 
 import FeaturedPieceClickTracker from './components/FeaturedPieceClickTracker.vue'
@@ -44,7 +44,12 @@ createApp({
 })
     .use(VueMasonryPlugin)
     .use(VueClickAway)
-    // .use(Lang, { fallback: 'sk' }) // TODO
+    .use(i18nVue, {
+        resolve: async (lang) => {
+            const langs = import.meta.glob('../../lang/*.json')
+            return await langs[`../../lang/${lang}.json`]()
+        },
+    })
     .use(ZiggyVue)
 
     .component('featured-piece-click-tracker', FeaturedPieceClickTracker)

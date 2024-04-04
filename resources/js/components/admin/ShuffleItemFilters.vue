@@ -1,4 +1,6 @@
 <script>
+import { trans } from 'laravel-vue-i18n'
+
 const RecognizedAttributes = [
     'author',
     'work_type',
@@ -54,7 +56,7 @@ export default {
                     },
                     attributeChoices: Object.keys(attributesInUrl).map((ac) => ({
                         value: ac,
-                        translation: this.__(`item.${ac}`),
+                        translation: trans(`item.${ac}`), // TODO verify
                     })),
                     attributes: f.attributes.map((a, attributeIndex) => ({
                         ...a,

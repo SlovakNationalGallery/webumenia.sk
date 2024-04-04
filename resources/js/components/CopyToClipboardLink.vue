@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { trans } from 'laravel-vue-i18n'
+
 export default {
     props: {
         value: String,
@@ -16,22 +18,19 @@ export default {
         copy() {
             navigator.clipboard.writeText(this.value)
 
+            this.tooltip({
+                trigger: 'manual',
+                container: 'body',
+                title: trans('general.copied_to_clipboard'),
+            })
+
             this.tooltip('show')
 
             setTimeout(() => {
                 this.tooltip('hide')
+                this.tooltip('destroy')
             }, 2000)
         },
-    },
-    mounted() {
-        this.tooltip({
-            trigger: 'manual',
-            container: 'body',
-            title: this.__('general.copied_to_clipboard'),
-        })
-    },
-    beforeUnmount() {
-        this.tooltip('destroy')
     },
 }
 </script>

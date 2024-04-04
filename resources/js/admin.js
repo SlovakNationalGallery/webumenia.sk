@@ -1,10 +1,17 @@
+import 'vue-select/dist/vue-select.css'
+
 import { createApp } from 'vue'
-import { Lang } from 'laravel-vue-lang'
+import { i18nVue } from 'laravel-vue-i18n'
 
 import 'vue-select/dist/vue-select.css'
 
 createApp()
-    .use(Lang, { fallback: 'sk' })
+    .use(i18nVue, {
+        resolve: async (lang) => {
+            const langs = import.meta.glob('../../lang/*.json')
+            return await langs[`../../lang/${lang}.json`]()
+        },
+    })
 
     .component('admin-links-input', require('./components/admin/LinksInput.vue').default)
     .component('autocomplete', require('./components/Autocomplete.vue').default)
