@@ -1,8 +1,5 @@
 <template>
-    <select ref="select" class="js-custom-select form-control">
-        <option>{{ placeholder }}</option>
-        <option v-for="(option, index) in options" :key="index" :value="option.value" :selected="option.selected">{{ option.text }}</option>
-    </select>
+    <select ref="select" class="form-control"></select>
 </template>
 
 <script>
@@ -29,6 +26,8 @@ export default {
                     `<div class="selected-item"><span class="color">${placeholder}: </span>${data.text.replace(/\(.*?\)/g, "")}</div>`
                 )
             },
+            options: this.options,
+            items: this.options.filter((option) => option.selected).map((option) => option.value),
             onChange: (value) => addParameterToQuery(name, value)
         })
     },
