@@ -189,7 +189,6 @@
 
 @section('javascript')
 {!! Html::script('js/readmore.min.js', ['defer' => true]) !!}
-{!! Html::script('js/components/share_buttons.js', ['defer' => true]) !!}
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
