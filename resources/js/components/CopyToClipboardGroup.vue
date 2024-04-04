@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import CopyToClipboardLink from './CopyToClipboardLink'
+import CopyToClipboardLink from './CopyToClipboardLink.vue'
 
 export default {
     components: {

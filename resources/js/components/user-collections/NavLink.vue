@@ -12,12 +12,13 @@
 </template>
 
 <script>
-    export default {
-        mixins: [require('./link-mixin')],
-        computed: {
-            count() {
-                return this.store.getItems().length
-            }
-        }
-    }
+import linkMixin from './link-mixin'
+export default {
+    mixins: [linkMixin],
+    computed: {
+        count() {
+            return this.store.getItems().length
+        },
+    },
+}
 </script>

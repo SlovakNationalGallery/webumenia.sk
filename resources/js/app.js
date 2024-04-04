@@ -12,8 +12,6 @@ jQueryBridget('isotope', Isotope, $)
 jQueryBridget('infiniteScroll', InfiniteScroll, $)
 InfiniteScroll.imagesLoaded = imagesLoaded
 
-console.log('Hello from app.js!', $)
-
 // require('lazysizes')
 // require('lazysizes/plugins/unveilhooks/ls.unveilhooks')
 // require('lazysizes/plugins/respimg/ls.respimg')
@@ -32,10 +30,46 @@ import { i18nVue } from 'laravel-vue-i18n'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.es'
 
 import FeaturedPieceClickTracker from './components/FeaturedPieceClickTracker.vue'
+import FilterSortBy from './components/filter/SortBy.vue'
+import FilterCheckbox from './components/filter/Checkbox.vue'
+import FilterCustomSelect from './components/filter/CustomSelect.vue'
+import CatalogNewItemsFilterController from './components/catalog-new/ItemsFilterController.vue'
+import CatalogNewPopoverGroupController from './components/catalog-new/PopoverGroupController.vue'
+import CatalogNewNewCustomSelectPopoverLabel from './components/catalog-new/NewCustomSelectPopoverLabel.vue'
+import CatalogNewNewColorSlider from './components/catalog-new/NewColorSlider.vue'
+import CatalogNewNewYearSlider from './components/catalog-new/NewYearSlider.vue'
+import CatalogNewNewCustomCheckbox from './components/catalog-new/NewCustomCheckbox.vue'
+import CatalogNewDisclosureModalController from './components/catalog-new/DisclosureModalController.vue'
+import CatalogNewSearchOptionsController from './components/catalog-new/SearchOptionsController.vue'
+import CatalogNewPopoverController from './components/catalog-new/PopoverController.vue'
+import CatalogNewInfiniteScroll from './components/catalog-new/InfiniteScroll.vue'
+import CatalogNewArtworkImageController from './components/catalog-new/ArtworkImageController.vue'
+import CatalogNewNumberFormatter from './components/catalog-new/NumberFormatter.vue'
+import CatalogNewAuthorFormatter from './components/catalog-new/AuthorFormatter.vue'
 import Flickity from './components/Flickity.vue'
 import HomeShuffleOrchestrator from './components/home/ShuffleOrchestrator.vue'
 import HomeTransitionInPlace from './components/home/TransitionInPlace.vue'
+import ToggleController from './components/ToggleController.vue'
+import ReloadController from './components/ReloadController.vue'
+import TabsController from './components/TabsController.vue'
+import Tab from './components/Tab.vue'
+import TabPanel from './components/TabPanel.vue'
+import UserCollectionsLink from './components/user-collections/Link.vue'
 import UserCollectionsNavLink from './components/user-collections/NavLink.vue'
+import UserCollectionsFavouriteButton from './components/user-collections/FavouriteButton.vue'
+import UserCollectionsClearButton from './components/user-collections/ClearButton.vue'
+import UserCollectionsShareForm from './components/user-collections/ShareForm.vue'
+import UserCollectionsStore from './components/user-collections/Store.vue'
+import UserCollectionsSharedCollection from './components/user-collections/SharedCollection.vue'
+import ColorWidget from './components/ColorWidget.vue'
+import YearSlider from './components/YearSlider.vue'
+import InlineInput from './components/InlineInput.vue'
+import CopyToClipboardGroup from './components/CopyToClipboardGroup.vue'
+import CopyToClipboardLink from './components/CopyToClipboardLink.vue'
+import BottomModal from './components/BottomModal.vue'
+import UserInteractionContext from './components/UserInteractionContext.vue'
+import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
+import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
 
 createApp({
     compilerOptions: {
@@ -53,105 +87,45 @@ createApp({
     .use(ZiggyVue)
 
     .component('featured-piece-click-tracker', FeaturedPieceClickTracker)
-    //     .component('filter-sort-by', require('./components/filter/SortBy.vue').default)
-    //     .component('filter-checkbox', require('./components/filter/Checkbox.vue').default)
-    //     .component('filter-custom-select', require('./components/filter/CustomSelect.vue').default)
-    //     .component(
-    //         'filter-new-items-controller',
-    //         require('./components/catalog-new/ItemsFilterController.vue').default
-    //     )
-    //     .component(
-    //         'filter-new-popover.group-controller',
-    //         require('./components/catalog-new/PopoverGroupController.vue').default
-    //     )
-    //     .component(
-    //         'filter-new-custom-select-popover-label',
-    //         require('./components/catalog-new/NewCustomSelectPopoverLabel.vue').default
-    //     )
-    //     .component(
-    //         'filter-new-color-slider',
-    //         require('./components/catalog-new/NewColorSlider.vue').default
-    //     )
-    //     .component(
-    //         'filter-new-year-slider',
-    //         require('./components/catalog-new/NewYearSlider.vue').default
-    //     )
-    //     .component(
-    //         'filter-new-custom-checkbox',
-    //         require('./components/catalog-new/NewCustomCheckbox.vue').default
-    //     )
-    //     .component(
-    //         'filter-disclosure-controller',
-    //         require('./components/catalog-new/DisclosureModalController.vue').default
-    //     )
-    //     .component('toggle-controller', require('./components/ToggleController.vue').default)
-    //     .component('reload-controller', require('./components/ReloadController.vue').default)
-    //     .component(
-    //         'filter-search-options-controller',
-    //         require('./components/catalog-new/SearchOptionsController.vue').default
-    //     )
-    //     .component(
-    //         'filter-popover-controller',
-    //         require('./components/catalog-new/PopoverController.vue').default
-    //     )
-    //     .component(
-    //         'catalog.infinite-scroll',
-    //         require('./components/catalog-new/InfiniteScroll.vue').default
-    //     )
-    //     .component(
-    //         'catalog.artwork-image-controller',
-    //         require('./components/catalog-new/ArtworkImageController.vue').default
-    //     )
-    //     .component(
-    //         'catalog.number-formatter',
-    //         require('./components/catalog-new/NumberFormatter.vue').default
-    //     )
-    //     .component(
-    //         'catalog.author-formatter',
-    //         require('./components/catalog-new/AuthorFormatter.vue').default
-    //     )
+    .component('filter-sort-by', FilterSortBy)
+    .component('filter-checkbox', FilterCheckbox)
+    .component('filter-custom-select', FilterCustomSelect)
+    .component('filter-new-items-controller', CatalogNewItemsFilterController)
+    .component('filter-new-popover.group-controller', CatalogNewPopoverGroupController)
+    .component('filter-new-custom-select-popover-label', CatalogNewNewCustomSelectPopoverLabel)
+    .component('filter-new-color-slider', CatalogNewNewColorSlider)
+    .component('filter-new-year-slider', CatalogNewNewYearSlider)
+    .component('filter-new-custom-checkbox', CatalogNewNewCustomCheckbox)
+    .component('filter-disclosure-controller', CatalogNewDisclosureModalController)
+    .component('toggle-controller', ToggleController)
+    .component('reload-controller', ReloadController)
+    .component('filter-search-options-controller', CatalogNewSearchOptionsController)
+    .component('filter-popover-controller', CatalogNewPopoverController)
+    .component('catalog.infinite-scroll', CatalogNewInfiniteScroll)
+    .component('catalog.artwork-image-controller', CatalogNewArtworkImageController)
+    .component('catalog.number-formatter', CatalogNewNumberFormatter)
+    .component('catalog.author-formatter', CatalogNewAuthorFormatter)
     .component('flickity', Flickity)
     .component('home.shuffle-orchestrator', HomeShuffleOrchestrator)
     .component('home.transition-in-place', HomeTransitionInPlace)
-    //     .component('tabs-controller', require('./components/TabsController.vue').default)
-    //     .component('tab', require('./components/Tab.vue').default)
-    //     .component('tab-panel', require('./components/TabPanel.vue').default)
-    //     .component('user-collections-link', require('./components/user-collections/Link.vue').default)
+    .component('tabs-controller', TabsController)
+    .component('tab', Tab)
+    .component('tab-panel', TabPanel)
+    .component('user-collections-link', UserCollectionsLink)
     .component('user-collections-nav-link', UserCollectionsNavLink)
-    //     .component(
-    //         'user-collections-favourite-button',
-    //         require('./components/user-collections/FavouriteButton.vue').default
-    //     )
-    //     .component(
-    //         'user-collections-clear-button',
-    //         require('./components/user-collections/ClearButton.vue').default
-    //     )
-    //     .component(
-    //         'user-collections-share-form',
-    //         require('./components/user-collections/ShareForm.vue').default
-    //     )
-    //     .component('user-collections-store', require('./components/user-collections/Store.vue').default)
-    //     .component(
-    //         'user-collections-shared-collection',
-    //         require('./components/user-collections/SharedCollection.vue').default
-    //     )
-    //     .component('color-widget', require('./components/ColorWidget.vue').default)
-    //     .component('year-slider', require('./components/YearSlider.vue').default)
-    //     .component('inline-input', require('./components/InlineInput.vue').default)
-    //     .component('copy-to-clipboard-group', require('./components/CopyToClipboardGroup.vue').default)
-    //     .component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default)
-    //     .component('bottom-modal', require('./components/BottomModal.vue').default)
-    //     .component(
-    //         'user-interaction-context',
-    //         require('./components/UserInteractionContext.vue').default
-    //     )
-    //     .component(
-    //         'newsletter-signup.form-controller',
-    //         require('./components/newsletter-signup/FormController.vue').default
-    //     )
-    //     .component(
-    //         'newsletter-signup.bottom-modal-controller',
-    //         require('./components/newsletter-signup/BottomModalController.vue').default
-    //     )
+    .component('user-collections-favourite-button', UserCollectionsFavouriteButton)
+    .component('user-collections-clear-button', UserCollectionsClearButton)
+    .component('user-collections-share-form', UserCollectionsShareForm)
+    .component('user-collections-store', UserCollectionsStore)
+    .component('user-collections-shared-collection', UserCollectionsSharedCollection)
+    .component('color-widget', ColorWidget)
+    .component('year-slider', YearSlider)
+    .component('inline-input', InlineInput)
+    .component('copy-to-clipboard-group', CopyToClipboardGroup)
+    .component('copy-to-clipboard-link', CopyToClipboardLink)
+    .component('bottom-modal', BottomModal)
+    .component('user-interaction-context', UserInteractionContext) // TODO remove
+    .component('newsletter-signup.form-controller', NewsletterSignupFormController)
+    .component('newsletter-signup.bottom-modal-controller', NewsletterSignupBottomModalController)
 
     .mount('#app')
