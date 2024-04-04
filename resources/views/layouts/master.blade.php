@@ -30,8 +30,7 @@
 		<!-- CSS are placed here -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-		<link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
-		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
+		@vite(['resources/css/app-tailwind.css', 'resources/less/style.less'])
 		{!! Html::style('css/magnific-popup.css') !!}
 
 		{{-- JS --}}
@@ -96,9 +95,7 @@
 	    </a>
 	</div>
 
-	<script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
+	@vite(['resources/js/app.js'])
 
 	@yield('javascript')
 </body>

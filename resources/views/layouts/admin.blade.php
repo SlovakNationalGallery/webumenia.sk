@@ -18,7 +18,7 @@
         <!-- CSS are placed here -->
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
+        @vite('resources/css/app-tailwind.css')
         {!! Html::style('css/sb-admin.css') !!}
         {!! Html::style('css/ladda-themeless.min.css') !!}
         {!! Html::style('css/bootstrap-wysihtml5.css') !!}
@@ -27,7 +27,7 @@
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
-        {!! Html::style(mix('/css/admin.css')) !!}
+        @vite('resources/less/admin.less')
 </head>
 
 <body>
@@ -70,7 +70,9 @@
                 <div class="sidebar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
-                            <?php $search_request = (Request::is( 'authority')) ? 'authority' : 'item' ?>
+                            <?php $search_request = Request::is('authority')
+                                ? 'authority'
+                                : 'item'; ?>
                             {!! Form::open(['url' => $search_request.'/search',  'method' => 'get']) !!}
                             <div class="input-group custom-search-form">
                                 {!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) !!}
@@ -220,9 +222,7 @@
     {!! Html::script('js/modernizr.custom.js') !!}
     {!! Html::script('js/selectize.min.js') !!}
 
-    <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/js/admin.js') }}"></script>
+    @vite(['resources/js/admin.js'])
 
 
     <script>

@@ -5,7 +5,8 @@
 </template>
 
 <script>
+import linkMixin from './link-mixin'
 export default {
-    mixins: [require('./link-mixin')],
+    mixins: [linkMixin],
 }
 </script>

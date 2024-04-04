@@ -19,7 +19,7 @@
     </a>
 </template>
 <script>
-const store = require('./store')
+import store from './store'
 
 export default {
     props: ['labelAdd', 'labelRemove', 'id', 'isDetail'],

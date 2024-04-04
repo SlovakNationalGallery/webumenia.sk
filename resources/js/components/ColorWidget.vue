@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ColorSlider from './vue/color-slider'
+import ColorSlider from './vue/color-slider.vue'
 // TODO figure out why this is necessary
 window.addEventListener(
     'touchstart',

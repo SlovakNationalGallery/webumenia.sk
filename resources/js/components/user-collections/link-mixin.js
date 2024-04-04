@@ -1,18 +1,18 @@
-const store = require('./store')
+import store from './store'
 
-module.exports = {
+export default {
     props: ['baseHref'],
     data() {
         return {
-            store
+            store,
         }
     },
     computed: {
         href() {
             const url = new URL(this.baseHref)
-            const ids = this.store.getItems().map(({id}) => id)
+            const ids = this.store.getItems().map(({ id }) => id)
 
-            ids.forEach(id => url.searchParams.append('ids[]', id))
+            ids.forEach((id) => url.searchParams.append('ids[]', id))
             return url.toString()
         },
     },

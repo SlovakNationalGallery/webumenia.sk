@@ -3,7 +3,15 @@ import 'vue-select/dist/vue-select.css'
 import { createApp } from 'vue'
 import { i18nVue } from 'laravel-vue-i18n'
 
-import 'vue-select/dist/vue-select.css'
+import LinksInput from './components/admin/LinksInput.vue'
+import Autocomplete from './components/Autocomplete.vue'
+import LinkedCombos from './components/vue/linked-combos.vue'
+import QueryString from './components/QueryString.vue'
+import Croppr from './components/Croppr.vue'
+import TabsController from './components/TabsController.vue'
+import Tab from './components/Tab.vue'
+import TabPanel from './components/TabPanel.vue'
+import ShuffleItemFilters from './components/admin/ShuffleItemFilters.vue'
 
 createApp()
     .use(i18nVue, {
@@ -13,17 +21,14 @@ createApp()
         },
     })
 
-    .component('admin-links-input', require('./components/admin/LinksInput.vue').default)
-    .component('autocomplete', require('./components/Autocomplete.vue').default)
-    .component('linked-combos', require('./components/vue/linked-combos').default)
-    .component('query-string', require('./components/QueryString.vue').default)
-    .component('croppr', require('./components/Croppr.vue').default)
-    .component('tabs-controller', require('./components/TabsController.vue').default)
-    .component('tab', require('./components/Tab.vue').default)
-    .component('tab-panel', require('./components/TabPanel.vue').default)
-    .component(
-        'admin.shuffle-item-filters',
-        require('./components/admin/ShuffleItemFilters.vue').default
-    )
+    .component('admin-links-input', LinksInput)
+    .component('autocomplete', Autocomplete)
+    .component('linked-combos', LinkedCombos)
+    .component('query-string', QueryString)
+    .component('croppr', Croppr)
+    .component('tabs-controller', TabsController)
+    .component('tab', Tab)
+    .component('tab-panel', TabPanel)
+    .component('admin.shuffle-item-filters', ShuffleItemFilters)
 
     .mount('#wrapper')

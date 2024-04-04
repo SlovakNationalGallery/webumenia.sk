@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const store = require('./store')
+import store from './store'
 
 export default {
     props: {
@@ -46,7 +46,7 @@ export default {
             })
 
             this.editing = false
-        }
-    }
+        },
+    },
 }
 </script>
