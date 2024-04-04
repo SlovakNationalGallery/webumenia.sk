@@ -153,6 +153,5 @@
 @stop
 
 @section('javascript')
-    {!! Html::script('js/components/artwork_carousel.js') !!}
     {!! Html::script('js/components/gallery-map.js') !!}
 @stop

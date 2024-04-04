@@ -189,7 +189,6 @@
 
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 
 <script type="text/javascript">

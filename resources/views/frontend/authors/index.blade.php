@@ -113,7 +113,6 @@
 @section('javascript')
 
     {!! Html::script('js/bootstrap-slider.min.js') !!}
-    {!! Html::script('js/components/artwork_carousel.js') !!}
     {!! Html::script('js/jquery.dropdown-select.js') !!}
 
     <script type="text/javascript">
