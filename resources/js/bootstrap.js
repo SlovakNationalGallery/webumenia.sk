@@ -1,11 +1,10 @@
-try {
-    window.$ = window.jQuery = require('jquery');
+import jQuery from 'jquery'
+import 'bootstrap/dist/js/bootstrap'
 
-    require('bootstrap/dist/js/bootstrap');
-} catch (e) {}
+window.$ = window.jQuery = jQuery
 
 // Custom global utilities
-var utils = require('./webumenia')
+import * as utils from './webumenia'
 window.spravGrid = utils.spravGrid
 window.isIE = utils.isIE
 window.isMobileSafari = utils.isMobileSafari
