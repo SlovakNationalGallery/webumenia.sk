@@ -513,7 +513,6 @@
 @section('javascript')
 {{ Html::script('js/readmore.min.js', ['defer' => true]) }}
 {{ Html::script('js/jquery.fileDownload.js', ['defer' => true]) }}
-{{ Html::script('js/components/share_buttons.js', ['defer' => true]) }}
 {{ HTML::script('js/slick.js', ['defer' => true]) }}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}

@@ -60,3 +60,10 @@
     </div>
 </div>
 <!-- /Modal -->
+
+@once
+  @section('javascript')
+  @parent
+  {{ Html::script('js/components/share_buttons.js', ['defer' => true]) }}
+  @endsection
+@endonce
