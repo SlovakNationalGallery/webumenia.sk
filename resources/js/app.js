@@ -67,7 +67,6 @@ import InlineInput from './components/InlineInput.vue'
 import CopyToClipboardGroup from './components/CopyToClipboardGroup.vue'
 import CopyToClipboardLink from './components/CopyToClipboardLink.vue'
 import BottomModal from './components/BottomModal.vue'
-import UserInteractionContext from './components/UserInteractionContext.vue'
 import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
 import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
 
@@ -124,7 +123,6 @@ createApp({
     .component('copy-to-clipboard-group', CopyToClipboardGroup)
     .component('copy-to-clipboard-link', CopyToClipboardLink)
     .component('bottom-modal', BottomModal)
-    .component('user-interaction-context', UserInteractionContext) // TODO remove
     .component('newsletter-signup.form-controller', NewsletterSignupFormController)
     .component('newsletter-signup.bottom-modal-controller', NewsletterSignupBottomModalController)
 
