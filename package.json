@@ -1,8 +1,9 @@
 {
     "private": true,
+    "type": "module",
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
+        "dev:mix": "mix",
+        "dev": "vite",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
@@ -11,14 +12,17 @@
     },
     "devDependencies": {
         "@prettier/plugin-php": "^0.18.2",
+        "@rollup/plugin-inject": "^5.0.5",
         "@shufo/prettier-plugin-blade": "^1.2.4",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.2",
+        "@vitejs/plugin-vue": "^5.0.4",
         "@vue/compiler-sfc": "^3.2.47",
         "autoprefixer": "^10.4.2",
         "cross-env": "^5.1",
         "jquery": "^3.5.0",
         "laravel-mix": "^6.0.49",
+        "laravel-vite-plugin": "^1.0.2",
         "laravel-vue-lang": "^3.1.3",
         "less": "^3.13.1",
         "less-loader": "^12.2.0",
@@ -29,6 +33,7 @@
         "sass-loader": "^14.1.1",
         "tailwind-scrollbar": "^2.1.0-preview.0",
         "tailwindcss": "^3.0.15",
+        "vite": "^5.2.6",
         "vue": "^3.2.47",
         "vue-loader": "^16.8.3"
     },
