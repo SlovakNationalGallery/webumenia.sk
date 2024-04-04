@@ -99,10 +99,12 @@
 
 @section('javascript')
 <script type="text/javascript">
-    $('.grid').masonry({
-        itemSelector: '.grid-item',
-        columnWidth: '#column-sizer',
-        percentPosition: true
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '#column-sizer',
+            percentPosition: true
+        })
     })
 </script>
 @endsection

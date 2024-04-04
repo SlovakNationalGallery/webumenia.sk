@@ -137,6 +137,6 @@
 
 @section('javascript')
 
-{!! Html::script('js/jquery.dropdown-select.js') !!}
+{!! Html::script('js/jquery.dropdown-select.js', ['defer' => true]) !!}
 
 @stop

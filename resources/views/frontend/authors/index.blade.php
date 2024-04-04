@@ -113,10 +113,10 @@
 @section('javascript')
 
     {!! Html::script('js/bootstrap-slider.min.js') !!}
-    {!! Html::script('js/jquery.dropdown-select.js') !!}
+    {!! Html::script('js/jquery.dropdown-select.js', ['defer' => true]) !!}
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
 
             $("form").submit(function() {
                 $(this).find('input[name], select[name]').each(function() {

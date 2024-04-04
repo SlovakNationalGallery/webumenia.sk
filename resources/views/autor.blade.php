@@ -188,11 +188,11 @@
 
 
 @section('javascript')
-{!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/components/share_buttons.js') !!}
+{!! Html::script('js/readmore.min.js', ['defer' => true]) !!}
+{!! Html::script('js/components/share_buttons.js', ['defer' => true]) !!}
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    document.addEventListener('DOMContentLoaded', function() {
 
         $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',

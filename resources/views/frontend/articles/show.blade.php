@@ -147,18 +147,20 @@ mapa??
 @stop
 
 @section('javascript')
-{!! Html::script('js/components/share_buttons.js') !!}
+{!! Html::script('js/components/share_buttons.js', ['defer' => true]) !!}
 <script type="text/javascript">
-    // carousel
-    $('.artworks-preview').slick({
-        dots: false,
-        lazyLoad: 'progressive',
-        infinite: false,
-        speed: 300,
-        slidesToShow: 1,
-        slide: 'a',
-        centerMode: false,
-        variableWidth: true,
+    document.addEventListener('DOMContentLoaded', function() {
+        // carousel
+        $('.artworks-preview').slick({
+            dots: false,
+            lazyLoad: 'progressive',
+            infinite: false,
+            speed: 300,
+            slidesToShow: 1,
+            slide: 'a',
+            centerMode: false,
+            variableWidth: true,
+        });
     });
 </script>
 @stop

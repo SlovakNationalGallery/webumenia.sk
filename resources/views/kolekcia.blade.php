@@ -177,12 +177,14 @@
 @stop
 
 @section('javascript')
-{!! Html::script('js/components/share_buttons.js') !!}
+{!! Html::script('js/components/share_buttons.js', ['defer' => true]) !!}
 
 <script type="text/javascript">
-    $('.isotope').isotope({
-        itemSelector: '.item',
-        layoutMode: 'masonry'
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.isotope').isotope({
+            itemSelector: '.item',
+            layoutMode: 'masonry'
+        });
     });
 </script>
 @stop

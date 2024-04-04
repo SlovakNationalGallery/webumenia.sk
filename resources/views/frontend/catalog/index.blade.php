@@ -80,12 +80,12 @@
 @section('javascript')
 
     {!! Html::script('js/bootstrap-slider.min.js') !!}
-    {!! Html::script('js/readmore.min.js') !!}
-    {!! Html::script('js/jquery.dropdown-select.js') !!}
-    <script src="{!! asset_timed('js/scroll-frame.js') !!}"></script>
+    {!! Html::script('js/readmore.min.js', ['defer' => true]) !!}
+    {!! Html::script('js/jquery.dropdown-select.js', ['defer' => true]) !!}
+    {!! Html::script('js/scroll-frame.js', ['defer' => true]) !!}
 
-    <script type="text/javascript">
-
+    <script type="text/javascript" defer>
+    document.addEventListener('DOMContentLoaded', function () {
         // start with isotype even before document is ready
         $('.isotope-wrapper').each(function(){
             var $container = $('#iso', this);
@@ -145,6 +145,7 @@
                 scrollFrame('.item a');
             }
         });
+    }, false);
 
     </script>
 @stop
