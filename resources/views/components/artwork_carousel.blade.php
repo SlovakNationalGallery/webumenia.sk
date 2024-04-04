@@ -41,3 +41,10 @@
     @endforeach
   </div>
 </div>
+
+@once
+  @section('javascript')
+  @parent
+  {{ Html::script('js/components/artwork_carousel.js', ['defer' => true]) }}
+  @endsection
+@endonce
