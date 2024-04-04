@@ -16,7 +16,7 @@
     @section('javascript')
     @parent
     <script>
-        $(document).ready(function(){
+        document.addEventListener('DOMContentLoaded', function () {
             var $container = $('{{ $isotopeContainerSelector }}');
 
             $container.infiniteScroll({

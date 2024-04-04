@@ -104,9 +104,11 @@
 @parent
 
 <script>
-    $('.isotope').isotope({
-        itemSelector: '.item',
-        layoutMode: 'masonry'
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.isotope').isotope({
+            itemSelector: '.item',
+            layoutMode: 'masonry'
+        });
+    })
 </script>
 @stop

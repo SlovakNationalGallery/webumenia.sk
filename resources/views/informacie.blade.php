@@ -153,5 +153,5 @@
 @stop
 
 @section('javascript')
-    {!! Html::script('js/components/gallery-map.js') !!}
+    {!! Html::script('js/components/gallery-map.js', ['defer' => true]) !!}
 @stop
