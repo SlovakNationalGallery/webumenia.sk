@@ -18,9 +18,9 @@ InfiniteScroll.imagesLoaded = imagesLoaded
 // require('jquery.easing')
 // require('@lottiefiles/lottie-player')
 
-// // Components
-// require('./components/searchbar')
-// require('./components/clipboard-button')
+// Components
+import './components/searchbar'
+// import './components/clipboard-button'
 
 // // Vue
 import { createApp } from 'vue'
