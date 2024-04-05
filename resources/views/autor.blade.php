@@ -188,10 +188,10 @@
 
 
 @section('javascript')
-{!! Html::script('js/readmore.min.js', ['defer' => true]) !!}
+{!! Html::script('js/readmore.min.js') !!}
 
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function(){
 
         $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
