@@ -21,8 +21,8 @@
 
     <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
+    @vite('resources/css/app-tailwind.css')
+    @vite('resources/less/style.less')
 </head>
 
 <body class="tailwind-rules">
@@ -129,9 +129,7 @@
         </zoom-viewer>
     </div>
 
-    <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/js/zoom.js') }}"></script>
+    @vite('resources/js/zoom.js')
 </body>
 
 </html>
