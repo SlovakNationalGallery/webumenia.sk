@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import Bloodhound from 'corejs-typeahead/dist/bloodhound'
 import 'corejs-typeahead/dist/typeahead.jquery'
 

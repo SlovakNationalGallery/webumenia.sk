@@ -45,6 +45,6 @@
 @once
   @section('javascript')
   @parent
-  {{ Html::script('js/components/artwork_carousel.js', ['defer' => true]) }}
+  {{ Html::script('js/components/artwork_carousel.js') }}
   @endsection
 @endonce

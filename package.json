@@ -13,7 +13,6 @@
     },
     "devDependencies": {
         "@prettier/plugin-php": "^0.18.2",
-        "@rollup/plugin-inject": "^5.0.5",
         "@shufo/prettier-plugin-blade": "^1.2.4",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.2",

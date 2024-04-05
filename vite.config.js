@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import inject from '@rollup/plugin-inject'
 import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
 import i18n from 'laravel-vue-i18n/vite'
@@ -36,11 +35,6 @@ export default defineConfig({
             refresh: true,
         }),
         i18n(),
-        inject({
-            $: 'jquery',
-            jQuery: 'jquery',
-            include: ['**/*.js'],
-        }),
     ],
     resolve: {
         alias: {
