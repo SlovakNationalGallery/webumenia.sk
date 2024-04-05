@@ -222,16 +222,16 @@
 
 @section('javascript')
 
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js" defer></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 {{-- default language en_US is bundled with bootstrapValidator.min.js --}}
 @if (App::getLocale() == 'sk')
-    {!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js', ['defer' => true]) !!}
+    {!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
 @elseif (App::getLocale() == 'cs')
-    {!! Html::script('js/jquery.bootstrapvalidator/cs_CZ.js', ['defer' => true]) !!}
+    {!! Html::script('js/jquery.bootstrapvalidator/cs_CZ.js') !!}
 @endif
 
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function () {
+
     $('#order').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'fa fa-check',
@@ -281,6 +281,5 @@ document.addEventListener('DOMContentLoaded', function () {
         tooglePurpose()
     });
 
-});
 </script>
 @stop

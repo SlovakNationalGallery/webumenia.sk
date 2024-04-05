@@ -80,20 +80,20 @@
 @section('javascript')
 
     {!! Html::script('js/bootstrap-slider.min.js') !!}
-    {!! Html::script('js/readmore.min.js', ['defer' => true]) !!}
-    {!! Html::script('js/jquery.dropdown-select.js', ['defer' => true]) !!}
-    {!! Html::script('js/scroll-frame.js', ['defer' => true]) !!}
+    {!! Html::script('js/readmore.min.js') !!}
+    {!! Html::script('js/jquery.dropdown-select.js') !!}
+    {!! Html::script('js/scroll-frame.js') !!}
 
     <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        // start with isotype even before document is ready
-        $('.isotope-wrapper').each(function(){
-            var $container = $('#iso', this);
-            spravGrid($container);
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            $('.isotope-wrapper').each(function(){
+                var $container = $('#iso', this);
+                spravGrid($container);
+            });
 
-        $(window).resize(function() {
-            spravGrid($container);
+            $(window).resize(function() {
+                spravGrid($container);
+            });
         });
 
         $(document).ready(function(){
@@ -145,7 +145,6 @@
                 scrollFrame('.item a');
             }
         });
-    }, false);
 
     </script>
 @stop

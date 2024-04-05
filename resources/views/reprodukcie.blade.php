@@ -231,14 +231,12 @@
 
 @section('javascript')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            $(function() {
-                $('.popup').on('click', function(e) {
-                    e.preventDefault();
-                    $('.imagepreview').attr('src', $(this).attr('href'));
-                    $('.imagetitle').html($(this).find('img').attr('alt'));
-                    $('#imagemodal').modal('show');
-                });
+        $(function() {
+            $('.popup').on('click', function(e) {
+                e.preventDefault();
+                $('.imagepreview').attr('src', $(this).attr('href'));
+                $('.imagetitle').html($(this).find('img').attr('alt'));
+                $('#imagemodal').modal('show');
             });
         });
     </script>
