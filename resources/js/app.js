@@ -67,7 +67,11 @@ import BottomModal from './components/BottomModal.vue'
 import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
 import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
 
-createApp()
+createApp({
+    compilerOptions: {
+        whitespace: 'preserve',
+    },
+})
     .use(VueMasonryPlugin)
     .use(VueClickAway)
     .use(i18nVue, {
