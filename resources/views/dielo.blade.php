@@ -511,9 +511,9 @@
 
 
 @section('javascript')
-{{ Html::script('js/readmore.min.js', ['defer' => true]) }}
-{{ Html::script('js/jquery.fileDownload.js', ['defer' => true]) }}
-{{ HTML::script('js/slick.js', ['defer' => true]) }}
+{{ Html::script('js/readmore.min.js') }}
+{{ Html::script('js/jquery.fileDownload.js') }}
+{{-- {{ HTML::script('js/slick.js', ['defer' => true]) }} --}}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
@@ -529,74 +529,72 @@
 @endif
 
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        function leftArrowPressed() {
-            var left=document.getElementById("left");
-            if (left) location.href = left.href;
+    function leftArrowPressed() {
+        var left=document.getElementById("left");
+        if (left) location.href = left.href;
+    }
+
+    function rightArrowPressed() {
+        var right=document.getElementById("right");
+        if (right) location.href = right.href;
+    }
+
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        switch (evt.keyCode) {
+            case 37:
+                leftArrowPressed();
+                break;
+            case 39:
+                rightArrowPressed();
+                break;
+        }
+    };
+
+    // start with isotype even before document is ready
+    $('.isotope-container').isotope({
+        itemSelector: '.item',
+        layoutMode: 'masonry'
+    });
+
+    $(document).ready(function(){
+        var relatedByColorIsotope = $('#related-by-color > .isotope-container').first();
+
+        if (relatedByColorIsotope) {
+            var fetchUrl = relatedByColorIsotope.data('fetch-url')
+            $.get(fetchUrl, function (data) {
+                relatedByColorIsotope.isotope('insert', $(data))
+            });
         }
 
-        function rightArrowPressed() {
-            var right=document.getElementById("right");
-            if (right) location.href = right.href;
-        }
-
-        document.onkeydown = function(evt) {
-            evt = evt || window.event;
-            switch (evt.keyCode) {
-                case 37:
-                    leftArrowPressed();
-                    break;
-                case 39:
-                    rightArrowPressed();
-                    break;
-            }
-        };
-
-        // start with isotype even before document is ready
-        $('.isotope-container').isotope({
-            itemSelector: '.item',
-            layoutMode: 'masonry'
+        $('.expandable').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 40
         });
 
-        $(document).ready(function(){
-            var relatedByColorIsotope = $('#related-by-color > .isotope-container').first();
-
-            if (relatedByColorIsotope) {
-                var fetchUrl = relatedByColorIsotope.data('fetch-url')
-                $.get(fetchUrl, function (data) {
-                    relatedByColorIsotope.isotope('insert', $(data))
-                });
-            }
-
-            $('.expandable').readmore({
-                moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-                lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
-                maxHeight: 40
-            });
-
-            $('.long_expandable').readmore({
-                moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-                lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
-                maxHeight: 235
-            });
-
-
-
-            $('#download').on('click', function(e){
-
-                $('#license').modal({})
-                $.fileDownload($(this).attr('href'), {
-                    successCallback: function(url) {
-                    },
-                    failCallback: function(responseHtml, url) {
-                        $('#license').modal('hide');
-                        $('#downloadfail').modal('show');
-                    }
-                });
-                return false; //this is critical to stop the click event which will trigger a normal file download!
-            });
+        $('.long_expandable').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 235
         });
-    })
+
+
+
+        $('#download').on('click', function(e){
+
+            $('#license').modal({})
+            $.fileDownload($(this).attr('href'), {
+                successCallback: function(url) {
+                },
+                failCallback: function(responseHtml, url) {
+                    $('#license').modal('hide');
+                    $('#downloadfail').modal('show');
+                }
+            });
+            return false; //this is critical to stop the click event which will trigger a normal file download!
+        });
+    });
 </script>
 
 @if (!empty($item->lat) && ($item->lat > 0))

@@ -1,7 +1,5 @@
-import jQuery from 'jquery'
+import 'jquery'
 import 'bootstrap/dist/js/bootstrap'
-
-window.$ = window.jQuery = jQuery
 
 // Custom global utilities
 import * as utils from './webumenia'

@@ -1,8 +1,5 @@
 import './bootstrap'
 
-import 'slick-carousel'
-import 'selectize'
-
 import jQueryBridget from 'jquery-bridget'
 import Isotope from 'isotope-layout'
 import InfiniteScroll from 'infinite-scroll'

@@ -95,6 +95,10 @@
 	    </a>
 	</div>
 
+	{{-- jQuery-dependent plug-ins that don't work well with Vite when used in inline scripts --}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js" integrity="sha512-Zg2aQwILT6mEtfZukaZrrN7c6vmwp2jAW2ZzRK9T4u6p4/2HpgfMwDN2yR9P00AZTIqsrO9MjqntyNxPvoDWfg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.js" integrity="sha512-mDFhdB9XVuD54kvKFiWsJZM4aCnLeV6tX4bGswCtMIqfzP4C9XHuGruVQWfWcsFtFe9p42rNQZoqIVSWbAEolg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	@vite(['resources/js/app.js'])
 
 	@yield('javascript')
