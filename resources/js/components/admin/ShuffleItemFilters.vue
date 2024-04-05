@@ -56,7 +56,7 @@ export default {
                     },
                     attributeChoices: Object.keys(attributesInUrl).map((ac) => ({
                         value: ac,
-                        translation: trans(`item.${ac}`), // TODO verify
+                        translation: trans(`item.${ac}`),
                     })),
                     attributes: f.attributes.map((a, attributeIndex) => ({
                         ...a,
