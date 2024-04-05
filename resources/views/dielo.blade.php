@@ -550,13 +550,12 @@
         }
     };
 
-    // start with isotype even before document is ready
-    $('.isotope-container').isotope({
-        itemSelector: '.item',
-        layoutMode: 'masonry'
-    });
-
     $(document).ready(function(){
+        $('.isotope-container').isotope({
+            itemSelector: '.item',
+            layoutMode: 'masonry'
+        });
+
         var relatedByColorIsotope = $('#related-by-color > .isotope-container').first();
 
         if (relatedByColorIsotope) {
