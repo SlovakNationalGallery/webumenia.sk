@@ -13,7 +13,7 @@
 
 <script>
 import { debounce } from 'debounce'
-const OpenSeadragon = require('openseadragon')
+import OpenSeadragon from 'openseadragon'
 
 const ZoomPerClick = 2
 const ControlsAutoHideAfterMs = 3000

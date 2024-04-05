@@ -1,7 +1,6 @@
 <script>
 // user tags
-$(document).ready(function(){
-
+document.addEventListener('DOMContentLoaded', function () {
     $("#tags").selectize({
         plugins: ['remove_button'],
         persist: false,

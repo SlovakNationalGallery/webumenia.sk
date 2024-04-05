@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 import VueDragscroll from 'vue-dragscroll'
 
-const app = createApp({})
+import ZoomViewer from './components/ZoomViewer.vue'
+import ZoomViewerThumbnail from './components/ZoomViewerThumbnail.vue'
 
-app.use(VueDragscroll)
-
-app.component('zoom-viewer', require('./components/ZoomViewer.vue').default)
-app.component('zoom-viewer.thumbnail', require('./components/ZoomViewerThumbnail.vue').default)
-
-app.mount('#app')
+createApp()
+    .use(VueDragscroll)
+    .component('zoom-viewer', ZoomViewer)
+    .component('zoom-viewer.thumbnail', ZoomViewerThumbnail)
+    .mount('#app')
