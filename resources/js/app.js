@@ -12,11 +12,11 @@ jQueryBridget('isotope', Isotope, $)
 jQueryBridget('infiniteScroll', InfiniteScroll, $)
 InfiniteScroll.imagesLoaded = imagesLoaded
 
-// require('lazysizes')
-// require('lazysizes/plugins/unveilhooks/ls.unveilhooks')
-// require('lazysizes/plugins/respimg/ls.respimg')
-// require('jquery.easing')
-// require('@lottiefiles/lottie-player')
+import 'lazysizes'
+import 'lazysizes/plugins/unveilhooks/ls.unveilhooks'
+import 'lazysizes/plugins/respimg/ls.respimg'
+import 'jquery.easing'
+import '@lottiefiles/lottie-player'
 
 // Components
 import './components/searchbar'
