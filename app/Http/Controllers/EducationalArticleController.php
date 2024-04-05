@@ -111,6 +111,6 @@ class EducationalArticleController extends Controller
                     'text' => "$label ($count)",
                     'selected' => $value === $selectedValue,
                 ];
-            });
+            })->values();
     }
 }
