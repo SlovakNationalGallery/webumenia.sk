@@ -6,10 +6,6 @@ import i18n from 'laravel-vue-i18n/vite'
 
 export default defineConfig({
     plugins: [
-        inject({
-            $: 'jquery',
-            jQuery: 'jquery',
-        }),
         vue({
             template: {
                 transformAssetUrls: {
@@ -40,6 +36,11 @@ export default defineConfig({
             refresh: true,
         }),
         i18n(),
+        inject({
+            $: 'jquery',
+            jQuery: 'jquery',
+            include: ['**/*.js'],
+        }),
     ],
     resolve: {
         alias: {
