@@ -1,22 +1,16 @@
-const ClipboardJS = require('clipboard')
+import ClipboardJS from 'clipboard'
 
-clipboard = new ClipboardJS('[data-clipboard-text]')
+const clipboard = new ClipboardJS('[data-clipboard-text]')
 
-clipboard.on('success', function(e) {
-  const originalTitle = $(e.trigger).data('original-title')
-  const successTitle = $(e.trigger).data('success-title') || originalTitle
+clipboard.on('success', function (e) {
+    const originalTitle = $(e.trigger).data('original-title')
+    const successTitle = $(e.trigger).data('success-title') || originalTitle
 
-  // Replace popover text
-  $(e.trigger)
-    .attr('title', successTitle)
-    .tooltip('fixTitle')
-    .tooltip('show')
+    // Replace popover text
+    $(e.trigger).attr('title', successTitle).tooltip('fixTitle').tooltip('show')
 
-  // Auto-hide after 2 seconds
-  setTimeout(function () {
-    $(e.trigger)
-      .attr('title', originalTitle)
-      .tooltip('fixTitle')
-      .tooltip('hide')
-  }, 2000);
-});
+    // Auto-hide after 2 seconds
+    setTimeout(function () {
+        $(e.trigger).attr('title', originalTitle).tooltip('fixTitle').tooltip('hide')
+    }, 2000)
+})

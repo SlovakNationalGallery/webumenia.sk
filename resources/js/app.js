@@ -20,7 +20,7 @@ import '@lottiefiles/lottie-player'
 
 // Components
 import './components/searchbar'
-// import './components/clipboard-button'
+import './components/clipboard-button'
 
 // // Vue
 import { createApp } from 'vue'
@@ -70,11 +70,7 @@ import BottomModal from './components/BottomModal.vue'
 import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
 import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
 
-createApp({
-    compilerOptions: {
-        isCustomElement: (tag) => tag === 'lottie-player',
-    },
-})
+createApp()
     .use(VueMasonryPlugin)
     .use(VueClickAway)
     .use(i18nVue, {
