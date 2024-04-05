@@ -18,7 +18,6 @@ public/sitemap.xml
 /public/hot
 /public/storage
 /public/vendor/laravel-filemanager
-mix-manifest.json
 npm-debug.log
 /resources/views/vendor/mail/html/themes
 
