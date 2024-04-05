@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\DescribeItemColors::class,
         \App\Console\Commands\ImportCsv::class,
         \App\Console\Commands\DescribeItemColors::class,
+        \App\Console\Commands\DeleteItems::class,
     ];
 
     /**
