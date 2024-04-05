@@ -52,9 +52,7 @@ jobs:
       - run: npm ci
 
       - name: Build assets
-        run: npm run production
-        env:
-          MIX_SKIP_CSS_URL_PROCESSING: 1
+        run: npm run build
 
       - name: Test
         run: php artisan test
