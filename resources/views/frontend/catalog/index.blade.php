@@ -84,7 +84,7 @@
     {!! Html::script('js/jquery.dropdown-select.js', ['defer' => true]) !!}
     {!! Html::script('js/scroll-frame.js', ['defer' => true]) !!}
 
-    <script type="text/javascript" defer>
+    <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         // start with isotype even before document is ready
         $('.isotope-wrapper').each(function(){
