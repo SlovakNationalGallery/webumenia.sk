@@ -24,6 +24,7 @@ class MgFotoImporter extends MgImporter {
         'topic' => '',
         'relationship_type' => '',
         'place' => '',
+        'description' => '',
     ];
 
     protected static $cz_technique_spec = [
