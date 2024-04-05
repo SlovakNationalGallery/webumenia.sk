@@ -37,7 +37,7 @@ host('production')
 task('build', function () {
     cd('{{release_path}}');
     run('{{bin/npm}} install');
-    run('{{bin/npm}} run production');
+    run('{{bin/npm}} run build');
 });
 
 // Override default route:cache task for mcamara/laravel-localization
