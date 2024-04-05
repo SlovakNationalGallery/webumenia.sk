@@ -1,4 +1,5 @@
-require('typeahead.js/dist/typeahead.bundle')
+import Bloodhound from 'corejs-typeahead/dist/bloodhound'
+import 'corejs-typeahead/dist/typeahead.jquery'
 
 var items = new Bloodhound({
     datumTokenizer: function (d) {
@@ -8,6 +9,7 @@ var items = new Bloodhound({
     limit: 8,
     remote: {
         url: '/katalog/suggestions?search=%QUERY',
+        wildcard: '%QUERY',
         filter: function (items) {
             return $.map(items, function (item) {
                 return $.extend({value: item.author + ': ' + item.title}, item);
@@ -24,6 +26,7 @@ var authors = new Bloodhound({
     limit: 3,
     remote: {
         url: '/autori/suggestions?search=%QUERY',
+        wildcard: '%QUERY',
         filter: function (authors) {
             return $.map(authors, function (author) {
                 return $.extend({value: author.name}, author);
@@ -40,6 +43,7 @@ var articles = new Bloodhound({
     limit: 3,
     remote: {
         url: '/clanky/suggestions?search=%QUERY',
+        wildcard: '%QUERY',
         filter: function (articles) {
             return $.map(articles.results, function (article) {
                 return {
@@ -62,6 +66,7 @@ var collections = new Bloodhound({
     limit: 3,
     remote: {
         url: '/kolekcie/suggestions?search=%QUERY',
+        wildcard: '%QUERY',
         filter: function (collections) {
             return $.map(collections.results, function (collection) {
                 return {
@@ -85,7 +90,7 @@ $("document").ready(function() {
     articles.initialize();
     collections.initialize();
 
-    $search = $('#search');
+    const $search = $('#search');
     $search.typeahead(
         {
             hint: true,
