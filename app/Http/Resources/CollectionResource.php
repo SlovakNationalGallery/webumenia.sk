@@ -14,7 +14,6 @@ class CollectionResource extends JsonResource
             'name' => $this->name,
             'text' => $this->text,
             'filter_items_url' => $this->filter_items_url,
-            'filter_items_count' => $this->whenAppended('filter_items_count'),
         ];
     }
 }

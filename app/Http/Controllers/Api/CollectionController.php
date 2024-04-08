@@ -5,17 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CollectionResource;
-use App\Repositories\CollectionRepository;
 
 class CollectionController extends Controller
 {
-    public function __construct(protected CollectionRepository $repository)
-    {
-    }
-
     public function index()
     {
-        $paginator = $this->repository->getPaginated();
+        $paginator = Collection::query()
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->paginate();
         $paginator->getCollection()->each->append('filter_items_count');
         return CollectionResource::collection($paginator);
     }
