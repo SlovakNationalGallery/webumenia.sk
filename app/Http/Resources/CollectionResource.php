@@ -13,6 +13,8 @@ class CollectionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'text' => $this->text,
+            'header_image_src' => $this->header_image_src,
+            'header_image_srcset' => $this->header_image_srcset,
             'filter_items_url' => $this->filter_items_url,
         ];
     }
