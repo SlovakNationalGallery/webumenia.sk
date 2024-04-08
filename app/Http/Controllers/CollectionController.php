@@ -62,6 +62,8 @@ class CollectionController extends Controller
         if ($v->passes()) {
             $collection = new Collection();
 
+            $collection->frontends = array_intersect($input['frontends'] ?? [], \auth()->user()->frontends);
+
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $collection->translatedAttributes)) {
@@ -149,6 +151,10 @@ class CollectionController extends Controller
             $input = Arr::except(Request::all(), ['_method']);
 
             $collection = Collection::find($id);
+
+            $currentOutOfScope = array_diff($collection->frontends, \auth()->user()->frontends);
+            $newInScope = array_intersect($input['frontends'] ?? [], \auth()->user()->frontends);
+            $collection->frontends = array_merge($currentOutOfScope, $newInScope);
 
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $collection->translatedAttributes)) {

@@ -28,7 +28,19 @@
 		<div>
 			@foreach(\App\User::$roles as $role)
 				<label class="radio-inline">
-					{{ Form::radio('role', $role) }} {{ $role }}
+					{{ Form::radio('role', $role, options: ['class' => 'form-control']) }} {{ $role }}
+				</label>
+			@endforeach
+		</div>
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="form-group">
+		{{ Form::label('frontends[]', 'Frontend') }}
+		<div>
+			@foreach(\App\Enums\FrontendEnum::cases() as $frontend)
+				<label class="checkbox-inline">
+					{{ Form::checkbox('frontends[]', $frontend->value, options: ['class' => 'form-control']) }} {{ $frontend }}
 				</label>
 			@endforeach
 		</div>

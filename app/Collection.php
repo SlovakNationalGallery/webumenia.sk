@@ -46,6 +46,7 @@ class Collection extends Model implements TranslatableContract
 
     protected $casts = [
         'published_at' => 'datetime',
+        'frontends' => 'array',
     ];
 
     public function items()

@@ -34,6 +34,17 @@
 <!-- translatable -->
 <div class="col-md-12">
 
+	<div class="form-group">
+		{{ Form::label('frontends[]', 'Publikovať na') }}
+		<div>
+			@foreach(auth()->user()->frontends as $frontend)
+				<label class="checkbox-inline">
+					{{ Form::checkbox('frontends[]', $frontend, options: ['class' => 'form-control']) }} {{ $frontend }}
+				</label>
+			@endforeach
+		</div>
+	</div>
+
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs top-space" role="tablist">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)

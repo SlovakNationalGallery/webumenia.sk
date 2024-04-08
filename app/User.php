@@ -10,7 +10,7 @@ class User extends Authenticatable
     use HasFactory;
     public static $roles = ['admin', 'editor', 'importer'];
 
-    protected $fillable = ['name', 'email', 'role', 'username'];
+    protected $fillable = ['name', 'email', 'role', 'username', 'frontends'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -24,5 +24,9 @@ class User extends Authenticatable
         'role' => 'in:admin,editor,importer|required',
         'email' => 'email|required',
         'username' => 'required',
+    ];
+
+    protected $casts = [
+        'frontends' => 'array',
     ];
 }
