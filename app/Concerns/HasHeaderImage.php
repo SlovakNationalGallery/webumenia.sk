@@ -86,22 +86,19 @@ trait HasHeaderImage
     public function getHeaderImageSrcsetAttribute()
     {
         $filename = $this[$this->image_property];
-        $path = $this->artworks_dir;
-
         if (!$filename) {
             return ''; // fallback for old collections and articles
         }
 
-        $res = asset($path . $filename) . ' ' . static::$DEFAULT_SIZE . 'w';
+        return collect(static::$SIZES)
+            ->map(function ($width) use ($filename) {
+                if (static::$DEFAULT_SIZE !== $width) {
+                    $filename = Str::replaceLast('.', ".". $width . ".", $filename);
+                }
 
-        foreach (static::$SIZES as $width) {
-            //replace extension
-            $res = $res
-                . ', ' . $path
-                . (static::$DEFAULT_SIZE === $width ? $filename : Str::replaceLast('.', ".". $width.".", $filename))
-                . ' ' . $width . 'w';
-        }
-        return $res;
+                return sprintf('%s %dw', asset($this->artworks_dir . $filename), $width);
+            })
+            ->join(', ');
     }
 
     public function getResizedImage($resize)
