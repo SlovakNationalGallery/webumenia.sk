@@ -108,7 +108,7 @@ class ItemTest extends TestCase
         $item = Item::factory()->make([
             'work_type' => 'kresba, prípravná, návrh; iné médiá, album',
         ]);
-        $workTypes = $item->work_types;
+        $workTypes = $item->work_type_tree;
         $this->assertEquals(
             [
                 [
