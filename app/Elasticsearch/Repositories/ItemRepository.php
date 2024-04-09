@@ -86,6 +86,9 @@ class ItemRepository extends TranslatableRepository
                         'operator' => 'and',
                     ],
                 ],
+                'should' => [
+                    ['term' => ['has_image' => true]],
+                ],
                 'filter' => [
                     ['term' => ['frontend' => Frontend::get()]],
                 ],
