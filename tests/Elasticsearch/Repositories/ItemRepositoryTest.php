@@ -88,4 +88,29 @@ class ItemRepositoryTest extends TestCase
         $this->assertTrue($similar_by_color->first()->is($similar_item));
         $this->assertFalse($similar_by_color->contains($dissimilar_item));
     }
+
+    public function testSuggestions()
+    {
+        $withImage = Item::factory()->make([
+            'title' => 'apple',
+            'has_image' => true,
+        ]);
+
+        $withoutImage = Item::factory()->make([
+            'title' => 'apple apple',
+            'has_image' => false,
+        ]);
+
+        foreach ([$withImage, $withoutImage] as $item) {
+            $this->repository->index($item);
+        }
+        $this->repository->refreshIndex();
+
+        $suggestions = $this->repository
+            ->getSuggestions(2, 'apple')
+            ->getCollection();
+
+        $this->assertTrue($suggestions[0]->is($withImage));
+        $this->assertTrue($suggestions[1]->is($withoutImage));
+    }
 }
