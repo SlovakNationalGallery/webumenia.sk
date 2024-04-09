@@ -5,6 +5,14 @@
     @parent
 @stop
 
+@section('link')
+    <style>
+        .tiraz img {
+            vertical-align: top;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     @section('content')
