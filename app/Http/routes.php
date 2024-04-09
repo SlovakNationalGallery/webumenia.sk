@@ -58,6 +58,10 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
         return view('informacie-mg');
     });
 
+    Route::get('archiv-hochova', function () {
+        return view('archiv-hochova');
+    });
+
     Route::get('dilo/{id}/zoom', function ($subdomain, $tld, $id) {
 
         $item = Item::find($id);

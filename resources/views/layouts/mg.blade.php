@@ -105,6 +105,9 @@
                 <li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
                     <a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
                 </li>
+{{--                  <li class="{!! Request::is('archiv-hochova') ? 'active' : '' !!}">--}}
+{{--                      <a href="{{{ URL::to('archiv-hochova') }}}">Archiv Hochová</a>--}}
+{{--                  </li>--}}
               </ul>
           </div>
           <!-- /.navbar-collapse -->
