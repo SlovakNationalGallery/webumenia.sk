@@ -48,8 +48,8 @@
                                 <i>Tato databáze byla vytvořena se státní podporou <a href="https://www.tacr.cz/" target="_blank">Technologické agentury ČR</a> v rámci Programu ÉTA.</i>
                             </p>
                             <div class="tiraz">
-                                <img src="/images/mg/tacr.jpg" width="200" />
-                                <img src="/images/mg/usd.jpg" width="200" />
+                                <img src="/images/mg/tacr.png" width="100" />
+                                <img src="/images/mg/usd.jpg" width="100" />
                             </div>
                         </div>
                     </div>
