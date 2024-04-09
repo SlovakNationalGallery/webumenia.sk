@@ -78,6 +78,18 @@ class GmuhkItemMapper extends AbstractMapper
         return trans("item.work_types.$key", locale: $locale);
     }
 
+    public function mapCredit(array $row, $locale): ?string
+    {
+        if (str($row['identifier'][0])->startsWith('SKT')) {
+            return [
+                'sk' => 'Zbierka Karla Tutscha',
+                'cs' => 'Sbírka Karla Tutsche',
+                'en' => 'Karel Tutsch Collection',
+            ][$locale];
+        }
+
+        return null;
+    }
 
     protected function parseIdentifier($id): array
     {
