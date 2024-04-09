@@ -15,7 +15,7 @@ public/sitemap.xml
 .phpunit.cache
 /public/css/admin.css
 /public/css/style.css
-/public/css/app-tailwind.css
+/public/css/tailwind.css
 /public/fonts
 /public/hot
 /public/js/*LICENSE.txt
@@ -29,4 +29,4 @@ public/sitemap.xml
 mix-manifest.json
 npm-debug.log
 /resources/views/vendor/mail/html/themes
-
+.idea

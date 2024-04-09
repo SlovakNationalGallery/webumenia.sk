@@ -1,10 +1,10 @@
 module.exports = {
     content: ['./resources/**/*.blade.php', './resources/**/*.js', './resources/**/*.vue'],
-    important: '.tailwind-rules',
     theme: {
         extend: {
             colors: {
                 gray: {
+                    100: '#f0f0f0',
                     200: '#ededed',
                     300: '#cdcdcd',
                     500: '#969696',
@@ -17,6 +17,7 @@ module.exports = {
                 },
             },
             fontFamily: {
+                admin: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
                 sans: ['GTWalsheim', 'sans-serif'],
                 serif: [
                     'Source Serif Pro',
@@ -27,16 +28,22 @@ module.exports = {
                     'serif',
                 ],
             },
+            fontSize: {
+                'sm': '12px',
+                'base': ['16px', '1.42857143'],
+            },
+            minHeight: {
+                12: '3em',
+            },
         },
     },
     plugins: [
         require('@tailwindcss/typography'),
-        require('@tailwindcss/line-clamp'),
         require('@tailwindcss/forms'),
         require('tailwind-scrollbar')({ nocompatible: true }),
     ],
     prefix: 'tw-',
     corePlugins: {
-        preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap
+        // preflight: false,
     },
 }

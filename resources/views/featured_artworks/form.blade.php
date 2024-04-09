@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="tailwind-rules admin">
+    <div class="tailwind-rules tw-break-keep tw-font-admin tw-text-sm">
         <div class="tw-container tw-max-w-screen-md tw-pt-12 mx-auto">
             @if ($errors->any())
                 <x-admin.alert danger dismissable>

@@ -72,7 +72,7 @@ mix
     // CSS
     .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css')
-    .postCss('resources/css/app-tailwind.css', 'public/css', [require('tailwindcss')])
+    .postCss('resources/css/tailwind.css', 'public/css', [require('tailwindcss')])
 
     .disableSuccessNotifications()
     .options({
