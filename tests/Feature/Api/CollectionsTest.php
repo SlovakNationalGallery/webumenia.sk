@@ -30,11 +30,6 @@ class CollectionsTest extends TestCase
                 'http://localhost/images/kolekcie/image.1400.jpg 1400w, ' .
                 'http://localhost/images/kolekcie/image.jpg 1024w, ' .
                 'http://localhost/images/kolekcie/image.640.jpg 640w',
-            'filter_items_url' => route('api.v1.items.index', [
-                'filter' => [
-                    'author' => ['author-1'],
-                ],
-            ]),
         ]);
     }
 
@@ -55,11 +50,9 @@ class CollectionsTest extends TestCase
                 'http://localhost/images/kolekcie/image.1400.jpg 1400w, ' .
                 'http://localhost/images/kolekcie/image.jpg 1024w, ' .
                 'http://localhost/images/kolekcie/image.640.jpg 640w',
-            'filter_items_url' => route('api.v1.items.index', [
-                'filter' => [
-                    'author' => 'author-1',
-                ],
-            ]),
+            'item_filter' => [
+                'author' => 'author-1',
+            ],
         ]);
     }
 }
