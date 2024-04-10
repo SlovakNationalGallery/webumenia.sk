@@ -57,6 +57,9 @@ class GmuhkItemMapperTest extends TestCase
             'work_type:sk' => 'grafika',
             'work_type:en' => 'graphics',
             'work_type:cs' => 'grafika',
+            'credit:sk' => null,
+            'credit:en' => null,
+            'credit:cs' => null,
         ];
         $this->assertEquals($expected, $mapped);
     }
@@ -72,5 +75,17 @@ class GmuhkItemMapperTest extends TestCase
         $this->assertEquals('grafika', $mapper->mapWorkType($row, 'sk'));
         $this->assertEquals('grafika', $mapper->mapWorkType($row, 'cs'));
         $this->assertEquals('graphics', $mapper->mapWorkType($row, 'en'));
+    }
+
+    public function testMapCredit_Skt()
+    {
+        $mapper = new GmuhkItemMapper();
+        $row = [
+            'identifier' => ['SKT 372'],
+        ];
+
+        $this->assertEquals('Zbierka Karla Tutscha', $mapper->mapCredit($row, 'sk'));
+        $this->assertEquals('Sbírka Karla Tutsche', $mapper->mapCredit($row, 'cs'));
+        $this->assertEquals('Karel Tutsch Collection', $mapper->mapCredit($row, 'en'));
     }
 }
