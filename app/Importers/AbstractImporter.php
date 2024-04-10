@@ -95,10 +95,8 @@ abstract class AbstractImporter
 
                 $import_record->wrong_items++;
                 $import_record->status = ImportRecord::STATUS_ERROR;
-                $import_record->error_message = $e->getMessage();
+                $import_record->error_message .= $e->getMessage() . PHP_EOL;
                 app('sentry')->captureException($e);
-
-                break;
             } finally {
                 $import_record->save();
             }
