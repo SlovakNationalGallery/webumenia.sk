@@ -14,13 +14,12 @@ class CollectionController extends Controller
             ->published()
             ->orderBy('published_at', 'desc')
             ->paginate();
-        $paginator->getCollection()->each->append('filter_items_count');
         return CollectionResource::collection($paginator);
     }
 
     public function show(Collection $collection)
     {
-        $collection->append('filter_items_url');
+        $collection->append('item_filter');
         return new CollectionResource($collection);
     }
 }
