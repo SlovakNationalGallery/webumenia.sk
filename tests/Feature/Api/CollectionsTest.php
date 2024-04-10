@@ -25,16 +25,36 @@ class CollectionsTest extends TestCase
             'name' => $collection->name,
             'text' => $collection->text,
             'header_image_src' => 'http://localhost/images/kolekcie/image.jpg',
-            'header_image_srcset' => 'http://localhost/images/kolekcie/image.1920.jpg 1920w, '
-                . 'http://localhost/images/kolekcie/image.1400.jpg 1400w, '
-                . 'http://localhost/images/kolekcie/image.jpg 1024w, '
-                . 'http://localhost/images/kolekcie/image.640.jpg 640w',
+            'header_image_srcset' =>
+                'http://localhost/images/kolekcie/image.1920.jpg 1920w, ' .
+                'http://localhost/images/kolekcie/image.1400.jpg 1400w, ' .
+                'http://localhost/images/kolekcie/image.jpg 1024w, ' .
+                'http://localhost/images/kolekcie/image.640.jpg 640w',
             'filter_items_url' => route('api.v1.items.index', [
                 'filter' => [
                     'author' => ['author-1'],
                 ],
             ]),
         ]);
+    }
+
+    public function testIndexFeatured()
+    {
+        $featured = Collection::factory()
+            ->published()
+            ->featured()
+            ->create();
+        Collection::factory()
+            ->published()
+            ->create();
+
+        $url = route('api.collections.index', [
+            'featured' => true,
+            'size' => 2,
+        ]);
+        $response = $this->get($url);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.id', $featured->id);
     }
 
     public function testShow()
@@ -49,10 +69,11 @@ class CollectionsTest extends TestCase
             'name' => $collection->name,
             'text' => $collection->text,
             'header_image_src' => 'http://localhost/images/kolekcie/image.jpg',
-            'header_image_srcset' => 'http://localhost/images/kolekcie/image.1920.jpg 1920w, '
-                . 'http://localhost/images/kolekcie/image.1400.jpg 1400w, '
-                . 'http://localhost/images/kolekcie/image.jpg 1024w, '
-                . 'http://localhost/images/kolekcie/image.640.jpg 640w',
+            'header_image_srcset' =>
+                'http://localhost/images/kolekcie/image.1920.jpg 1920w, ' .
+                'http://localhost/images/kolekcie/image.1400.jpg 1400w, ' .
+                'http://localhost/images/kolekcie/image.jpg 1024w, ' .
+                'http://localhost/images/kolekcie/image.640.jpg 640w',
             'filter_items_url' => route('api.v1.items.index', [
                 'filter' => [
                     'author' => 'author-1',
