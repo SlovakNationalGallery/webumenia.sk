@@ -23,7 +23,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 attributes">
-                        <h3>Archiv negativů Dagmar Hochové</h3>
+                        <h3><a href="https://sbirky.moravska-galerie.cz/katalog?related_work=Archiv+negativ%C5%AF+Dagmar+Hochov%C3%A9">Archiv negativů Dagmar Hochové</a></h3>
                         <p>
                             V letech 2020–2024 Moravská galerie v Brně ve spolupráci s Ústavem pro soudobé dějiny Akademie věd ČR a Kanceláří Poslanecké sněmovny Parlamentu ČR realizovala úplnou digitalizaci a odborné zpracování souboru negativů Dagmar Hochové.
                             Projekt „Demokratická revoluce objektivem Dagmar Hochové: Zpřístupnění unikátní fotodokumentace z let 1989–1992“ byl spolufinancován se státní podporou Technologické agentury ČR v rámci Programu ÉTA.
