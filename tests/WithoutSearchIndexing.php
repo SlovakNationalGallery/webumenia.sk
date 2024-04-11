@@ -8,7 +8,7 @@ use Elasticsearch\Client;
 
 trait WithoutSearchIndexing
 {
-    public function disableModelSearchIndexing(): void
+    public function setUpWithoutSearchIndexing(): void
     {
         $this->mock(Client::class)->shouldIgnoreMissing();
         // forces re-instantiation of repositories with client mock

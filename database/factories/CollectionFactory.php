@@ -22,4 +22,14 @@ class CollectionFactory extends Factory
             'text' => fake()->sentence,
         ];
     }
+
+    public function published()
+    {
+        return $this->state(['published_at' => $this->faker->dateTime]);
+    }
+
+    public function featured()
+    {
+        return $this->state(['featured' => true]);
+    }
 }
