@@ -33,6 +33,25 @@ class CollectionsTest extends TestCase
         ]);
     }
 
+    public function testIndexFeatured()
+    {
+        $featured = Collection::factory()
+            ->published()
+            ->featured()
+            ->create();
+        Collection::factory()
+            ->published()
+            ->create();
+
+        $url = route('api.collections.index', [
+            'featured' => true,
+            'size' => 2,
+        ]);
+        $response = $this->get($url);
+        $response->assertJsonCount(1, 'data');
+        $response->assertJsonPath('data.0.id', $featured->id);
+    }
+
     public function testShow()
     {
         $collection = Collection::factory()->create([

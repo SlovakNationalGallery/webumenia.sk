@@ -12,6 +12,7 @@ class CollectionController extends Controller
     {
         $paginator = Collection::query()
             ->published()
+            ->when(request()->boolean('featured'), fn($query) => $query->where('featured', true))
             ->orderBy('published_at', 'desc')
             ->paginate();
         return CollectionResource::collection($paginator);

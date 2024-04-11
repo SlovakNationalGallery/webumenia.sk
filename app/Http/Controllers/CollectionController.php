@@ -73,6 +73,7 @@ class CollectionController extends Controller
                 }
             }
 
+            $collection->featured = Request::boolean('featured');
             $collection->published_at = Request::input('published_at');
 
             if (Request::has('title_color')) {
