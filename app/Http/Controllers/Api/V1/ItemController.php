@@ -84,6 +84,7 @@ class ItemController extends Controller
 
         $response = $searchRequest
             ->paginate($size)
+            ->withQueryString()
             ->onlyDocuments()
             ->toArray();
 
