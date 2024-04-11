@@ -15,7 +15,7 @@ class CollectionResource extends JsonResource
             'text' => $this->text,
             'header_image_src' => $this->header_image_src,
             'header_image_srcset' => $this->header_image_srcset,
-            'filter_items_url' => $this->filter_items_url,
+            'item_filter' => $this->whenAppended('item_filter'),
         ];
     }
 }

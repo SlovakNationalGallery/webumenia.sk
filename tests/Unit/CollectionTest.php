@@ -7,34 +7,28 @@ use Tests\TestCase;
 
 class CollectionTest extends TestCase
 {
-    public function testFilterItemsUrlFromWebumeniaUrl()
+    public function testItemFilterFromWebumeniaUrl()
     {
         $collection = Collection::factory()->make([
             'url' =>
                 'https://www.webumenia.sk/katalog-new?filter[work_type][]=maliarstvo&filter[work_type][]=fotografia',
         ]);
 
-        $expected = route('api.v1.items.index', [
-            'filter' => [
-                'work_type' => ['maliarstvo', 'fotografia'],
-            ],
-        ]);
-
-        $this->assertEquals($expected, $collection->filter_items_url);
+        $expected = [
+            'work_type' => ['maliarstvo', 'fotografia'],
+        ];
+        $this->assertEquals($expected, $collection->item_filter);
     }
 
-    public function testFilterItemsUrlFromMoravskaGalerieUrl()
+    public function testItemFilterFromMoravskaGalerieUrl()
     {
         $collection = Collection::factory()->make([
             'url' => 'https://sbirky.moravska-galerie.cz/?work_type=maliarstvo|fotografia',
         ]);
 
-        $expected = route('api.v1.items.index', [
-            'filter' => [
-                'work_type' => ['maliarstvo', 'fotografia'],
-            ],
-        ]);
-
-        $this->assertEquals($expected, $collection->filter_items_url);
+        $expected = [
+            'work_type' => ['maliarstvo', 'fotografia'],
+        ];
+        $this->assertEquals($expected, $collection->item_filter);
     }
 }
