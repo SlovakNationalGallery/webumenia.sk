@@ -249,6 +249,8 @@ class ItemController extends Controller
                     'state_edition',
                     'inscription',
                     'acquisition_date',
+                    'work_type_tree',
+                    'object_type_tree',
                 ]),
             ],
         ];

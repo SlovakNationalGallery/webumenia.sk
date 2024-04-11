@@ -485,12 +485,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $formated;
     }
 
-    public function getWorkTypesAttribute()
+    public function getWorkTypeTreeAttribute()
     {
         return $this->unserializeTrees($this->work_type);
     }
 
-    public function getObjectTypesAttribute()
+    public function getObjectTypeTreeAttribute()
     {
         return $this->unserializeTrees($this->object_type);
     }
