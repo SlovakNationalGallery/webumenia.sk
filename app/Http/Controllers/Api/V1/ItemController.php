@@ -84,6 +84,7 @@ class ItemController extends Controller
 
         $response = $searchRequest
             ->paginate($size)
+            ->withQueryString()
             ->onlyDocuments()
             ->toArray();
 
@@ -249,6 +250,8 @@ class ItemController extends Controller
                     'state_edition',
                     'inscription',
                     'acquisition_date',
+                    'work_type_tree',
+                    'object_type_tree',
                 ]),
             ],
         ];

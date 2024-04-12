@@ -13,7 +13,7 @@ trait RecreateSearchIndex
      *
      * @return void
      */
-    public function recreateSearchIndex()
+    public function setUpRecreateSearchIndex()
     {
         $authorityRepository = $this->app->make(AuthorityRepository::class);
         $itemRepository = $this->app->make(ItemRepository::class);

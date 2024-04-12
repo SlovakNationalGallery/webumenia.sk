@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Stringable;
 
 class Collection extends Model implements TranslatableContract
 {
@@ -30,7 +31,7 @@ class Collection extends Model implements TranslatableContract
         return '/images/kolekcie/';
     }
 
-    public $translatedAttributes = ['name', 'type', 'text'];
+    public $translatedAttributes = ['name', 'type', 'text', 'url'];
 
     public static $rules = [
         'sk.name' => 'required',
@@ -134,5 +135,24 @@ class Collection extends Model implements TranslatableContract
     public function getReadingTimeAttribute()
     {
         return getEstimatedReadingTime($this->text, \App::getLocale());
+    }
+
+    public function getItemFilterAttribute(): ?array
+    {
+        if (!$this->url) {
+            return null;
+        }
+
+        $url = parse_url($this->url);
+        parse_str($url['query'] ?? '', $query);
+
+        if (str($url['host'])->contains('sbirky.moravska-galerie.cz')) {
+            $filter = collect($query)->map(
+                fn($value, $attribute) => str($value)->contains('|') ? explode('|', $value) : $value
+            );
+            return $filter->toArray();
+        }
+
+        return $query['filter'] ?? [];
     }
 }

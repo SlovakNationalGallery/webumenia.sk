@@ -284,4 +284,46 @@ class ItemsTest extends TestCase
             ],
         ]);
     }
+
+    public function test_show()
+    {
+        $item = Item::factory()->create([
+            'work_type' => 'grafika, voľná',
+            'object_type' => 'tlač, veľký formát',
+        ]);
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.show', ['id' => $item->id]);
+
+        $response = $this->getJson($url);
+        $response->assertJson([
+            'id' => $item->id,
+            'content' => [
+                'work_type_tree' => [
+                    [
+                        [
+                            'name' => 'grafika',
+                            'path' => 'grafika',
+                        ],
+                        [
+                            'name' => 'voľná',
+                            'path' => 'grafika/voľná',
+                        ],
+                    ],
+                ],
+                'object_type_tree' => [
+                    [
+                        [
+                            'name' => 'tlač',
+                            'path' => 'tlač',
+                        ],
+                        [
+                            'name' => 'veľký formát',
+                            'path' => 'tlač/veľký formát',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+    }
 }

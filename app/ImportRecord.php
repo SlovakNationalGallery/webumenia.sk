@@ -46,6 +46,10 @@ class ImportRecord extends Model
 
     public function iipFiles(): Collection
     {
+        if ($this->import->iip_dir_path === null) {
+            return collect();
+        }
+
         $dir = sprintf(
             '%s/%s',
             $this->import->iip_dir_path,

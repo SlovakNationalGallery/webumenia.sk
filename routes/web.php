@@ -283,7 +283,7 @@ function()
         $gtm_data_layer = [
             'artwork' => [
                 'authors' => array_values($item->authors),
-                'work_types' => collect($item->work_types)->pluck(['path']),
+                'work_types' => collect($item->work_type_tree)->pluck(['path']),
                 'topic ' => $item->topic,
                 'media' => $item->mediums,
                 'technique' => $item->technique,
