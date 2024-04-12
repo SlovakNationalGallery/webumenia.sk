@@ -13,7 +13,7 @@ class ItemTest extends TestCase
 
     public function testSearch()
     {
-        $editor = User::factory()->create(['role' => 'editor']);
+        $editor = User::factory()->create(['can_edit' => true]);
         $items = Item::factory()
             ->count(2)
             ->create();

@@ -34,6 +34,19 @@
 <!-- translatable -->
 <div class="col-md-12">
 
+	@can('admin')
+	<div class="form-group">
+		{{ Form::label('frontends[]', 'Publikovať na') }}
+		<div>
+			@foreach(\App\Enums\FrontendEnum::cases() as $frontend)
+				<label class="checkbox-inline">
+					{{ Form::checkbox('frontends[]', $frontend->value, old('frontends[]'), ['class' => 'form-control']) }} {{ $frontend }}
+				</label>
+			@endforeach
+		</div>
+	</div>
+	@endcan
+
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs top-space" role="tablist">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
@@ -102,7 +115,7 @@
 		@endif
 	</div>
 </div>
-@can('administer')
+@can('publish')
 <div class="col-md-6">
 	<div class="form-group checkbox">
 		{!! Form::label('published_at', 'Publikovať') !!}

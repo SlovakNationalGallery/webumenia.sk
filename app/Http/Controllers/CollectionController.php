@@ -74,8 +74,14 @@ class CollectionController extends Controller
             }
 
             $collection->featured = Request::boolean('featured');
-            $collection->published_at = Request::input('published_at');
-
+            if (Gate::allows('administer')) {
+                $collection->frontends = Request::input('frontends');
+            } else {
+                $collection->frontends = [\auth()->user()->frontend];
+            }
+            if (Gate::allows('publish')) {
+                $collection->published_at = Request::input('published_at');
+            }
             if (Request::has('title_color')) {
                 $collection->title_color = Request::input('title_color');
             }
@@ -160,7 +166,14 @@ class CollectionController extends Controller
                 }
             }
 
-            $collection->published_at = Request::input('published_at', null);
+
+            if (Gate::allows('administer')) {
+                $collection->frontends = Request::input('frontends');
+            }
+
+            if (Gate::allows('publish', $collection)) {
+                $collection->published_at = Request::input('published_at');
+            }
 
             if (Request::has('user_id') && Gate::allows('administer')) {
                 $collection->user_id = Request::input('user_id');

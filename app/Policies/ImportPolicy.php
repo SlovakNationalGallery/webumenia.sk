@@ -12,7 +12,7 @@ class ImportPolicy
 
     public function viewAny(User $user)
     {
-        return $user->role === 'importer';
+        return $user->can_import;
     }
 
     public function viewAll()
@@ -22,7 +22,7 @@ class ImportPolicy
 
     public function view(User $user, Import $import)
     {
-        return $user->id === $import->user_id && $user->role === 'importer';
+        return $user->id === $import->user_id && $user->can_import;
     }
 
     public function create()
@@ -32,12 +32,12 @@ class ImportPolicy
 
     public function update(User $user, Import $import)
     {
-        return $user->id === $import->user_id && $user->role === 'importer';
+        return $user->id === $import->user_id && $user->can_import;
     }
 
     public function updateFile(User $user, Import $import)
     {
-        return $user->id === $import->user_id && $user->role === 'importer';
+        return $user->id === $import->user_id && $user->can_import;
     }
 
     public function updateMetadata()
@@ -52,6 +52,6 @@ class ImportPolicy
 
     public function launch(User $user, Import $import)
     {
-        return $user->id === $import->user_id && $user->role === 'importer';
+        return $user->id === $import->user_id && $user->can_import;
     }
 }
