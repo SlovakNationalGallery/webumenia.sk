@@ -37,7 +37,7 @@
                             <tr>
                                 <th>Login</th>
                                 <th>Meno</th>
-                                <th>Skupina</th>
+                                <th>Práva</th>
                                 <th>Dátum vytvorenia</th>
                                 <th>Akcie</th>
                             </tr>
@@ -47,7 +47,7 @@
                                 <tr>
                                     <td>{!! $i->username !!}</td>
                                     <td>{!! $i->name !!}</td>
-                                    <td>{!! $i->role !!}</td>
+                                    <td>{{ $i->permissions->map(fn ($permission) => __("permissions.$permission"))->join(', ') }}</td>
                                     <td>{!! $i->created_at !!}</td>
                                     <td>
                                         {{-- {!! link_to_action('App\Http\Controllers\UserController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} --}}

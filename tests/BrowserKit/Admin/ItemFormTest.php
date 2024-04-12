@@ -17,7 +17,7 @@ class ItemFormTest extends BrowserKitTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->user = User::factory()->create(['role' => 'admin']);
+        $this->user = User::factory()->create(['can_administer' => true]);
         $this->actingAs($this->user);
     }
 

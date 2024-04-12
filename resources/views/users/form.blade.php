@@ -24,23 +24,11 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-		{!! Form::label('role', 'Skupina') !!}
-		<div>
-			@foreach(\App\User::$roles as $role)
-				<label class="radio-inline">
-					{{ Form::radio('role', $role, options: ['class' => 'form-control']) }} {{ $role }}
-				</label>
-			@endforeach
-		</div>
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-		{{ Form::label('frontends[]', 'Frontend') }}
+		{{ Form::label('frontend', 'Frontend') }}
 		<div>
 			@foreach(\App\Enums\FrontendEnum::cases() as $frontend)
 				<label class="checkbox-inline">
-					{{ Form::checkbox('frontends[]', $frontend->value, options: ['class' => 'form-control']) }} {{ $frontend }}
+					{{ Form::radio('frontend', $frontend->value, old('frontend'), ['class' => 'form-control']) }} {{ $frontend }}
 				</label>
 			@endforeach
 		</div>
@@ -71,7 +59,39 @@
 	{!! Form::text('email', Request::old('email'), array('class' => 'form-control')) !!}
 	</div>
 </div>
-
+<div class="col-md-12">
+	<fieldset>
+		<legend>Práva</legend>
+		<div class="form-group">
+			<label class="checkbox-inline">
+				{{ Form::hidden('can_administer', 0) }}
+				{{ Form::checkbox('can_administer', 1, old('can_administer'), ['class' => 'form-control']) }}
+				{{ __('permissions.can_administer') }}
+			</label>
+		</div>
+		<div class="form-group">
+			<label class="checkbox-inline">
+				{{ Form::hidden('can_edit', 0) }}
+				{{ Form::checkbox('can_edit', 1, old('can_edit'), ['class' => 'form-control']) }}
+				{{ __('permissions.can_edit') }}
+			</label>
+		</div>
+		<div class="form-group">
+			<label class="checkbox-inline">
+				{{ Form::hidden('can_publish', 0) }}
+				{{ Form::checkbox('can_publish', 1, old('can_publish'), ['class' => 'form-control']) }}
+				{{ __('permissions.can_publish') }}
+			</label>
+		</div>
+		<div class="form-group">
+			<label class="checkbox-inline">
+				{{ Form::checkbox('can_import', 0) }}
+				{{ Form::checkbox('can_import', 1, old('can_import'), ['class' => 'form-control']) }}
+				{{ __('permissions.can_import') }}
+			</label>
+		</div>
+	</fieldset>
+</div>
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('user.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}

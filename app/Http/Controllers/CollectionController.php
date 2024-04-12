@@ -62,8 +62,6 @@ class CollectionController extends Controller
         if ($v->passes()) {
             $collection = new Collection();
 
-            $collection->frontends = array_intersect($input['frontends'] ?? [], \auth()->user()->frontends);
-
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $collection->translatedAttributes)) {
@@ -76,8 +74,14 @@ class CollectionController extends Controller
             }
 
             $collection->featured = Request::boolean('featured');
-            $collection->published_at = Request::input('published_at');
-
+            if (Gate::allows('administer')) {
+                $collection->frontends = Request::input('frontends');
+            } else {
+                $collection->frontends = [\auth()->user()->frontend];
+            }
+            if (Gate::allows('publish')) {
+                $collection->published_at = Request::input('published_at');
+            }
             if (Request::has('title_color')) {
                 $collection->title_color = Request::input('title_color');
             }
@@ -152,10 +156,6 @@ class CollectionController extends Controller
 
             $collection = Collection::find($id);
 
-            $currentOutOfScope = array_diff($collection->frontends, \auth()->user()->frontends);
-            $newInScope = array_intersect($input['frontends'] ?? [], \auth()->user()->frontends);
-            $collection->frontends = array_merge($currentOutOfScope, $newInScope);
-
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $collection->translatedAttributes)) {
                     foreach ($collection->translatedAttributes as $attribute) {
@@ -166,7 +166,14 @@ class CollectionController extends Controller
                 }
             }
 
-            $collection->published_at = Request::input('published_at', null);
+
+            if (Gate::allows('administer')) {
+                $collection->frontends = Request::input('frontends');
+            }
+
+            if (Gate::allows('publish', $collection)) {
+                $collection->published_at = Request::input('published_at');
+            }
 
             if (Request::has('user_id') && Gate::allows('administer')) {
                 $collection->user_id = Request::input('user_id');

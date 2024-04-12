@@ -24,19 +24,23 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::define('administer', function ($user) {
-            return $user->role === 'admin';
+            return $user->can_administer;
         });
 
         Gate::define('edit', function ($user) {
-            return $user->role === 'editor';
+            return $user->can_edit;
+        });
+
+        Gate::define('publish', function ($user) {
+            return $user->can_publish;
         });
 
         Gate::define('import', function ($user) {
-            return $user->role === 'importer';
+            return $user->can_import;
         });
 
         Gate::before(function ($user) {
-            if ($user->role === 'admin') {
+            if ($user->can_administer) {
                 return true;
             }
         });

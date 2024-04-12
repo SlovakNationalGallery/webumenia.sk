@@ -12,8 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE users ADD COLUMN frontends JSON DEFAULT (JSON_ARRAY())");
-        DB::table('users')->update(['frontends' => '["webumenia"]']);
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('frontend')->default('webumenia');
+        });
     }
 
     /**
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('frontends');
+            $table->dropColumn('frontend');
         });
     }
 };
