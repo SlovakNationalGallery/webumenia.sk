@@ -148,10 +148,7 @@ class Collection extends Model implements TranslatableContract
 
         if (str($url['host'])->contains('sbirky.moravska-galerie.cz')) {
             $filter = collect($query)->map(
-                fn($value, $attribute) => str($value)->whenContains(
-                    '|',
-                    fn(Stringable $value) => $value->explode('|')
-                )
+                fn($value, $attribute) => str($value)->contains('|') ? explode('|', $value) : $value
             );
             return $filter->toArray();
         }
