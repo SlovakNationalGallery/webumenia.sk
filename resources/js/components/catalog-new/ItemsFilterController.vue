@@ -3,7 +3,7 @@ import qs from 'qs'
 import { useApiClient } from '../composables/useApiClient'
 import { useTitleUpdater } from './useTitleUpdater'
 
-function getParsedFilterFromUrl() {
+function getQueryFromCurrentUrl() {
     const parsedUrl = qs.parse(window.location.search, {
         arrayFormat: 'bracket',
         ignoreQueryPrefix: true,
@@ -12,6 +12,7 @@ function getParsedFilterFromUrl() {
     const { sort, q } = parsedUrl || {}
 
     return {
+        ...EMPTY_QUERY,
         ...rest,
         yearRange: (() => {
             if (!date_earliest || !date_latest) {
@@ -25,6 +26,9 @@ function getParsedFilterFromUrl() {
 }
 
 function stringifyUrl({ url, params }) {
+    const searchParams = stringifyUrlQuery(params)
+    if (!searchParams) return url
+
     return url + '?' + stringifyUrlQuery(params)
 }
 
@@ -135,13 +139,19 @@ export default {
             last_page: 1,
             artworks_total: null,
             aggregations: {},
-            query: { ...EMPTY_QUERY, ...getParsedFilterFromUrl() },
+            query: getQueryFromCurrentUrl(),
             page: 1,
         }
     },
-    async created() {
+    created() {
         this.fetchAggregations()
         this.fetchArtworks({ replaceArtworks: true })
+    },
+    mounted() {
+        window.addEventListener('popstate', this.handleHistoryPopState)
+    },
+    beforeUnmount() {
+        window.removeEventListener('popstate', this.handleHistoryPopState)
     },
     computed: {
         selectedOptionsAsLabels() {
@@ -176,6 +186,9 @@ export default {
         },
     },
     methods: {
+        handleHistoryPopState() {
+            this.query = getQueryFromCurrentUrl()
+        },
         hasFilterOptions(filterName) {
             return (
                 this.query[filterName].length ||
@@ -183,79 +196,62 @@ export default {
             )
         },
         clearFilterSelection(filterName) {
-            this.query = {
-                ...this.query,
-                [filterName]: EMPTY_QUERY[filterName],
-            }
+            this.updateQuery({ [filterName]: EMPTY_QUERY[filterName] })
         },
         clearAllSelections() {
-            this.query = { ...EMPTY_QUERY }
+            this.replaceQuery(EMPTY_QUERY)
         },
         handleColorChange(color) {
-            this.query = {
-                ...this.query,
-                color: color,
-            }
+            this.updateQuery({ color })
         },
-        handleYearRangeChange(yearRangeValue) {
-            this.query = {
-                ...this.query,
-                yearRange: yearRangeValue,
-            }
+        handleYearRangeChange(yearRange) {
+            this.updateQuery({ yearRange })
         },
-        handleSortChange(sortValue) {
-            this.query = {
-                ...this.query,
-                sort: sortValue,
-            }
+        handleSortChange(sort) {
+            this.updateQuery({ sort })
         },
         handleCheckboxChange(e) {
             const { name, checked } = e.target
 
-            this.query = {
-                ...this.query,
+            this.updateQuery({
                 [name]: checked || undefined,
-            }
+            })
         },
         removeSelection({ filterName: name, value }) {
             if (SINGLE_ITEM_FILTERS.includes(name)) {
-                this.query = {
-                    ...this.query,
+                this.updateQuery({
                     [name]: EMPTY_QUERY[name],
-                }
+                })
                 return
             }
 
-            this.query = {
-                ...this.query,
+            this.updateQuery({
                 [name]: this.query[name].filter((v) => v !== value),
-            }
+            })
         },
         handleMultiSelectChange(name, e) {
             const { checked, value } = e.target
             if (checked) {
                 // Add to query
-                this.query = {
-                    ...this.query,
+                this.updateQuery({
                     [name]: [...this.query[name], value],
-                }
+                })
                 return
             }
             // Remove from query
-            this.query = {
-                ...this.query,
+            this.updateQuery({
                 [name]: this.query[name].filter((v) => v !== value),
-            }
+            })
         },
         loadMore() {
             this.page++
         },
         handleSelectRandomly() {
-            this.query = {
+            this.replaceQuery({
                 ...EMPTY_QUERY,
                 sort: 'random',
                 has_image: true,
-            }
+            })
         },
         async fetchAggregations() {
             try {
@@ -311,6 +307,22 @@ export default {
                 this.isFetchingArtworks = false
             }
         },
+        updateQuery(data, { replace = false } = {}) {
+            console.log('updateQuery', data, replace)
+            this.query = replace ? { ...data } : { ...this.query, ...data }
+
+            window.history.pushState(
+                JSON.parse(JSON.stringify(this.query)),
+                '', // unused param
+                stringifyUrl({
+                    url: window.location.pathname,
+                    params: { filter: { ...this.query } },
+                })
+            )
+        },
+        replaceQuery(data) {
+            this.updateQuery(data, { replace: true })
+        },
     },
     watch: {
         page(newPage, oldPage) {
@@ -320,21 +332,11 @@ export default {
         },
         query(newQuery) {
             const newParams = { filter: { ...newQuery } }
-            const newUrl = stringifyUrl({
-                url: window.location.pathname,
-                params: newParams,
-            })
 
             this.page = 1
             this.refreshTitle(stringifyUrlQuery(newParams))
             this.fetchAggregations()
             this.fetchArtworks({ append: false })
-
-            window.history.replaceState(
-                newUrl,
-                '', // unused param
-                newUrl
-            )
         },
     },
     render() {
