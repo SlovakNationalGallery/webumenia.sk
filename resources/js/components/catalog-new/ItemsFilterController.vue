@@ -149,6 +149,7 @@ export default {
     },
     mounted() {
         window.addEventListener('popstate', this.handleHistoryPopState)
+        window.history.scrollRestoration = 'manual' // Do not change scroll position on back/forward
     },
     beforeUnmount() {
         window.removeEventListener('popstate', this.handleHistoryPopState)
