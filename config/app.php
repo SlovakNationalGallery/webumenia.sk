@@ -227,8 +227,6 @@ return [
     'iip_public' => env('IIP_PUBLIC', 'https://img.webumenia.sk'),
 
     'rate_limiter' => [
-        'whitelisted_ip_addresses' => env('RATE_LIMITER_WHITELISTED_IP_ADDRESSES')
-            ? explode(',', env('RATE_LIMITER_WHITELISTED_IP_ADDRESSES'))
-            : [],
+        'whitelisted_ip_addresses' => ['195.210.28.242'],
     ],
 ];

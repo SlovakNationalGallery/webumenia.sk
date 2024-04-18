@@ -47,7 +47,10 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {
-            if (in_array($request->ip(), config('app.rate_limiter.whitelisted_ip_addresses'))) {
+            if (
+                $this->app->environment(['local', 'staging']) ||
+                in_array($request->ip(), config('app.rate_limiter.whitelisted_ip_addresses'))
+            ) {
                 return Limit::none();
             }
 
