@@ -1,6 +1,7 @@
 @php FormRenderer::setTheme($form, 'filter') @endphp
 
 @formWidget($form['search'])
+@formWidget($form['credit'])
 
 <section class="filters">
     <div class="container content-section">
