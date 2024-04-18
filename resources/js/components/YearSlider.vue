@@ -1,6 +1,6 @@
 <template>
     <div class="range-slider py-3">
-        <div class="col-xs-6 col-sm-1 text-left text-sm-right">
+        <div class="col-xs-4 col-sm-2 col-md-1 text-left text-sm-right">
             <input
                 class="sans range-slider-from"
                 maxlength="5"
@@ -10,7 +10,9 @@
                 v-model.lazy="yearRange[0]"
             />
         </div>
-        <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left">
+        <div
+            class="col-xs-4 col-xs-offset-4 col-sm-2 col-sm-offset-0 col-sm-push-8 col-md-1 col-md-push-10 text-right text-sm-left"
+        >
             <input
                 class="sans range-slider-to"
                 maxlength="5"
@@ -21,7 +23,7 @@
             />
         </div>
 
-        <div class="col-xs-12 col-sm-10 col-sm-pull-1">
+        <div class="col-xs-12 col-sm-8 col-sm-pull-2 col-md-10 col-md-pull-1">
             <div class="pt-1" :id="name + '-slider'">
                 <slider
                     :model-value="yearRange"
