@@ -1,7 +1,7 @@
 <script>
 import qs from 'qs'
 import { useApiClient } from '../composables/useApiClient'
-import { useTitleUpdater } from './useTitleUpdater'
+import { useTitleUpdater } from './composables/useTitleUpdater'
 
 function getQueryFromCurrentUrl() {
     const parsedUrl = qs.parse(window.location.search, {
