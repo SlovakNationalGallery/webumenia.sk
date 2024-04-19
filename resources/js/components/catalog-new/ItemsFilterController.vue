@@ -309,7 +309,6 @@ export default {
             }
         },
         updateQuery(data, { replace = false } = {}) {
-            console.log('updateQuery', data, replace)
             this.query = replace ? { ...data } : { ...this.query, ...data }
 
             window.history.pushState(
