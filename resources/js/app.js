@@ -31,14 +31,12 @@ import FilterSortBy from './components/filter/SortBy.vue'
 import FilterCheckbox from './components/filter/Checkbox.vue'
 import FilterCustomSelect from './components/filter/CustomSelect.vue'
 import CatalogNewItemsFilterController from './components/catalog-new/ItemsFilterController.vue'
-import CatalogNewPopoverGroupController from './components/catalog-new/PopoverGroupController.vue'
 import CatalogNewNewCustomSelectPopoverLabel from './components/catalog-new/NewCustomSelectPopoverLabel.vue'
 import CatalogNewNewColorSlider from './components/catalog-new/NewColorSlider.vue'
 import CatalogNewNewYearSlider from './components/catalog-new/NewYearSlider.vue'
 import CatalogNewNewCustomCheckbox from './components/catalog-new/NewCustomCheckbox.vue'
 import CatalogNewDisclosureModalController from './components/catalog-new/DisclosureModalController.vue'
 import CatalogNewSearchOptionsController from './components/catalog-new/SearchOptionsController.vue'
-import CatalogNewPopoverController from './components/catalog-new/PopoverController.vue'
 import CatalogNewInfiniteScroll from './components/catalog-new/InfiniteScroll.vue'
 import CatalogNewArtworkImageController from './components/catalog-new/ArtworkImageController.vue'
 import CatalogNewNumberFormatter from './components/catalog-new/NumberFormatter.vue'
@@ -89,7 +87,6 @@ createApp({
     .component('filter-checkbox', FilterCheckbox)
     .component('filter-custom-select', FilterCustomSelect)
     .component('filter-new-items-controller', CatalogNewItemsFilterController)
-    .component('filter-new-popover.group-controller', CatalogNewPopoverGroupController)
     .component('filter-new-custom-select-popover-label', CatalogNewNewCustomSelectPopoverLabel)
     .component('filter-new-color-slider', CatalogNewNewColorSlider)
     .component('filter-new-year-slider', CatalogNewNewYearSlider)
@@ -98,7 +95,6 @@ createApp({
     .component('toggle-controller', ToggleController)
     .component('reload-controller', ReloadController)
     .component('filter-search-options-controller', CatalogNewSearchOptionsController)
-    .component('filter-popover-controller', CatalogNewPopoverController)
     .component('catalog.infinite-scroll', CatalogNewInfiniteScroll)
     .component('catalog.artwork-image-controller', CatalogNewArtworkImageController)
     .component('catalog.number-formatter', CatalogNewNumberFormatter)
