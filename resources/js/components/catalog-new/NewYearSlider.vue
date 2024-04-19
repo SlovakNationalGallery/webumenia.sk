@@ -10,8 +10,10 @@
             :height="2"
             @update:model-value="value = { from: $event[0], to: $event[1] }"
             @drag-end="$emit('change', value)"
+            @change="$emit('change', value)"
             @dragging="value = { from: $event[0], to: $event[1] }"
             class="tw-cursor-pointer"
+            lazy
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
