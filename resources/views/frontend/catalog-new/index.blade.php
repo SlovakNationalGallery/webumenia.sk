@@ -872,108 +872,13 @@
                                         <catalog.number-formatter v-bind:value="artworks_total">
                                         </catalog.number-formatter>
                                     </span>
-                                    {{ trans_choice('item.filter.artworks_sorted_by', 5) }}</span>
-                                <span class="tw-font-semibold">
-                                    <div class="tw-z-10 tw-inline-block">
-                                        <filter-new-popover.group-controller>
-                                            <filter-popover-controller name="sort">
-                                                <template #button="pc">
-                                                    <button id="button-sort"
-                                                        class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
-                                                        v-on:click="pc.togglePopover('sort')">
-                                                        <transition enter-from-class="tw-opacity-0"
-                                                            leave-to-class="tw-opacity-0"
-                                                            enter-active-class="tw-duration-50 tw-transition"
-                                                            leave-active-class="tw-duration-50 tw-transition"
-                                                            mode="out-in">
-                                                            <span
-                                                                v-if="query.sort === 'created_at' ">{{ trans('sortable.created_at') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'title' ">{{ trans('sortable.title') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'author' ">{{ trans('sortable.author') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'date_earliest' ">{{ trans('sortable.oldest') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'date_latest' ">{{ trans('sortable.newest') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'view_count' ">{{ trans('sortable.view_count') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'random' ">{{ trans('sortable.random') }}</span>
-                                                            <span
-                                                                v-else-if="query.sort === 'updated_at'">{{ trans('sortable.updated_at') }}</span>
-                                                            <span
-                                                                v-else>{{ trans('sortable.relevance') }}</span>
-                                                        </transition>
-                                                        <x-icons.caret-down
-                                                            class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
-                                                        </x-icons.caret-down>
-                                                    </button>
-
-                                                </template>
-                                                <template #body="pc">
-                                                    <transition enter-from-class="tw-opacity-0"
-                                                        leave-to-class="tw-opacity-0"
-                                                        enter-active-class="tw-transition tw-duration-100"
-                                                        leave-active-class="tw-transition tw-duration-100">
-                                                        <div v-if="pc.isOpen"
-                                                            v-click-away="pc.closeOpenedPopover"
-                                                            class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
-
-                                                            <ul>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('created_at');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'created_at'">
-                                                                    {{ trans('sortable.created_at') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('title');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'title'">
-                                                                    {{ trans('sortable.title') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('author');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'author'">
-                                                                    {{ trans('sortable.author') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'date_earliest'">
-                                                                    {{ trans('sortable.oldest') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('date_latest');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'date_latest'">
-                                                                    {{ trans('sortable.newest') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('view_count');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'view_count'">
-                                                                    {{ trans('sortable.view_count') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('random');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'random'">
-                                                                    {{ trans('sortable.random') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange('updated_at');pc.closeOpenedPopover()"
-                                                                    v-if="query.sort !== 'updated_at'">
-                                                                    {{ trans('sortable.updated_at') }}
-                                                                </li>
-                                                                <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                    v-on:click="handleSortChange(null);pc.closeOpenedPopover()"
-                                                                    v-if="query.sort">
-                                                                    {{ trans('sortable.relevance') }}
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </transition>
-                                                </template>
-                                            </filter-popover-controller>
-                                        </filter-new-popover.group-controller>
-                                    </div>
+                                    {{ trans_choice('item.filter.artworks_sorted_by', 5) }}
                                 </span>
+
+                                <catalog.sort-select
+                                    v-on:change="handleSortChange"
+                                    v-bind:default-value="query.sort">
+                                </catalog.sort-select>
                                 <span>
                                     {{ utrans('item.filter.try_also') }}
                                     <button v-on:click="handleSelectRandomly"
