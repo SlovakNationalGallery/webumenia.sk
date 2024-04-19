@@ -36,7 +36,7 @@
         </div>
     </div>
 </filter-search-options-controller>
-<x-filter.reset_button class="tw-mb-6 tw-mt-5 tw-hidden md:tw-flex"
+<x-filter.reset_button class="tw-mt-5 tw-hidden md:tw-flex"
     @click="{{ $attributes->get('v-on:reset') }}">
     {{ trans('item.filter.clear') }}
 </x-filter.reset_button>

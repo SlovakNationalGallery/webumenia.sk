@@ -43,6 +43,7 @@ import CatalogNewInfiniteScroll from './components/catalog-new/InfiniteScroll.vu
 import CatalogNewArtworkImageController from './components/catalog-new/ArtworkImageController.vue'
 import CatalogNewNumberFormatter from './components/catalog-new/NumberFormatter.vue'
 import CatalogNewAuthorFormatter from './components/catalog-new/AuthorFormatter.vue'
+import CatalogNewPopover from './components/catalog-new/Popover.vue'
 import Flickity from './components/Flickity.vue'
 import HomeShuffleOrchestrator from './components/home/ShuffleOrchestrator.vue'
 import HomeTransitionInPlace from './components/home/TransitionInPlace.vue'
@@ -101,6 +102,7 @@ createApp({
     .component('catalog.artwork-image-controller', CatalogNewArtworkImageController)
     .component('catalog.number-formatter', CatalogNewNumberFormatter)
     .component('catalog.author-formatter', CatalogNewAuthorFormatter)
+    .component('catalog.popover', CatalogNewPopover)
     .component('flickity', Flickity)
     .component('home.shuffle-orchestrator', HomeShuffleOrchestrator)
     .component('home.transition-in-place', HomeTransitionInPlace)
