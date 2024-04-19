@@ -14,7 +14,7 @@ class NewCatalogController extends Controller
      */
     public function index(Request $request)
     {
-        return view('frontend.catalog-new.index-new', ['title' => self::generateTitle($request)]);
+        return view('frontend.catalog-new.index', ['title' => self::generateTitle($request)]);
     }
 
     public static function generateTitle(Request $request)
@@ -56,7 +56,7 @@ class NewCatalogController extends Controller
                 }
 
                 $values = collect(
-                    is_array($filters[$attribute]) ? $filters[$attribute] : [$filters[$attribute]]
+                    is_array($filters[$attribute]) ? $filters[$attribute] : [$filters[$attribute]],
                 );
 
                 if ($attribute === 'author') {
