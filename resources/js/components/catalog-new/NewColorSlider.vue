@@ -96,12 +96,6 @@ export default {
         slider: VueSlider,
     },
     watch: {
-        defaultColor(newDefaultColor) {
-            this.hue = newDefaultColor ? tinycolor(newDefaultColor).toHsl()?.h : defaultHue
-            this.lightness = newDefaultColor
-                ? tinycolor(newDefaultColor)?.toHsl()?.l
-                : defaultLightness
-        },
         hue(newHue) {
             this.immediateHue = newHue
             this.$emit('change', this.color)
