@@ -174,13 +174,14 @@
                                         <div class="tw-w-[80vw]">
                                             <div v-if="query.color" class="tw-flex tw-justify-end">
                                                 <x-filter.reset_button
-                                                    v-on:click="handleColorChange(null)"
+                                                    v-on:click="clearFilterSelection('color')"
                                                     class="tw-mb-2">
                                                     {{ trans('item.filter.clear') }}
                                                 </x-filter.reset_button>
                                             </div>
                                             <filter-new-color-slider
                                                 v-bind:default-color="query.color"
+                                                v-bind:key="query.color"
                                                 v-on:change="handleColorChange">
                                             </filter-new-color-slider>
                                         </div>
@@ -428,13 +429,14 @@
                                                                     @slot('body')
                                                                         <filter-new-color-slider
                                                                             class="tw-px-4"
+                                                                            v-bind:key="query.color"
                                                                             v-bind:default-color="query.color"
                                                                             v-on:change="handleColorChange">
                                                                         </filter-new-color-slider>
                                                                         <div v-if="query.color"
                                                                             class="tw-flex tw-justify-center">
                                                                             <x-filter.reset_button
-                                                                                v-on:click="handleColorChange(null)"
+                                                                                v-on:click="clearFilterSelection('color')"
                                                                                 class="tw-mt-4">
                                                                                 {{ trans('item.filter.clear') }}
                                                                             </x-filter.reset_button>
