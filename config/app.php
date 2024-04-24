@@ -225,4 +225,8 @@ return [
 
     'iip_private' => env('IIP_PRIVATE', 'http://127.0.0.1:8002'),
     'iip_public' => env('IIP_PUBLIC', 'https://img.webumenia.sk'),
+
+    'rate_limiter' => [
+        'whitelisted_ip_addresses' => ['195.210.28.242'],
+    ],
 ];
