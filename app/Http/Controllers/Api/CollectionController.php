@@ -10,11 +10,12 @@ class CollectionController extends Controller
 {
     public function index()
     {
+        $size = request()->integer('size', 1);
         $paginator = Collection::query()
             ->published()
             ->when(request()->boolean('featured'), fn($query) => $query->where('featured', true))
             ->orderBy('published_at', 'desc')
-            ->paginate();
+            ->paginate($size);
         return CollectionResource::collection($paginator);
     }
 
