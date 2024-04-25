@@ -13,7 +13,6 @@ import 'lazysizes'
 import 'lazysizes/plugins/unveilhooks/ls.unveilhooks'
 import 'lazysizes/plugins/respimg/ls.respimg'
 import 'jquery.easing'
-import '@lottiefiles/lottie-player'
 
 // Components
 import './components/searchbar'
@@ -30,6 +29,7 @@ import FeaturedPieceClickTracker from './components/FeaturedPieceClickTracker.vu
 import FilterSortBy from './components/filter/SortBy.vue'
 import FilterCheckbox from './components/filter/Checkbox.vue'
 import FilterCustomSelect from './components/filter/CustomSelect.vue'
+import CatalogNewEmptyAnimation from './components/catalog-new/EmptyAnimation.vue'
 import CatalogNewItemsFilterController from './components/catalog-new/ItemsFilterController.vue'
 import CatalogNewNewCustomSelectPopoverLabel from './components/catalog-new/NewCustomSelectPopoverLabel.vue'
 import CatalogNewNewColorSlider from './components/catalog-new/NewColorSlider.vue'
@@ -95,6 +95,7 @@ createApp({
     .component('filter-disclosure-controller', CatalogNewDisclosureModalController)
     .component('toggle-controller', ToggleController)
     .component('reload-controller', ReloadController)
+    .component('catalog.empty-animation', CatalogNewEmptyAnimation)
     .component('catalog.infinite-scroll', CatalogNewInfiniteScroll)
     .component('catalog.artwork-image-controller', CatalogNewArtworkImageController)
     .component('catalog.number-formatter', CatalogNewNumberFormatter)

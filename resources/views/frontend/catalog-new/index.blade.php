@@ -839,9 +839,7 @@
                     <div v-else-if="artworks.length === 0"
                         class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                         <div class="tw-w-72">
-                            <lottie-player autoplay loop mode="normal"
-                                src="{{ asset('animations/empty.json') }}">
-                            </lottie-player>
+                            <catalog.empty-animation></catalog.empty-animation>
                         </div>
                         <span
                             class="tw-mt-10">{{ utrans('item.filter.nothing_found') }}</span>
