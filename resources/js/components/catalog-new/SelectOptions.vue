@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { matchSorter } from 'match-sorter'
 
 import ResetButton from './ResetButton.vue'
@@ -15,20 +15,22 @@ const props = defineProps<{
 
 const emit = defineEmits(['change', 'reset'])
 
-const selected = props.selected ?? []
-const formatLabel = props.formatLabel ?? ((value: string) => value)
-
+const allOptions = ref(props.options)
 const search = ref('')
 
+const selected = computed(() => props.selected ?? [])
+
 const options = computed(() => {
+    const formatLabel = props.formatLabel ?? ((value: string) => value)
+
     const optionsWithSelected = [
-        ...props.options.map((option) => ({
+        ...allOptions.value.map((option) => ({
             ...option,
-            checked: selected.includes(option.value),
+            checked: selected.value.includes(option.value),
             label: formatLabel(option.value),
         })),
-        ...selected
-            .filter((queryItem) => props.options.every((option) => option.value !== queryItem))
+        ...selected.value
+            .filter((queryItem) => allOptions.value.every((option) => option.value !== queryItem))
             .map((value) => ({
                 value,
                 count: 0,
@@ -36,11 +38,24 @@ const options = computed(() => {
                 label: formatLabel(value),
             })),
     ]
+
     return search.value
         ? matchSorter(optionsWithSelected, search.value, {
               keys: ['label'],
           })
         : optionsWithSelected
+})
+
+onMounted(() => {
+    // Pre-sort options if they're initially selected
+    allOptions.value = props.options.sort((a, b) => {
+        const aChecked = selected.value.includes(a.value)
+        const bChecked = selected.value.includes(b.value)
+
+        if (aChecked && bChecked) return 0
+        if (aChecked) return -1
+        return 1
+    })
 })
 </script>
 
