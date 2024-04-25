@@ -132,7 +132,6 @@
                                                 <catalog.reset-button
                                                     v-on:click="handleYearRangeChange(null)"
                                                     class="tw-mb-3">
-                                                    {{ trans('item.filter.clear') }}
                                                 </catalog.reset-button>
                                             </div>
                                             <filter-new-year-slider
@@ -199,7 +198,6 @@
                                                 <catalog.reset-button
                                                     v-on:click="clearFilterSelection('color')"
                                                     class="tw-mb-2">
-                                                    {{ trans('item.filter.clear') }}
                                                 </catalog.reset-button>
                                             </div>
                                             <filter-new-color-slider
@@ -383,7 +381,6 @@
                                                                             <catalog.reset-button
                                                                                 v-on:click="handleYearRangeChange(null)"
                                                                                 class="tw-mt-2.5">
-                                                                                {{ trans('item.filter.clear') }}
                                                                             </catalog.reset-button>
                                                                         </div>
                                                                     @endslot
@@ -425,7 +422,6 @@
                                                                             <catalog.reset-button
                                                                                 v-on:click="clearFilterSelection('color')"
                                                                                 class="tw-mt-4">
-                                                                                {{ trans('item.filter.clear') }}
                                                                             </catalog.reset-button>
                                                                         </div>
                                                                     @endslot
@@ -482,7 +478,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.author.length"
                                                                 v-on:click="clearFilterSelection('author')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -514,7 +509,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.work_type.length"
                                                                 v-on:click="clearFilterSelection('work_type')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -546,7 +540,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.object_type.length"
                                                                 v-on:click="clearFilterSelection('object_type')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -577,7 +570,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.tag.length"
                                                                 v-on:click="clearFilterSelection('tag')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -609,7 +601,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.gallery.length"
                                                                 v-on:click="clearFilterSelection('gallery')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -638,7 +629,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.technique.length"
                                                                 v-on:click="clearFilterSelection('technique')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -670,7 +660,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.topic.length"
                                                                 v-on:click="clearFilterSelection('topic')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -702,7 +691,6 @@
                                                             <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.medium.length"
                                                                 v-on:click="clearFilterSelection('medium')">
-                                                                {{ trans('item.filter.clear') }}
                                                             </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
@@ -809,9 +797,7 @@
                                 class="mb-4">
                                 <catalog.reset-button v-if="selectedOptionsAsLabels.length"
                                     v-on:click="clearAllSelections" sm>
-                                    <span
-                                        class="tw-whitespace-nowrap">{{ trans('item.filter.clear') }}
-                                    </span>
+                                    {{ trans('item.filter.clear_all') }}
                                 </catalog.reset-button>
                             </transition>
                         </div>
