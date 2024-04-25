@@ -5,6 +5,7 @@ import { formatAuthorName } from './formatters'
 
 import ResetButton from './ResetButton.vue'
 import Count from './NumberFormatter.vue'
+import EmptyAnimation from './EmptyAnimation.vue'
 
 const props = defineProps<{
     options: { value: string; count: number }[]
@@ -86,12 +87,11 @@ const options = computed(() => {
                 </span>
             </label>
             <div
-                v-if="options.length === 0"
+                v-show="options.length === 0"
                 class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4"
             >
-                <lottie-player autoplay loop mode="normal" src="/animations/empty.json">
-                </lottie-player>
-                <span class="tw-text-center">Uuups, nič sme nenašli :(</span>
+                <EmptyAnimation />
+                <span class="tw-text-center">{{ $t('item.filter.nothing_found') }}</span>
             </div>
         </div>
     </div>
