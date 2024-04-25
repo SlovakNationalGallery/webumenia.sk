@@ -28,6 +28,7 @@ import FeaturedPieceClickTracker from './components/FeaturedPieceClickTracker.vu
 import FilterSortBy from './components/filter/SortBy.vue'
 import FilterCheckbox from './components/filter/Checkbox.vue'
 import FilterCustomSelect from './components/filter/CustomSelect.vue'
+import CatalogNewAuthorSelectOptions from './components/catalog-new/AuthorSelectOptions.vue'
 import CatalogNewEmptyAnimation from './components/catalog-new/EmptyAnimation.vue'
 import CatalogNewItemsFilterController from './components/catalog-new/ItemsFilterController.vue'
 import CatalogNewNewCustomSelectPopoverLabel from './components/catalog-new/NewCustomSelectPopoverLabel.vue'
@@ -93,6 +94,7 @@ createApp({
     .component('filter-disclosure-controller', CatalogNewDisclosureModalController)
     .component('toggle-controller', ToggleController)
     .component('reload-controller', ReloadController)
+    .component('catalog.author-select-options', CatalogNewAuthorSelectOptions)
     .component('catalog.empty-animation', CatalogNewEmptyAnimation)
     .component('catalog.infinite-scroll', CatalogNewInfiniteScroll)
     .component('catalog.artwork-image-controller', CatalogNewArtworkImageController)

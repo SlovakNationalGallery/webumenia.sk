@@ -30,17 +30,13 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <catalog.select-options
+                                            <catalog.author-select-options
                                                 search-placeholder="{{ trans('item.filter.placeholder.name_human') }}"
                                                 v-bind:options="aggregations.author"
                                                 v-bind:selected="query.author"
                                                 v-on:change="e => handleMultiSelectChange('author', e)"
                                                 v-on:reset="clearFilterSelection('author')">
-                                                <template #label="{ option }">
-                                                    <catalog.author-formatter v-bind:value="option.value">
-                                                    </catalog.author-formatter>
-                                                </template>
-                                            </catalog.select-options>
+                                            </catalog.author-select-options>
                                         </div>
                                     </template>
                                 </catalog.popover>
@@ -492,18 +488,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <catalog.select-options
+                                                                <catalog.author-select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                                     v-bind:options="aggregations.author"
                                                                     v-bind:selected="query.author"
                                                                     v-on:change="e => handleMultiSelectChange('author', e)"
                                                                     v-on:reset="clearFilterSelection('author')">
-                                                                    <template #label="{ option }">
-                                                                        <catalog.author-formatter
-                                                                            v-bind:value="option.value">
-                                                                        </catalog.author-formatter>
-                                                                    </template>
-                                                                </catalog.select-options>
+                                                                </catalog.author-select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
