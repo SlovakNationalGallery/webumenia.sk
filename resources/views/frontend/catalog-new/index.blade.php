@@ -870,7 +870,7 @@
                                         <catalog.number-formatter v-bind:value="artworks_total">
                                         </catalog.number-formatter>
                                     </span>
-                                    {{ trans_choice('item.filter.artworks_sorted_by', 5) }}
+                                    @{{ $tChoice('item.filter.artworks_sorted_by', artworks_total) }}
                                 </span>
 
                                 <catalog.sort-select
