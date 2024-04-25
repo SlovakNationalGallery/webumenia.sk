@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { matchSorter } from 'match-sorter'
-import { formatAuthorName } from './formatters'
 
 import ResetButton from './ResetButton.vue'
 import Count from './NumberFormatter.vue'
@@ -11,27 +10,35 @@ const props = defineProps<{
     options: { value: string; count: number }[]
     selected?: string[]
     searchPlaceholder: string
+    formatLabel?: (value: string) => string
 }>()
 
 const emit = defineEmits(['change', 'reset'])
+
+const selected = props.selected ?? []
+const formatLabel = props.formatLabel ?? ((value: string) => value)
+
 const search = ref('')
 
 const options = computed(() => {
-    const selected = props.selected ?? []
     const optionsWithSelected = [
         ...props.options.map((option) => ({
             ...option,
             checked: selected.includes(option.value),
+            label: formatLabel(option.value),
         })),
         ...selected
             .filter((queryItem) => props.options.every((option) => option.value !== queryItem))
-            .map((selected) => ({ value: selected, count: 0, checked: true })),
+            .map((value) => ({
+                value,
+                count: 0,
+                checked: true,
+                label: formatLabel(value),
+            })),
     ]
     return search.value
         ? matchSorter(optionsWithSelected, search.value, {
-              keys: [
-                  (option: (typeof optionsWithSelected)[number]) => formatAuthorName(option.value),
-              ],
+              keys: ['label'],
           })
         : optionsWithSelected
 })
@@ -80,9 +87,7 @@ const options = computed(() => {
                     @change="emit('change', $event)"
                 />
                 <span class="tw-inline-block tw-min-w-0 tw-break-words tw-text-base tw-font-normal">
-                    <slot name="label" :option="option">
-                        {{ option.value }}
-                    </slot>
+                    {{ option.label }}
                     <span class="tw-font-semibold"> (<Count :value="option.count" />) </span>
                 </span>
             </label>
