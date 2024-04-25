@@ -30,6 +30,7 @@ const isOpen = ref(false)
         </div>
 
         <PopoverPortal>
+            <!-- PopoverPortal teleports outside of .tailwind-rules scope -->
             <div class="tailwind-rules">
                 <Transition
                     class="tw-origin-[var(--radix-popover-content-transform-origin)]"
