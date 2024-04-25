@@ -21,7 +21,6 @@ import './components/clipboard-button'
 // // Vue
 import { createApp } from 'vue'
 import { VueMasonryPlugin } from 'vue-masonry'
-import VueClickAway from 'vue3-click-away'
 import { i18nVue } from 'laravel-vue-i18n'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.es'
 
@@ -74,7 +73,6 @@ createApp({
     },
 })
     .use(VueMasonryPlugin)
-    .use(VueClickAway)
     .use(i18nVue, {
         resolve: async (lang) => {
             const langs = import.meta.glob('../../lang/*.json')
