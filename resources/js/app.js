@@ -49,6 +49,7 @@ import HomeShuffleOrchestrator from './components/home/ShuffleOrchestrator.vue'
 import HomeTransitionInPlace from './components/home/TransitionInPlace.vue'
 import ToggleController from './components/ToggleController.vue'
 import ReloadController from './components/ReloadController.vue'
+import SearchBar from './components/SearchBar.vue'
 import TabsController from './components/TabsController.vue'
 import Tab from './components/Tab.vue'
 import TabPanel from './components/TabPanel.vue'
@@ -107,6 +108,7 @@ createApp({
     .component('flickity', Flickity)
     .component('home.shuffle-orchestrator', HomeShuffleOrchestrator)
     .component('home.transition-in-place', HomeTransitionInPlace)
+    .component('search-bar', SearchBar)
     .component('tabs-controller', TabsController)
     .component('tab', Tab)
     .component('tab-panel', TabPanel)
