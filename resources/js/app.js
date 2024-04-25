@@ -41,6 +41,7 @@ import CatalogNewArtworkImageController from './components/catalog-new/ArtworkIm
 import CatalogNewNumberFormatter from './components/catalog-new/NumberFormatter.vue'
 import CatalogNewAuthorFormatter from './components/catalog-new/AuthorFormatter.vue'
 import CatalogNewPopover from './components/catalog-new/Popover.vue'
+import CatalogNewResetButton from './components/catalog-new/ResetButton.vue'
 import CatalogNewSortSelect from './components/catalog-new/SortSelect.vue'
 import CatalogNewSelectOptions from './components/catalog-new/SelectOptions.vue'
 import Flickity from './components/Flickity.vue'
@@ -99,6 +100,7 @@ createApp({
     .component('catalog.number-formatter', CatalogNewNumberFormatter)
     .component('catalog.author-formatter', CatalogNewAuthorFormatter)
     .component('catalog.popover', CatalogNewPopover)
+    .component('catalog.reset-button', CatalogNewResetButton)
     .component('catalog.sort-select', CatalogNewSortSelect)
     .component('catalog.select-options', CatalogNewSelectOptions)
     .component('flickity', Flickity)

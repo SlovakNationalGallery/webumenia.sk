@@ -133,11 +133,11 @@
                                         <div class="tw-w-[28rem]">
                                             <div v-if="query.yearRange"
                                                 class="tw-flex tw-justify-end">
-                                                <x-filter.reset_button
+                                                <catalog.reset-button
                                                     v-on:click="handleYearRangeChange(null)"
                                                     class="tw-mb-3">
                                                     {{ trans('item.filter.clear') }}
-                                                </x-filter.reset_button>
+                                                </catalog.reset-button>
                                             </div>
                                             <filter-new-year-slider
                                                 v-bind:default-from="query.yearRange?.from"
@@ -200,11 +200,11 @@
                                     <template #content>
                                         <div class="tw-w-[80vw]">
                                             <div v-if="query.color" class="tw-flex tw-justify-end">
-                                                <x-filter.reset_button
+                                                <catalog.reset-button
                                                     v-on:click="clearFilterSelection('color')"
                                                     class="tw-mb-2">
                                                     {{ trans('item.filter.clear') }}
-                                                </x-filter.reset_button>
+                                                </catalog.reset-button>
                                             </div>
                                             <filter-new-color-slider
                                                 v-bind:default-color="query.color"
@@ -321,11 +321,11 @@
                                                                 class="tw-text-lg tw-font-semibold">{{ utrans('item.filter.title') }}</span>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="selectedOptionsAsLabels.length"
                                                                 v-on:click="clearAllSelections">
                                                                 {{ trans('item.filter.clear_all') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -384,11 +384,11 @@
                                                                         </filter-new-year-slider>
                                                                         <div v-if="query.yearRange"
                                                                             class="tw-flex tw-justify-center">
-                                                                            <x-filter.reset_button
+                                                                            <catalog.reset-button
                                                                                 v-on:click="handleYearRangeChange(null)"
                                                                                 class="tw-mt-2.5">
                                                                                 {{ trans('item.filter.clear') }}
-                                                                            </x-filter.reset_button>
+                                                                            </catalog.reset-button>
                                                                         </div>
                                                                     @endslot
                                                                 </x-filter.disclosure_inline_list_button>
@@ -426,11 +426,11 @@
                                                                         </filter-new-color-slider>
                                                                         <div v-if="query.color"
                                                                             class="tw-flex tw-justify-center">
-                                                                            <x-filter.reset_button
+                                                                            <catalog.reset-button
                                                                                 v-on:click="clearFilterSelection('color')"
                                                                                 class="tw-mt-4">
                                                                                 {{ trans('item.filter.clear') }}
-                                                                            </x-filter.reset_button>
+                                                                            </catalog.reset-button>
                                                                         </div>
                                                                     @endslot
                                                                 </x-filter.disclosure_inline_list_button>
@@ -483,11 +483,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.author.length"
                                                                 v-on:click="clearFilterSelection('author')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -520,11 +520,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.work_type.length"
                                                                 v-on:click="clearFilterSelection('work_type')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -552,11 +552,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.object_type.length"
                                                                 v-on:click="clearFilterSelection('object_type')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -583,11 +583,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.tag.length"
                                                                 v-on:click="clearFilterSelection('tag')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -615,11 +615,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.gallery.length"
                                                                 v-on:click="clearFilterSelection('gallery')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <catalog.select-options
@@ -644,11 +644,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.technique.length"
                                                                 v-on:click="clearFilterSelection('technique')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -676,11 +676,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.topic.length"
                                                                 v-on:click="clearFilterSelection('topic')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -708,11 +708,11 @@
                                                             </x-filter.view_header_button>
                                                         @endslot
                                                         @slot('reset_button')
-                                                            <x-filter.reset_button class="tw-mr-3"
+                                                            <catalog.reset-button class="tw-mr-3"
                                                                 v-if="query.medium.length"
                                                                 v-on:click="clearFilterSelection('medium')">
                                                                 {{ trans('item.filter.clear') }}
-                                                            </x-filter.reset_button>
+                                                            </catalog.reset-button>
                                                         @endslot
                                                         @slot('body')
                                                             <div
@@ -816,12 +816,12 @@
                                 enter-active-class="tw-transition tw-duration-100"
                                 leave-active-class="tw-transition tw-duration-100"
                                 class="mb-4">
-                                <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
+                                <catalog.reset-button v-if="selectedOptionsAsLabels.length"
                                     v-on:click="clearAllSelections" sm>
                                     <span
                                         class="tw-whitespace-nowrap">{{ trans('item.filter.clear') }}
                                     </span>
-                                </x-filter.reset_button>
+                                </catalog.reset-button>
                             </transition>
                         </div>
                     </div>
