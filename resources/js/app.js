@@ -69,16 +69,20 @@ import BottomModal from './components/BottomModal.vue'
 import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
 import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
 
-createApp({
+const app = createApp({
     compilerOptions: {
         whitespace: 'preserve',
     },
 })
-    .use(VueMasonryPlugin)
+
+app.use(VueMasonryPlugin)
     .use(i18nVue, {
         resolve: async (lang) => {
             const langs = import.meta.glob('../../lang/*.json')
             return await langs[`../../lang/${lang}.json`]()
+        },
+        onLoad: () => {
+            app.mount('#app') // App is mounted here so translations are loaded before vue.
         },
     })
     .use(ZiggyVue)
@@ -127,5 +131,3 @@ createApp({
     .component('bottom-modal', BottomModal)
     .component('newsletter-signup.form-controller', NewsletterSignupFormController)
     .component('newsletter-signup.bottom-modal-controller', NewsletterSignupBottomModalController)
-
-    .mount('#app')
