@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { matchSorter } from 'match-sorter'
 import { formatAuthorName } from './formatters'
 
+import ResetButton from './ResetButton.vue'
 import Count from './NumberFormatter.vue'
 
 const props = defineProps<{
@@ -94,11 +95,7 @@ const options = computed(() => {
             </div>
         </div>
     </div>
-    <!-- TODO -->
-    <!-- <x-filter.reset_button
-        class="tw-mt-5 tw-hidden md:tw-flex"
-        @click="{{ $attributes->get('v-on:reset') }}"
-    >
-        {{ trans('item.filter.clear') }}
-    </x-filter.reset_button> -->
+    <ResetButton class="tw-mt-5 tw-hidden md:tw-flex" @click="emit('reset')">
+        {{ $t('item.filter.clear') }}
+    </ResetButton>
 </template>
