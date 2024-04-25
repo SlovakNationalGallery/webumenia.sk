@@ -36,13 +36,13 @@ import CatalogNewNewColorSlider from './components/catalog-new/NewColorSlider.vu
 import CatalogNewNewYearSlider from './components/catalog-new/NewYearSlider.vue'
 import CatalogNewNewCustomCheckbox from './components/catalog-new/NewCustomCheckbox.vue'
 import CatalogNewDisclosureModalController from './components/catalog-new/DisclosureModalController.vue'
-import CatalogNewSearchOptionsController from './components/catalog-new/SearchOptionsController.vue'
 import CatalogNewInfiniteScroll from './components/catalog-new/InfiniteScroll.vue'
 import CatalogNewArtworkImageController from './components/catalog-new/ArtworkImageController.vue'
 import CatalogNewNumberFormatter from './components/catalog-new/NumberFormatter.vue'
 import CatalogNewAuthorFormatter from './components/catalog-new/AuthorFormatter.vue'
 import CatalogNewPopover from './components/catalog-new/Popover.vue'
 import CatalogNewSortSelect from './components/catalog-new/SortSelect.vue'
+import CatalogNewSelectOptions from './components/catalog-new/SelectOptions.vue'
 import Flickity from './components/Flickity.vue'
 import HomeShuffleOrchestrator from './components/home/ShuffleOrchestrator.vue'
 import HomeTransitionInPlace from './components/home/TransitionInPlace.vue'
@@ -94,13 +94,13 @@ createApp({
     .component('filter-disclosure-controller', CatalogNewDisclosureModalController)
     .component('toggle-controller', ToggleController)
     .component('reload-controller', ReloadController)
-    .component('filter-search-options-controller', CatalogNewSearchOptionsController)
     .component('catalog.infinite-scroll', CatalogNewInfiniteScroll)
     .component('catalog.artwork-image-controller', CatalogNewArtworkImageController)
     .component('catalog.number-formatter', CatalogNewNumberFormatter)
     .component('catalog.author-formatter', CatalogNewAuthorFormatter)
     .component('catalog.popover', CatalogNewPopover)
     .component('catalog.sort-select', CatalogNewSortSelect)
+    .component('catalog.select-options', CatalogNewSelectOptions)
     .component('flickity', Flickity)
     .component('home.shuffle-orchestrator', HomeShuffleOrchestrator)
     .component('home.transition-in-place', HomeTransitionInPlace)

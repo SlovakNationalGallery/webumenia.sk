@@ -30,17 +30,17 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ trans('item.filter.placeholder.name_human') }}"
                                                 v-bind:options="aggregations.author"
                                                 v-bind:selected="query.author"
                                                 v-on:change="e => handleMultiSelectChange('author', e)"
                                                 v-on:reset="clearFilterSelection('author')">
-                                                @slot('label')
+                                                <template #label="{ option }">
                                                     <catalog.author-formatter v-bind:value="option.value">
                                                     </catalog.author-formatter>
-                                                @endslot
-                                            </x-filter.search_options>
+                                                </template>
+                                            </catalog.select-options>
                                         </div>
                                     </template>
                                 </catalog.popover>
@@ -54,7 +54,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                 v-bind:options="aggregations.work_type"
                                                 v-bind:selected="query.work_type"
@@ -73,7 +73,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                 v-bind:options="aggregations.topic"
                                                 v-bind:selected="query.topic"
@@ -92,7 +92,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                 v-bind:options="aggregations.medium"
                                                 v-bind:selected="query.medium"
@@ -111,7 +111,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                 v-bind:options="aggregations.gallery"
                                                 v-bind:selected="query.gallery"
@@ -159,7 +159,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                 v-bind:options="aggregations.tag"
                                                 v-bind:selected="query.tag"
@@ -178,7 +178,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                 v-bind:options="aggregations.technique"
                                                 v-bind:selected="query.technique"
@@ -225,7 +225,7 @@
                                     </template>
                                     <template #content>
                                         <div class="tw-w-64">
-                                            <x-filter.search_options
+                                            <catalog.select-options
                                                 search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                 v-bind:options="aggregations.object_type"
                                                 v-bind:selected="query.object_type"
@@ -492,18 +492,18 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                                     v-bind:options="aggregations.author"
                                                                     v-bind:selected="query.author"
                                                                     v-on:change="e => handleMultiSelectChange('author', e)"
                                                                     v-on:reset="clearFilterSelection('author')">
-                                                                    @slot('label')
+                                                                    <template #label="{ option }">
                                                                         <catalog.author-formatter
                                                                             v-bind:value="option.value">
                                                                         </catalog.author-formatter>
-                                                                    @endslot
-                                                                </x-filter.search_options>
+                                                                    </template>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
@@ -529,13 +529,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                                     v-bind:options="aggregations.work_type"
                                                                     v-bind:selected="query.work_type"
                                                                     v-on:change="e => handleMultiSelectChange('work_type', e)"
                                                                     v-on:reset="clearFilterSelection('work_type')">
-                                                                </x-filter.search_options>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
@@ -561,13 +561,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                                     v-bind:options="aggregations.object_type"
                                                                     v-bind:selected="query.object_type"
                                                                     v-on:change="e => handleMultiSelectChange('object_type', e)"
                                                                     v-on:reset="clearFilterSelection('object_type')">
-                                                                </x-filter.search_options>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
@@ -592,13 +592,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                                     v-bind:options="aggregations.tag"
                                                                     v-bind:selected="query.tag"
                                                                     v-on:change="e => handleMultiSelectChange('tag', e)"
                                                                     v-on:reset="clearFilterSelection('tag')">
-                                                                </x-filter.search_options>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
@@ -622,13 +622,13 @@
                                                             </x-filter.reset_button>
                                                         @endslot
                                                         @slot('body')
-                                                            <x-filter.search_options
+                                                            <catalog.select-options
                                                                 search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                                 v-bind:options="aggregations.gallery"
                                                                 v-bind:selected="query.gallery"
                                                                 v-on:change="e => handleMultiSelectChange('gallery', e)"
                                                                 v-on:reset="clearFilterSelection('gallery')">
-                                                            </x-filter.search_options>
+                                                            </catalog.select-options>
                                                         @endslot
                                                     </x-filter.disclosure_view>
                                                     <x-filter.disclosure_view
@@ -653,13 +653,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                                     v-bind:options="aggregations.technique"
                                                                     v-bind:selected="query.technique"
                                                                     v-on:change="e => handleMultiSelectChange('technique', e)"
                                                                     v-on:reset="clearFilterSelection('technique')">
-                                                                </x-filter.search_options>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
@@ -685,13 +685,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                                     v-bind:options="aggregations.topic"
                                                                     v-bind:selected="query.topic"
                                                                     v-on:change="e => handleMultiSelectChange('topic', e)"
                                                                     v-on:reset="clearFilterSelection('topic')">
-                                                                </x-filter.search_options>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
@@ -717,13 +717,13 @@
                                                         @slot('body')
                                                             <div
                                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                                <x-filter.search_options
+                                                                <catalog.select-options
                                                                     search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                                     v-bind:options="aggregations.medium"
                                                                     v-bind:selected="query.medium"
                                                                     v-on:change="e => handleMultiSelectChange('medium', e)"
                                                                     v-on:reset="clearFilterSelection('medium')">
-                                                                </x-filter.search_options>
+                                                                </catalog.select-options>
                                                             </div>
                                                         @endslot
                                                     </x-filter.disclosure_view>
