@@ -25,6 +25,10 @@ class CollectionItemController extends Controller
             $parameters['page'] = request()->integer('page');
         }
 
+        if (request()->has('sort')) {
+            $parameters['sort'] = request()->get('sort');
+        }
+
         $request = Request::create(route('api.v1.items.index', $parameters));
         return app()->handle($request);
     }
