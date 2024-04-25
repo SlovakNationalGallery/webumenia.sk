@@ -6,7 +6,7 @@ const props = defineProps<{
 <template>
     <button
         :class="[
-            'tw-flex tw-items-center tw-border tw-leading-none tw-border-gray-300 tw-bg-white tw-font-normal hover:tw-border-gray-800',
+            'tw-flex tw-items-center tw-border tw-leading-none tw-border-gray-300 tw-bg-white tw-font-normal hover:tw-border-gray-800 tw-whitespace-nowrap',
             props.sm
                 ? 'tw-px-1.5 tw-py-1 tw-text-xs'
                 : 'tw-px-1.5 tw-py-1 tw-text-xs md:tw-px-4 md:tw-py-1.5 md:tw-text-sm',
@@ -32,6 +32,6 @@ const props = defineProps<{
                 <clipPath id="a"><path d="M0 0h14v14H0z" /></clipPath>
             </defs>
         </svg>
-        <slot></slot>
+        <slot>{{ $t('item.filter.clear') }}</slot>
     </button>
 </template>
