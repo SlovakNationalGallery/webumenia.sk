@@ -4,11 +4,23 @@
     "singleQuote": true,
     "semi": false,
     "sortTailwindcssClasses": true,
+    "plugins": [
+        "prettier-plugin-tailwindcss",
+        "@prettier/plugin-php",
+        "@shufo/prettier-plugin-blade"
+    ],
     "overrides": [
         {
             "files": "*.yml",
             "options": {
                 "tabWidth": 2
+            }
+        },
+        {
+            "files": ["*.blade.php"],
+            "options": {
+                "parser": "blade",
+                "tabWidth": 4
             }
         }
     ]
