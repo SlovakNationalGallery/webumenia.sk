@@ -166,7 +166,7 @@ class CollectionController extends Controller
                 }
             }
 
-
+            $collection->featured = Request::boolean('featured');
             if (Gate::allows('administer')) {
                 $collection->frontends = Request::input('frontends');
             }
