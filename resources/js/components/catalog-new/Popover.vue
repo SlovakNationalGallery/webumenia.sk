@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent } from 'radix-vue'
 
 import CaretUpIcon from './icons/CaretUp.vue'
@@ -43,7 +43,7 @@ const isOpen = ref(false)
                         side="bottom"
                         align="start"
                         :side-offset="10"
-                        class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-mr-8 -tw-ml-px"
+                        class="tw-hidden md:tw-block tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-mr-8 -tw-ml-px"
                     >
                         <slot name="content"></slot>
                     </PopoverContent>
