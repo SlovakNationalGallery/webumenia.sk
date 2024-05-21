@@ -20,7 +20,7 @@ trait MgImporterTrait
         };
 
         $this->sanitizers[] = function ($value) {
-            return empty_to_null($value);
+            return empty_to_null(trim($value));
         };
 
         $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
