@@ -39,6 +39,7 @@ class ItemController extends Controller
         'additionals.location.keyword',
         'exhibition',
         'box',
+        'location',
     ];
 
     private $rangeables = ['date_earliest', 'date_latest', 'additionals.order'];
