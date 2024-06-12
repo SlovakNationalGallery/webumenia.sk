@@ -26,6 +26,8 @@ class ItemsTest extends TestCase
             'date_latest' => 2010,
             'description' => 'test_description',
             'image_ratio' => 1.5,
+            'medium' => 'test_medium',
+            'measurement' => 'test_measurements',
         ]);
 
         $item->authorities()->attach($authority, ['role' => 'autor/author']);
@@ -61,6 +63,8 @@ class ItemsTest extends TestCase
                 'date_latest' => 2010,
                 'description' => 'test_description',
                 'image_ratio' => 1.5,
+                'medium' => 'test_medium',
+                'measurements' => ['test_measurements'],
                 'images' => [
                     [
                         'deep_zoom_url' => 'https://img.test.sk/zoom/?path=test_iipimg_url.dzi',
