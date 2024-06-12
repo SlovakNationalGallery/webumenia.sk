@@ -73,4 +73,25 @@ class ItemsTest extends TestCase
             ],
         ]);
     }
+
+    public function test_multiple()
+    {
+        $items = Item::factory()->count(3)->create();
+        $response = $this->getJson('/api/v2/items/?ids[]=' . $items->pluck('id')->implode('&ids[]='));
+
+        $response->assertStatus(200);
+
+        $response->assertJsonCount(3, 'data');
+        foreach ($items as $item) {
+            $response->assertJsonFragment([
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'image_ratio' => $item->image_ratio,
+                'medium' => $item->medium,
+                'measurements' => [$item->measurement],
+                'images' => [],
+            ]);
+        }
+    }
 }

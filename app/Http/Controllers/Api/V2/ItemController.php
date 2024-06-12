@@ -23,7 +23,7 @@ class ItemController extends Controller
             return response()->json(['error' => 'Invalid input'], 400);
         }
 
-        $items = Item::with('images')->whereIn('id', $ids)->get();
+        $items = Item::with(['images', 'authorities'])->whereIn('id', $ids)->get();
 
         return ItemResource::collection($items);
     }
