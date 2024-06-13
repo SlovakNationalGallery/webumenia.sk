@@ -25,6 +25,8 @@ class ItemResource extends JsonResource
             'description' => $this->description,
             'authorities' => AuthorityResource::collection($this->authorities),
             'image_ratio' => $this->image_ratio,
+            'medium' => $this->medium,
+            'measurements' => $this->measurements,
             'images' => $this->images->map(function (ItemImage $image) {
                 return ['deep_zoom_url' => $image->getDeepZoomUrl()];
             }),

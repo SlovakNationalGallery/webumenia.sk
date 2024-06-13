@@ -26,6 +26,8 @@ class ItemsTest extends TestCase
             'date_latest' => 2010,
             'description' => 'test_description',
             'image_ratio' => 1.5,
+            'medium' => 'test_medium',
+            'measurement' => 'test_measurements',
         ]);
 
         $item->authorities()->attach($authority, ['role' => 'autor/author']);
@@ -61,6 +63,8 @@ class ItemsTest extends TestCase
                 'date_latest' => 2010,
                 'description' => 'test_description',
                 'image_ratio' => 1.5,
+                'medium' => 'test_medium',
+                'measurements' => ['test_measurements'],
                 'images' => [
                     [
                         'deep_zoom_url' => 'https://img.test.sk/zoom/?path=test_iipimg_url.dzi',
@@ -68,5 +72,26 @@ class ItemsTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function test_multiple()
+    {
+        $items = Item::factory()->count(3)->create();
+        $response = $this->getJson('/api/v2/items/?ids[]=' . $items->pluck('id')->implode('&ids[]='));
+
+        $response->assertStatus(200);
+
+        $response->assertJsonCount(3, 'data');
+        foreach ($items as $item) {
+            $response->assertJsonFragment([
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'image_ratio' => $item->image_ratio,
+                'medium' => $item->medium,
+                'measurements' => [$item->measurement],
+                'images' => [],
+            ]);
+        }
     }
 }
