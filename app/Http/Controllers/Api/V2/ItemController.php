@@ -15,7 +15,7 @@ class ItemController extends Controller
         return new ItemResource($item);
     }
 
-    public function showMultiple(Request $request)
+    public function index(Request $request)
     {
         $ids = $request->input('ids');
 
@@ -23,7 +23,11 @@ class ItemController extends Controller
             return response()->json(['error' => 'Invalid input'], 400);
         }
 
-        $items = Item::with(['images', 'authorities'])->whereIn('id', $ids)->get();
+        $size = $request->input('size', 15);
+        
+        $items = Item::with(['images', 'authorities'])
+            ->whereIn('id', $ids)
+            ->paginate($size);
 
         return ItemResource::collection($items);
     }
