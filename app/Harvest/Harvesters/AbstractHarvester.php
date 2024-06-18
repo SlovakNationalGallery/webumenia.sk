@@ -74,24 +74,27 @@ abstract class AbstractHarvester
                 $row = $this->repository->getRow($record);
             }
 
-            if ($record->trashed() || $this->isExcluded($row)) {
-                $progress->incrementSkipped();
-                return null;
-            }
-
-            if ($this->isForDeletion($row)) {
-                $this->deleteRecord($record);
-                $progress->incrementDeleted();
-                return null;
-            }
-
-            $this->importer->import($row, $progress);
-
-            if (Arr::get($row, 'datestamp.0')) {
-                $record->datestamp = Carbon::parse(Arr::get($row, 'datestamp.0'));
-            }
-            
+            $this->processRecord($record, $progress, $row);
         }, $progress);
+    }
+
+    protected function processRecord(SpiceHarvesterRecord $record, Progress $progress, array $row) {
+        if ($record->trashed() || $this->isExcluded($row)) {
+            $progress->incrementSkipped();
+            return null;
+        }
+
+        if ($this->isForDeletion($row)) {
+            $this->deleteRecord($record);
+            $progress->incrementDeleted();
+            return null;
+        }
+
+        $this->importer->import($row, $progress);
+
+        if (Arr::get($row, 'datestamp.0')) {
+            $record->datestamp = Carbon::parse(Arr::get($row, 'datestamp.0'));
+        }
     }
 
     /**
