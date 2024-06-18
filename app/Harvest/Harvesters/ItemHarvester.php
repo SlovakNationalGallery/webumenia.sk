@@ -5,30 +5,20 @@ namespace App\Harvest\Harvesters;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Repositories\ItemRepository;
 use App\Harvest\Progress;
-use App\Item;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Monolog\Logger;
 
 class ItemHarvester extends AbstractHarvester
 {
     /** @var array */
     protected $excludePrefix = ['x'];
 
-    /** @var Logger */
-    protected $logger;
-
     public function __construct(ItemRepository $repository, ItemImporter $importer) {
         parent::__construct($repository, $importer);
-        $this->logger = new Logger('oai_harvest');
     }
 
-    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
-        if ($row === null) {
-            $row = $this->repository->getRow($record);
-        }
-
+    protected function processRecord(SpiceHarvesterRecord $record, Progress $progress, array $row) {
         // @todo responsibility of repository?
         $iipimgUrls = $this->fetchItemImageIipimgUrls($row);
 
@@ -45,19 +35,10 @@ class ItemHarvester extends AbstractHarvester
             ];
         }
 
-        parent::harvestRecord($record, $progress, $row);
+        parent::processRecord($record, $progress, $row);
 
         if ($record->item && $record->item->img_url) {
-            $this->trySaveImage($record->item);
-        }
-    }
-
-    protected function trySaveImage(Item $item) {
-        try {
-            $item->saveImage($item->img_url);
-        } catch (\Exception $e) {
-            $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
-            $this->logger->error($error);
+            $record->item->saveImage($record->item->img_url);
         }
     }
 
