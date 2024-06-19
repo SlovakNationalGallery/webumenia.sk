@@ -17,14 +17,18 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        $size = $request->input('size', 15);
+        $validated = $request->validate([
+            'ids' => ['array'],
+            'ids.*' => ['required', 'string'],
+            'size' => ['integer'],
+        ]);
 
         $items = Item::with(['images', 'authorities'])
             ->when(
                 $request->filled('ids'),
-                fn ($query) => $query->whereIn('id', (array) $request->input('ids'))
+                fn ($query) => $query->whereIn('id', $validated['ids'])
             )
-            ->paginate($size);
+            ->paginate($validated['size'] ?? null);
 
         return ItemResource::collection($items);
     }

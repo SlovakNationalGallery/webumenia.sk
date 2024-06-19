@@ -69,7 +69,9 @@ Route::prefix('v1')
         );
     });
 
-Route::prefix('v2')->group(function () {
-    Route::get('items/{id}', [V2ItemController::class, 'show']);
-    Route::get('items', [V2ItemController::class, 'index']);
-});
+Route::prefix('v2')
+    ->name('api.v2.')
+    ->group(function () {
+        Route::resource('items', V2ItemController::class)
+            ->only(['index', 'show']);
+    });

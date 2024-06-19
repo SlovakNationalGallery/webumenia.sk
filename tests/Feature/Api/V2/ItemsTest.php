@@ -15,7 +15,7 @@ class ItemsTest extends TestCase
     use RefreshDatabase;
     use WithoutSearchIndexing;
 
-    public function test_detail()
+    public function testShow()
     {
         $authority = Authority::factory()->create(['name' => 'Wouwerman, Philips']);
         $item_image = ItemImage::factory()->make(['iipimg_url' => 'test_iipimg_url']);
@@ -81,8 +81,7 @@ class ItemsTest extends TestCase
         $items = Item::factory()->count(3)->create();
         $response = $this->getJson('/api/v2/items');
 
-        $response->assertStatus(200);
-
+        $response->assertOk();
         $response->assertJsonCount(3, 'data');
         foreach ($items as $item) {
             $response->assertJsonFragment([
@@ -101,11 +100,13 @@ class ItemsTest extends TestCase
     {
         $items = Item::factory()->count(3)->create();
         $filtered = $items->random(2);
-        $response = $this->getJson('/api/v2/items?ids[]=' . $filtered->pluck('id')->implode('&ids[]='));
+        $url = route('api.v2.items.index', [
+            'ids' => $filtered->pluck('id')->toArray()
+        ]);
+        $response = $this->getJson($url);
 
-        $response->assertStatus(200);
-
-        $response->assertJsonCount(2, 'data');
+        $response->assertOk();
+        $response->assertJsonCount($filtered->count(), 'data');
         foreach ($filtered as $item) {
             $response->assertJsonFragment([
                 'id' => $item->id,
@@ -117,5 +118,16 @@ class ItemsTest extends TestCase
                 'images' => [],
             ]);
         }
+    }
+
+    public function testIndexWithInvalidIds()
+    {
+        $item = Item::factory()->create();
+        $url = route('api.v2.items.index', [
+            'ids' => $item->id,
+        ]);
+
+        $response = $this->getJson($url);
+        $response->assertUnprocessable();
     }
 }
