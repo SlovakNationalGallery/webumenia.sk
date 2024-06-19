@@ -8,12 +8,14 @@ use App\ItemImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Config;
+use Tests\WithoutSearchIndexing;
 
 class ItemsTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutSearchIndexing;
 
-    public function test_detail()
+    public function testShow()
     {
         $authority = Authority::factory()->create(['name' => 'Wouwerman, Philips']);
         $item_image = ItemImage::factory()->make(['iipimg_url' => 'test_iipimg_url']);
@@ -74,13 +76,12 @@ class ItemsTest extends TestCase
         ]);
     }
 
-    public function test_multiple()
+    public function testIndex()
     {
         $items = Item::factory()->count(3)->create();
-        $response = $this->getJson('/api/v2/items/?ids[]=' . $items->pluck('id')->implode('&ids[]='));
+        $response = $this->getJson('/api/v2/items');
 
-        $response->assertStatus(200);
-
+        $response->assertOk();
         $response->assertJsonCount(3, 'data');
         foreach ($items as $item) {
             $response->assertJsonFragment([
@@ -93,5 +94,40 @@ class ItemsTest extends TestCase
                 'images' => [],
             ]);
         }
+    }
+
+    public function testIndexWithIds()
+    {
+        $items = Item::factory()->count(3)->create();
+        $filtered = $items->random(2);
+        $url = route('api.v2.items.index', [
+            'ids' => $filtered->pluck('id')->toArray()
+        ]);
+        $response = $this->getJson($url);
+
+        $response->assertOk();
+        $response->assertJsonCount($filtered->count(), 'data');
+        foreach ($filtered as $item) {
+            $response->assertJsonFragment([
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'image_ratio' => $item->image_ratio,
+                'medium' => $item->medium,
+                'measurements' => [$item->measurement],
+                'images' => [],
+            ]);
+        }
+    }
+
+    public function testIndexWithInvalidIds()
+    {
+        $item = Item::factory()->create();
+        $url = route('api.v2.items.index', [
+            'ids' => $item->id,
+        ]);
+
+        $response = $this->getJson($url);
+        $response->assertUnprocessable();
     }
 }
