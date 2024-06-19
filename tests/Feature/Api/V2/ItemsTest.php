@@ -8,10 +8,12 @@ use App\ItemImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Config;
+use Tests\WithoutSearchIndexing;
 
 class ItemsTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutSearchIndexing;
 
     public function test_detail()
     {
@@ -74,15 +76,37 @@ class ItemsTest extends TestCase
         ]);
     }
 
-    public function test_multiple()
+    public function testIndex()
     {
         $items = Item::factory()->count(3)->create();
-        $response = $this->getJson('/api/v2/items/?ids[]=' . $items->pluck('id')->implode('&ids[]='));
+        $response = $this->getJson('/api/v2/items');
 
         $response->assertStatus(200);
 
         $response->assertJsonCount(3, 'data');
         foreach ($items as $item) {
+            $response->assertJsonFragment([
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'image_ratio' => $item->image_ratio,
+                'medium' => $item->medium,
+                'measurements' => [$item->measurement],
+                'images' => [],
+            ]);
+        }
+    }
+
+    public function testIndexWithIds()
+    {
+        $items = Item::factory()->count(3)->create();
+        $filtered = $items->random(2);
+        $response = $this->getJson('/api/v2/items?ids[]=' . $filtered->pluck('id')->implode('&ids[]='));
+
+        $response->assertStatus(200);
+
+        $response->assertJsonCount(2, 'data');
+        foreach ($filtered as $item) {
             $response->assertJsonFragment([
                 'id' => $item->id,
                 'title' => $item->title,

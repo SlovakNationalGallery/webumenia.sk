@@ -17,16 +17,13 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        $ids = $request->input('ids');
-
-        if (!$ids || !is_array($ids)) {
-            return response()->json(['error' => 'Invalid input'], 400);
-        }
-
         $size = $request->input('size', 15);
-        
+
         $items = Item::with(['images', 'authorities'])
-            ->whereIn('id', $ids)
+            ->when(
+                $request->filled('ids'),
+                fn ($query) => $query->whereIn('id', (array) $request->input('ids'))
+            )
             ->paginate($size);
 
         return ItemResource::collection($items);
