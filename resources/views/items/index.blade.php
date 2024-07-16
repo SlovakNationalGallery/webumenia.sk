@@ -61,7 +61,7 @@ diela |
                             {!! Form::select('tags[]', $tags, old('tags'), ['multiple' => 'multiple', 'id' => 'tags']) !!}
                         </div>
                         <div class="col-xs-2 pl-1">
-                            <button type="button" id="addTagsToSelected" class="mt-1 btn btn-info btn-sm btn-outline">Pridať tagy</a>
+                            <button type="button" id="addTagsToSelected" class="mt-1 btn btn-info btn-sm btn-outline">Pridať tagy</button>
                         </div>
                     </div>
 
@@ -148,36 +148,38 @@ diela |
 {{-- script --}}
 @section('script')
 <script>
-$('#deleteSelected').on('click', function(e){
-    var $form=$(this).closest('form');
-    e.preventDefault();
-    $('#confirm').modal({  })
-        .one('click', '#delete', function (e) {
-            $form.attr("action","{!! URL::to('item/destroySelected') !!}");
-            $form.trigger('submit');
-        });
-});
+$(function () {
+    $('#deleteSelected').on('click', function(e){
+        var $form=$(this).closest('form');
+        e.preventDefault();
+        $('#confirm').modal({  })
+            .one('click', '#delete', function (e) {
+                $form.attr("action","{!! URL::to('item/destroySelected') !!}");
+                $form.trigger('submit');
+            });
+    });
 
-$('#refreshSelected').on('click', function(e){
-    var $form=$(this).closest('form');
-    e.preventDefault();
-    $form.attr("action","{!! URL::to('item/refreshSelected') !!}");
-    $form.trigger('submit');
-});
+    $('#refreshSelected').on('click', function(e){
+        var $form=$(this).closest('form');
+        e.preventDefault();
+        $form.attr("action","{!! URL::to('item/refreshSelected') !!}");
+        $form.trigger('submit');
+    });
 
-$('#addTagsToSelected').on('click', function(e){
-    e.preventDefault();
+    $('#addTagsToSelected').on('click', function(e){
+        e.preventDefault();
 
-    var $form = $(this).closest('form');
-    $form.attr("action", @js(route('item-tags.store')));
-    $form.trigger('submit');
-});
+        var $form = $(this).closest('form');
+        $form.attr("action", @js(route('item-tags.store')));
+        $form.trigger('submit');
+    });
 
-$("#collection").selectize();
-$("#tags").selectize({
-    plugins: ['remove_button'],
-    persist: false, // Throw away de-selected created items
-    create: true, 	// Allow creation of new items
+    $("#collection").selectize();
+    $("#tags").selectize({
+        plugins: ['remove_button'],
+        persist: false, // Throw away de-selected created items
+        create: true, 	// Allow creation of new items
+    });
 });
 </script>
 @stop
