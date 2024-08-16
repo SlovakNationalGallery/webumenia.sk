@@ -194,40 +194,28 @@
 			format: "yyyy-mm-dd",
 			language: "sk"
 		});
-	});
-	Sortable.create(sortable, {
-	  handle: '.sortable-handle',
-	  ghostClass: "sortable-ghost",
-	  animation: 150,
-	  dataIdAttr: 'data-id',
 
-	  onEnd: function () {
-	      $('.loader').removeClass('hidden');
+		var sortable = document.getElementById('sortable')
+		Sortable.create(sortable, {
+			handle: '.sortable-handle',
+			ghostClass: "sortable-ghost",
+			animation: 150,
+			dataIdAttr: 'data-id',
 
-	      $.post('/collection/sort', {
-	          // entity: this.attr('data-entity'),
-	          entity: $('#sortable').attr('data-entity'),
-	          id: $('#sortable').attr('data-id'),
-	          ids: this.toArray(),
-	          _token: @js(csrf_token())
-	      }, function (data) {
-	          if('success'==data.result){
-	              // for (id in data.orders) {
-	                  // var order = data.orders[id],
-	                      // $list = $('#sortable[data-entity=' + data.entity + '] .list-group-item[data-id=' + id + ']').attr('data-order', order);
-	              // }
-	              // $('#sortable[data-entity=' + data.entity + ']').each(function () {
-	                  // var $list = $(this);
-	                  // LarakitManager.sort($list);
-	              // });
-	          } else {
+			onEnd: function () {
+				$('.loader').removeClass('hidden');
 
-	          }
-	          // larakit_toastr(data);
-	          $('.loader').addClass('hidden');
-	      });
-	  }
+				$.post('/collection/sort', {
+					entity: $('#sortable').attr('data-entity'),
+					id: $('#sortable').attr('data-id'),
+					ids: this.toArray(),
+					_token: @js(csrf_token())
+				}, function () {
+					$('.loader').addClass('hidden');
+				});
+			}
 
+		});
 	});
 
 </script>
