@@ -80,11 +80,6 @@
 
 	<!-- Content -->
 	<div id="app">
-		<div class="alert alert-dark text-center" role="alert">
-			<a href="https://sng.sk/sk/sng-bratislava/aktuality/vyjadrenie-k-odvolaniu-alexandry-kusej-generalnej-riaditelky-sng" target="_blank" class="alert-link underline">Vyjadrenie k odvolaniu Alexandry Kusej, generálnej riaditeľky SNG.</a><br>
-			Tím lab.SNG stojí za našou generálnou riaditeľkou.
-		</div>
-
 		@sectionMissing('main-navigation')
 			@include('components.nav_bar')
 		@endif
