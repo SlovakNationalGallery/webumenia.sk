@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ApplyFrontendScope;
+use App\Http\Middleware\ConfigureFrontendFromUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -44,8 +46,14 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AcceptLanguage::class,
-            \App\Http\Middleware\ConfigureFrontendFromRequest::class,
+            \App\Http\Middleware\ConfigureFrontendFromHeader::class,
             \App\Http\Middleware\ApplyFrontendScope::class,
+        ],
+
+        'admin' => [
+            'auth',
+            ConfigureFrontendFromUser::class,
+            ApplyFrontendScope::class,
         ],
     ];
 

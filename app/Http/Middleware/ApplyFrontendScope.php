@@ -12,8 +12,12 @@ class ApplyFrontendScope
 {
     public function handle(Request $request, \Closure $next): Response
     {
-        Collection::addGlobalScope('frontend', fn ($query) => $query->whereJsonContains('collections.frontends', Frontend::get()));
-        Item::addGlobalScope('frontend', fn ($query) => $query->whereJsonContains('items.frontends', Frontend::get()));
+        $frontend = Frontend::get();
+
+        if ($frontend) {
+            Collection::addGlobalScope('frontend', fn($query) => $query->whereJsonContains('collections.frontends', $frontend));
+            Item::addGlobalScope('frontend', fn($query) => $query->whereJsonContains('items.frontends', $frontend));
+        }
 
         return $next($request);
     }
