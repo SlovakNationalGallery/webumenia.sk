@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\FrontendEnum;
+use App\Services\Frontend;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -23,6 +25,7 @@ class UserFactory extends Factory
             'email' => fake()->safeEmail(),
             'password' => bcrypt(Str::random(10)),
             'remember_token' => Str::random(10),
+            'frontend' => FrontendEnum::WEBUMENIA->value,
         ];
     }
 }

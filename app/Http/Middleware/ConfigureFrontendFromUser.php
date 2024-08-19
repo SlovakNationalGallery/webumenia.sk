@@ -8,14 +8,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ConfigureFrontendFromRequest
+class ConfigureFrontendFromUser
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $frontend = FrontendEnum::tryFrom($request->header('X-Frontend'));
-        if ($frontend) {
-            Frontend::set($frontend);
-        }
+        $frontend = !$request->user()->can_administer
+            ? FrontendEnum::from($request->user()->frontend)
+            : null;
+
+        Frontend::set($frontend);
 
         return $next($request);
     }
