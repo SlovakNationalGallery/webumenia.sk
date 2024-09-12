@@ -81,7 +81,12 @@ class Import extends Model
 
     public function files(string $dir = null): Collection
     {
-        $files = $this->storage()->files($dir ?? $this->dir_path);
+        $dir ??= $this->dir_path;
+        if (!$this->storage()->exists($dir)) {
+            return collect();
+        }
+
+        $files = $this->storage()->files($dir);
         return collect($files)->map(fn(string $file) => new SplFileInfo($file));
     }
 
