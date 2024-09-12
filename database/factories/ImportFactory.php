@@ -20,6 +20,7 @@ class ImportFactory extends Factory
         return [
             'name' => fake()->text(),
             'class_name' => MgImporter::class,
+            'dir_path' => '.',
         ];
     }
 }
