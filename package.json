@@ -24,7 +24,6 @@
         "vue": "^3.2.47"
     },
     "dependencies": {
-        "@popperjs/core": "^2.11.7",
         "axios": "^1.6.0",
         "bootstrap": "^3.4.1",
         "clipboard": "^2.0.6",
@@ -34,6 +33,7 @@
         "debounce": "1.2.0",
         "flickity": "^2.2.1",
         "flickity-imagesloaded": "^2.0.0",
+        "floating-vue": "^5.2.2",
         "imagesloaded": "^4.1.4",
         "infinite-scroll": "^3.0.6",
         "isotope-layout": "^3.0.6",

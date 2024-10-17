@@ -140,9 +140,11 @@ function utrans($str)
     return mb_ucfirst(trans($str));
 }
 
-function mb_ucfirst($str) {
-    $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1);
-    return $str;
+if (!function_exists('mb_ucfirst')) {
+    function mb_ucfirst($str) {
+        $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1);
+        return $str;
+    }
 }
 
 function isValidURL($url)
