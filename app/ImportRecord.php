@@ -56,6 +56,11 @@ class ImportRecord extends Model
             pathinfo($this->filename, PATHINFO_FILENAME)
         );
         $disk = config('import.iip_disk');
+
+        if (!Storage::disk($disk)->exists($dir)) {
+            return collect();
+        }
+
         $files = Storage::disk($disk)->files($dir);
         return collect($files)->map(fn(string $file) => new SplFileInfo($file));
     }
