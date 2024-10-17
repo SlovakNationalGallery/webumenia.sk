@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -11,13 +12,16 @@ class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->get();
-        return view('articles.index')->with('articles', $articles);
+        $articles = Article::orderBy('created_at', 'desc');
+
+        if (Gate::denies('administer')) {
+            $articles = $articles->where('user_id', '=', auth()->id());
+        }
+
+        return view('articles.index')->with('articles', $articles->get());
     }
 
     /**
@@ -71,6 +75,7 @@ class ArticleController extends Controller
             $article->title_shadow = $request->input('title_shadow');
         }
 
+        $article->user_id = auth()->id();
         $article->save();
 
         if ($request->hasFile('main_image')) {
