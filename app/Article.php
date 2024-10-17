@@ -83,6 +83,11 @@ class Article extends Model implements TranslatableContract
         return $this->belongsTo(\App\Category::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getUrl()
     {
         return URL::to('clanok/' . $this->attributes['slug']);
