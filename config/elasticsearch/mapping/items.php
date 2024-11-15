@@ -192,6 +192,12 @@ $mapping = [
         ],
         'location' => [
             'type' => 'keyword',
+            'fields' => [
+                'tree' => [
+                    'type' => 'text',
+                    'analyzer' => 'tree_analyzer',
+                ],
+            ],
         ],
         'frontend' => [
             'type' => 'keyword',
