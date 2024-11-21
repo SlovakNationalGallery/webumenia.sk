@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { Menu as VMenu } from 'floating-vue'
+import { Dropdown as VDropdown } from 'floating-vue'
 
 import CaretUpIcon from './icons/CaretUp.vue'
 
@@ -13,7 +13,7 @@ const isOpen = ref(false)
 </script>
 
 <template>
-    <VMenu
+    <VDropdown
         :triggers="['click']"
         :shown="isOpen"
         :distance="10"
@@ -43,5 +43,5 @@ const isOpen = ref(false)
                 </div>
             </div>
         </template>
-    </VMenu>
+    </VDropdown>
 </template>
