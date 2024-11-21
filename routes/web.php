@@ -292,17 +292,14 @@ function()
 
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
-    Route::get('katalog', function (HttpRequest $request) {
-        if (Experiment::is('new-catalog')) {
-            return app(NewCatalogController::class)->index($request);
-        }
-
-        return app(CatalogController::class)->getIndex();
-    })
+    Route::get('katalog', [NewCatalogController::class, 'index'])
         ->middleware(RedirectLegacyCatalogRequest::class)
         ->name('frontend.catalog.index');
         
-    Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new'); // TODO remove after release
+    Route::get('katalog-old', [CatalogController::class, 'getIndex'])
+        ->name('frontend.catalog.old');
+        
+    // Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new'); // TODO remove after release
 
     Route::get('katalog/suggestions', [CatalogController::class, 'getSuggestions'])->name('frontend.catalog.suggestions');
     Route::get('katalog/random', [CatalogController::class, 'getRandom'])->name('frontend.catalog.random');

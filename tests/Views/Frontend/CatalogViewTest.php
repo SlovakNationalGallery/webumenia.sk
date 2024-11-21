@@ -52,4 +52,10 @@ class CatalogViewTest extends TestCase
         $response = $this->get('/katalog/random');
         $response->assertStatus(200);
     }
+
+    // test the legacy catalog - should be removed after no longer needed/supported
+    public function testOldCatalog() {
+        $response = $this->get('/katalog-old');
+        $response->assertStatus(200);
+    }
 }
