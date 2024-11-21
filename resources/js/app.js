@@ -67,6 +67,9 @@ import CopyToClipboardLink from './components/CopyToClipboardLink.vue'
 import BottomModal from './components/BottomModal.vue'
 import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
 import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
+import { Dropdown } from 'floating-vue'
+
+import 'floating-vue/dist/style.css'
 
 createApp({
     compilerOptions: {
@@ -81,7 +84,7 @@ createApp({
         },
     })
     .use(ZiggyVue)
-
+    .component('VDropdown', Dropdown)
     .component('featured-piece-click-tracker', FeaturedPieceClickTracker)
     .component('filter-sort-by', FilterSortBy)
     .component('filter-checkbox', FilterCheckbox)

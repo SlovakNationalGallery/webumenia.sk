@@ -3,6 +3,14 @@
 @import './fonts.css';
 
 @tailwind components;
+
+.v-popper__popper.v-popper--theme-dropdown .v-popper__arrow-container {
+    @apply tw-hidden;
+}
+.v-popper__popper.v-popper--theme-dropdown .v-popper__inner {
+    @apply tw-bg-transparent tw-shadow-none tw-border-0 tw-rounded-none;
+}
+
 @tailwind utilities;
 
 @layer base {
