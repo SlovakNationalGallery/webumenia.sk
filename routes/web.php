@@ -299,8 +299,6 @@ function()
     Route::get('katalog-old', [CatalogController::class, 'getIndex'])
         ->name('frontend.catalog.old');
         
-    // Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new'); // TODO remove after release
-
     Route::get('katalog/suggestions', [CatalogController::class, 'getSuggestions'])->name('frontend.catalog.suggestions');
     Route::get('katalog/random', [CatalogController::class, 'getRandom'])->name('frontend.catalog.random');
 
