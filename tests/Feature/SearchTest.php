@@ -12,6 +12,6 @@ class SearchTest extends TestCase
     public function testPageNumberTooLargeDoesNotProduceError()
     {
         $response = $this->get('/katalog?page=99999');
-        $response->assertStatus(200);
+        $response->assertStatus(302); // Should be redirected by the RedirectLegacyCatalogRequest middleware
     }
 }
