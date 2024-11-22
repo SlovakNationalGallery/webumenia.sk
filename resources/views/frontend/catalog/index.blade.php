@@ -10,6 +10,10 @@
     @include('includes.pagination_links', ['paginator' => $paginator])
 @stop
 
+@section('og')
+    <meta name="robots" content="noindex, nofollow">
+@stop
+
 @section('content')
 
     @formStart($form, ['attr' => ['class' => 'js-filter-form filter-form']])

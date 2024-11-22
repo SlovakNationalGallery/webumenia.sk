@@ -2,17 +2,10 @@
 
 namespace Tests\Views\Frontend;
 
-use App\Facades\Experiment;
 use Tests\TestCase;
 
 class NewCatalogTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Experiment::set('new-catalog');
-    }
 
     public function test_title_is_based_on_filters()
     {

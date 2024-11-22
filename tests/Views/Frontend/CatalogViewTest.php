@@ -10,17 +10,11 @@ class CatalogViewTest extends TestCase
 {
     public function testGetIndex()
     {
-        $itemRepositoryMock = $this->createMock(ItemRepository::class);
-        $itemRepositoryMock->expects($this->any())
-            ->method('listValues')
-            ->willReturn(collect());
-        $itemRepositoryMock->expects($this->once())
-            ->method('search')
-            ->willReturn(new SearchResult(collect(), 0));
-        $this->app->instance(ItemRepository::class, $itemRepositoryMock);
-
         $response = $this->get('/katalog');
+
         $response->assertStatus(200);
+        $response->assertViewIs('frontend.catalog-new.index');
+        $response->assertViewHas('title');
     }
 
     public function testGetSuggestions()
@@ -50,6 +44,13 @@ class CatalogViewTest extends TestCase
         $this->app->instance(ItemRepository::class, $itemRepositoryMock);
 
         $response = $this->get('/katalog/random');
+        $response->assertStatus(200);
+    }
+
+    // test the legacy catalog - should be removed after no longer needed/supported
+    public function testOldCatalog()
+    {
+        $response = $this->get('/katalog-old');
         $response->assertStatus(200);
     }
 }

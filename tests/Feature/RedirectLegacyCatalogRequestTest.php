@@ -7,12 +7,6 @@ use Tests\TestCase;
 
 class RedirectLegacyCatalogRequestTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Experiment::set('new-catalog');
-    }
 
     public function test_redirects_to_new_catalog_url(): void
     {

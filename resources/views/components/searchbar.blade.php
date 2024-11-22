@@ -4,10 +4,7 @@
     'class' => 'navbar-form right-inner-addon ukraine',
 ]) !!}
 <i class="fa fa-search"></i>
-@php
-$search_value = Experiment::is('new-catalog') ? request()->get('q') : request()->get('search') 
-@endphp
-{!! Form::text('search', $search_value, [
+{!! Form::text('search', request()->get('q'), [
     'class' => 'form-control',
     'placeholder' => utrans('master.search_placeholder'),
     'id' => 'search',
