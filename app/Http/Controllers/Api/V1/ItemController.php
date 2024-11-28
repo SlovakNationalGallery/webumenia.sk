@@ -303,7 +303,7 @@ class ItemController extends Controller
 
         if ($q) {
             $query = Query::multiMatch()
-                ->fields(['title.*', 'description.*'])
+                ->fields(['title.*', 'description.*', 'identifier', 'id'])
                 ->query($q);
             $builder->must($query);
         }
