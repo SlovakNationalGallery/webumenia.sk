@@ -41,8 +41,6 @@ class ItemController extends Controller
         'box',
         'location',
         'location.tree',
-        'identifier',
-        'id',
     ];
 
     private $rangeables = ['date_earliest', 'date_latest', 'additionals.order'];
