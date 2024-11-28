@@ -41,6 +41,8 @@ class ItemController extends Controller
         'box',
         'location',
         'location.tree',
+        'identifier',
+        'id',
     ];
 
     private $rangeables = ['date_earliest', 'date_latest', 'additionals.order'];
@@ -303,7 +305,7 @@ class ItemController extends Controller
 
         if ($q) {
             $query = Query::multiMatch()
-                ->fields(['title.*', 'description.*'])
+                ->fields(['title.*', 'description.*', 'identifier', 'id'])
                 ->query($q);
             $builder->must($query);
         }
