@@ -326,4 +326,45 @@ class ItemsTest extends TestCase
             ],
         ]);
     }
+
+    public function test_search_by_id()
+    {
+        $item = Item::factory()->create();
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.index', [
+            'q' => $item->id,
+        ]);
+
+        $this->getJson($url)->assertJson([
+            'total' => 1,
+            'data' => [
+                [
+                    'id' => $item->id,
+                ],
+            ],
+        ]);
+    }
+
+    public function test_search_by_identifier()
+    {
+        $item = Item::factory()->create(['identifier' => 'G 3415']);
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.index', [
+            'q' => 'G 3415',
+        ]);
+
+        $this->getJson($url)->assertJson([
+            'total' => 1,
+            'data' => [
+                [
+                    'id' => $item->id,
+                    'content' => [
+                        'identifier' => 'G 3415',
+                    ],
+                ],
+            ],
+        ]);
+    }
 }
