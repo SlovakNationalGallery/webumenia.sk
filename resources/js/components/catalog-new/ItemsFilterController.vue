@@ -178,6 +178,9 @@ export default {
                         'object_type',
                         'tag',
                         'gallery',
+                        'credit',
+                        'related_work',
+                        'contributor',
                         'color',
                         'yearRange',
                     ].includes(filterName)
