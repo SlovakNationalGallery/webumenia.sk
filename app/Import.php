@@ -30,6 +30,14 @@ class Import extends Model
         'completed_at' => 'datetime',
     ];
 
+    protected $fillable = [
+        'name',
+        'dir_path',
+        'iip_dir_path',
+        'class_name',
+        'disk',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
