@@ -9,10 +9,11 @@ use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\WithoutSearchIndexing;
 
 class PnpKarasekImporterTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutSearchIndexing;
 
     public function testId()
     {
