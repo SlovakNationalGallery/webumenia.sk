@@ -93,7 +93,7 @@ class UpmImporter extends AbstractImporter
                     return $author;
                 }
 
-                return sprintf('%s (%s)', formatName($matches['name']), $matches['role']);
+                return sprintf('%s – %s', formatName($matches['name']), $matches['role']);
             })
             ->join('; ');
     }

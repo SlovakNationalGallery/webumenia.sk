@@ -42,7 +42,7 @@ class UpmImporterTest extends TestCase
         $item = Item::find('CZE:UPM.GK_11090');
 
         $this->assertEquals('GK 11090/E', $item->identifier);
-        $this->assertEquals('Luboš Kopáč (návrh vazby)', $item->author);
+        $this->assertEquals('Jiří Rathouský – grafická úprava, design vazby a přebalu', $item->author);
         $this->assertEquals(1928, $item->date_earliest);
         $this->assertEquals(1928, $item->date_latest);
         $this->assertEquals('1986', $item->acquisition_date);
@@ -89,7 +89,7 @@ class UpmImporterTest extends TestCase
             "ID" => "GK_11090",
             "Název" => "Vazba knihy",
             "Název EN" => "Binding design",
-            "Autor" => "Kopáč, Luboš – návrh vazby",
+            "Autor" => "Rathouský, Jiří – grafická úprava, design vazby a přebalu",
             "Vznik" => "Praha;VŠUP atelier V.H.Brunnera (vazba)",
             "Datace" => "1928",
             "Od" => "1928",

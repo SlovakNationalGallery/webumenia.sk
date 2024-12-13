@@ -325,7 +325,7 @@ function convertEmptyStringsToNull($array) {
 }
 
 function formatName($name) {
-    return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
+    return preg_replace('/^([^,–]*),\s*(.*)$/', '$2 $1', $name);
 }
 
 function starts_with_upper($str) {
