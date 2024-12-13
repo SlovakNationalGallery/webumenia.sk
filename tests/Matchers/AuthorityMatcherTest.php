@@ -7,10 +7,11 @@ use App\Item;
 use App\Matchers\AuthorityMatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\WithoutSearchIndexing;
 
 class AuthorityMatcherTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutSearchIndexing;
 
     public function testMatchAll()
     {
