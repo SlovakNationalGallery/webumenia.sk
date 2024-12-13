@@ -97,14 +97,14 @@ class AuthorityMatcher
 
     public static function parse($author)
     {
-        if (!preg_match('/^((?<surname>.*?)\s*(?<alt_surname>\(.*\))?(?<role>\s+-\s+.*)?,\s+)?(?<name>.*?)\s*(?<alt_name>\(.*\)|\/.*)?$/', $author, $matches)) {
+        if (!preg_match('/^((?<surname>.*?)\s*(?<alt_surname>\(.*\))?(?<role>\s+[-–]\s+.*)?,\s+)?(?<name>.*?)\s*(?<alt_name>\(.*\)|\/.*)?$/', $author, $matches)) {
             return null;
         }
 
         return [
             'surname' => $matches['surname'] ?: null,
             'alt_surname' => trim($matches['alt_surname'], '()') ?: null,
-            'role' => ltrim($matches['role'], ' -') ?: null,
+            'role' => ltrim($matches['role'], ' -–') ?: null,
             'name' => $matches['name'] ?: null,
             'alt_name' => trim($matches['alt_name'] ?? '', '()/') ?: null,
         ];
