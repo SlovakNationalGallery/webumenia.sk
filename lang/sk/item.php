@@ -291,8 +291,12 @@ return [
         'zväčšovanie' => 'zväčšovanie',
         'čiernobiela fotografia' => 'čiernobiela fotografia',
     ],
+    'object_types' => [
+        'kniha' => 'kniha',
+    ],
     'topics' => [
         'figurálna kompozícia' => 'figurálna kompozícia',
+        'ornament' => 'ornament',
     ],
     'state_editions' => [
         'autorizovaný pozitív' => 'autorizovaný pozitív',
