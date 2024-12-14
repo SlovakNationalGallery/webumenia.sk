@@ -108,6 +108,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'exhibition',
         'box',
         'location',
+        'object_type',
     ];
 
     public static $rules = array(

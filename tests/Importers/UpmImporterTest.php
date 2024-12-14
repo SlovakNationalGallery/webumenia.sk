@@ -56,11 +56,21 @@ class UpmImporterTest extends TestCase
         $this->assertEquals('ze souboru', $item->translate('cs')->relationship_type);
         $this->assertEquals('collection', $item->translate('en')->relationship_type);
         $this->assertEquals('Sbírka užité grafiky', $item->translate('cs')->related_work);
-        $this->assertEquals('užité umění;grafický design', $item->translate('cs')->work_type); // todo translate
-        $this->assertEquals('celokožená vazba, zlacení', $item->translate('cs')->technique); // todo translate
-        $this->assertEquals('kniha', $item->translate('cs')->object_type); // todo translate
-        $this->assertEquals('kůže;papír', $item->translate('cs')->medium); // todo translate
-        $this->assertEquals('ornament', $item->translate('cs')->topic); // todo translate
+        $this->assertEquals('úžitkové umenie; grafický dizajn', $item->translate('sk')->work_type);
+        $this->assertEquals('užité umění;grafický design', $item->translate('cs')->work_type);
+        $this->assertEquals('applied arts; graphic design', $item->translate('en')->work_type);
+        $this->assertEquals('kresba', $item->translate('sk')->technique);
+        $this->assertEquals('kresba', $item->translate('cs')->technique);
+        $this->assertEquals('drawing', $item->translate('en')->technique);
+        $this->assertEquals('kniha', $item->translate('sk')->object_type);
+        $this->assertEquals('kniha', $item->translate('cs')->object_type);
+        $this->assertEquals('book', $item->translate('en')->object_type);
+        $this->assertEquals('papier', $item->translate('sk')->medium);
+        $this->assertEquals('papír', $item->translate('cs')->medium);
+        $this->assertEquals('paper', $item->translate('en')->medium);
+        $this->assertEquals('ornament', $item->translate('sk')->topic);
+        $this->assertEquals('ornament', $item->translate('cs')->topic);
+        $this->assertEquals('ornament', $item->translate('en')->topic);
         $this->assertEquals('1928', $item->translate('cs')->dating);
         $this->assertEquals('Praha', $item->translate('cs')->place);
         $this->assertEquals('Rösller', $item->translate('cs')->inscription);
@@ -96,8 +106,8 @@ class UpmImporterTest extends TestCase
             "Do" => "1928",
             "Výtvarný druh" => "užité umění;grafický design",
             "Typ" => "kniha",
-            "Materiál" => "kůže;papír",
-            "Technika" => "celokožená vazba, zlacení",
+            "Materiál" => "papír",
+            "Technika" => "kresba",
             "Rozměry" => "v=16,5cm (konvice čajová s víčkem větší); v=13,5-14cm (konvice čajová s víčkem menší)",
             "Námět" => "ornament",
             "tagy" => "",

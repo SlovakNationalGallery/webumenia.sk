@@ -15,16 +15,6 @@ class UpmImporter extends AbstractImporter
         'dating:sk' => 'Datace',
         'date_earliest' => 'Od',
         'date_latest' => 'Do',
-        'work_type:cs' => 'Výtvarný druh',
-        'work_type:sk' => 'Výtvarný druh',
-        'object_type:cs' => 'Typ',
-        'object_type:sk' => 'Typ',
-        'medium:cs' => 'Materiál',
-        'medium:sk' => 'Materiál',
-        'technique:cs' => 'Technika',
-        'technique:sk' => 'Technika',
-        'topic:cs' => 'Námět',
-        'topic:sk' => 'Námět',
         'inscription:cs' => 'Značení',
         'inscription:sk' => 'Značení',
         'related_work:sk' => 'Sbírka',
@@ -51,11 +41,24 @@ class UpmImporter extends AbstractImporter
         'newline' => "\n",
     ];
 
+    private array $workTypeTranslationKeys;
+    private array $techniqueTranslationKeys;
+    private array $mediumTranslationKeys;
+    private array $objectTypeTranslationKeys;
+    private array $topicTranslationKeys;
+
+
     protected function init()
     {
         $this->sanitizers[] = function ($value) {
             return empty_to_null(trim($value));
         };
+
+        $this->workTypeTranslationKeys = array_flip(trans('item.work_types', locale: 'cs'));
+        $this->techniqueTranslationKeys = array_flip(trans('item.techniques', locale: 'cs'));
+        $this->mediumTranslationKeys = array_flip(trans('item.media', locale: 'cs'));
+        $this->objectTypeTranslationKeys = array_flip(trans('item.object_types', locale: 'cs'));
+        $this->topicTranslationKeys = array_flip(trans('item.topics', locale: 'cs'));
     }
 
     protected function getItemId(array $record)
@@ -96,6 +99,86 @@ class UpmImporter extends AbstractImporter
                 return sprintf('%s – %s', formatName($matches['name']), $matches['role']);
             })
             ->join('; ');
+    }
+
+    protected function hydrateWorkType(array $record, string $locale): ?string
+    {
+        if ($locale === 'cs') {
+            return $record['Výtvarný druh'];
+        }
+
+        return str($record['Výtvarný druh'])
+            ->split('/\s*;\s*/')
+            ->map(function (string $workType) use ($locale) {
+                $key = $this->workTypeTranslationKeys[$workType] ?? null;
+                return $key ? trans("item.work_types.$key", locale: $locale) : null;
+            })
+            ->filter()
+            ->join('; ') ?: null;
+    }
+
+    protected function hydrateTechnique(array $record, string $locale): ?string
+    {
+        if ($locale === 'cs') {
+            return $record['Technika'];
+        }
+
+        return str($record['Technika'])
+            ->split('/\s*;\s*/')
+            ->map(function (string $technique) use ($locale) {
+                $key = $this->techniqueTranslationKeys[$technique] ?? null;
+                return $key ? trans("item.techniques.$key", locale: $locale) : null;
+            })
+            ->filter()
+            ->join('; ') ?: null;
+    }
+
+    protected function hydrateMedium(array $record, string $locale): ?string
+    {
+        if ($locale === 'cs') {
+            return $record['Materiál'];
+        }
+
+        return str($record['Materiál'])
+            ->split('/\s*;\s*/')
+            ->map(function (string $medium) use ($locale) {
+                $key = $this->mediumTranslationKeys[$medium] ?? null;
+                return $key ? trans("item.media.$key", locale: $locale) : null;
+            })
+            ->filter()
+            ->join('; ') ?: null;
+    }
+
+    protected function hydrateObjectType(array $record, string $locale): ?string
+    {
+        if ($locale === 'cs') {
+            return $record['Typ'];
+        }
+
+        return str($record['Typ'])
+            ->split('/\s*;\s*/')
+            ->map(function (string $objectType) use ($locale) {
+                $key = $this->objectTypeTranslationKeys[$objectType] ?? null;
+                return $key ? trans("item.object_types.$key", locale: $locale) : null;
+            })
+            ->filter()
+            ->join('; ') ?: null;
+    }
+
+    protected function hydrateTopic(array $record, string $locale): ?string
+    {
+        if ($locale === 'cs') {
+            return $record['Námět'];
+        }
+
+        return str($record['Námět'])
+            ->split('/\s*;\s*/')
+            ->map(function (string $topic) use ($locale) {
+                $key = $this->topicTranslationKeys[$topic] ?? null;
+                return $key ? trans("item.topics.$key", locale: $locale) : null;
+            })
+            ->filter()
+            ->join('; ') ?: null;
     }
 
     protected function hydratePlace(array $record, string $locale): ?string
