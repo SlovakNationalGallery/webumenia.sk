@@ -6,11 +6,13 @@ use App\ItemTranslation;
 use Illuminate\Console\Command;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
+use League\Csv\Writer;
 
 class DumpUntranslatedAttributes extends Command
 {
     protected $signature = 'items:dump-untranslated-attributes
-                            {--prefix= : Filter by prefix}';
+                            {--prefix= : Filter by prefix}
+                            {--output= : Output to CSV file}';
 
     private array $attributes = [
         'work_type' => 'item.work_types',
@@ -25,12 +27,25 @@ class DumpUntranslatedAttributes extends Command
         $attribute = $this->choice('Select attribute', array_keys($this->attributes));
         $locale = $this->choice('Select locale', config('translatable.locales'));
         $prefix = $this->option('prefix');
+        $output = $this->option('output');
 
         $rows = $this->getUntranslatedAttributes($attribute, $locale, $prefix)
             ->map(fn ($count, $value) => [$value, $count]);
 
-        $header = sprintf('%s (%s)', Str::ucfirst(trans("item.$attribute")), Str::upper($locale));
-        $this->table([$header, 'Count'], $rows);
+        $header = [
+            sprintf('%s (%s)', Str::ucfirst(trans("item.$attribute")), Str::upper($locale)),
+            'Count',
+        ];
+
+        if ($output) {
+            $writer = Writer::createFromPath($output, 'w+');
+            $writer->insertOne($header);
+            $writer->insertAll($rows);
+
+            $this->info("Data has been exported to $output");
+        } else {
+            $this->table($header, $rows);
+        }
 
         return self::SUCCESS;
     }
