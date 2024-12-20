@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Filesystem\WebDAVAdapter;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Enums\FrontendEnum;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
-use League\Flysystem\WebDAV\WebDAVAdapter;
 use Sabre\DAV\Client;
 
 class AppServiceProvider extends ServiceProvider
