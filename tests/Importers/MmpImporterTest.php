@@ -57,9 +57,9 @@ class MmpImporterTest extends TestCase
         $this->assertEquals(null, $item->translate('sk')->topic);
         $this->assertEquals('obraz náboženský', $item->translate('cs')->topic);
         $this->assertEquals(null, $item->translate('en')->topic);
-        $this->assertEquals('', $item->translate('sk')->measurement);
-        $this->assertEquals('', $item->translate('cs')->measurement);
-        $this->assertEquals('', $item->translate('en')->measurement);
+        $this->assertEquals('výška s rámom 31cm; šírka s rámom 21,5cm; výška 24,5cm; šírka 14,5cm', $item->translate('sk')->measurement);
+        $this->assertEquals('výška s rámem 31cm; šířka s rámem 21,5cm; výška 24,5cm; šířka 14,5cm', $item->translate('cs')->measurement);
+        $this->assertEquals('height with frame 31cm; width with frame 21,5cm; height 24,5cm; width 14,5cm', $item->translate('en')->measurement);
     }
 
     private function importData(array $data = []): ImportRecord

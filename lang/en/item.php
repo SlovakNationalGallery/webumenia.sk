@@ -134,6 +134,10 @@ return [
         'vp=' => 'height with mount ',
         'vp.=' => 'height with mount ',
         'vr=' => 'height with frame ',
+        'rv.=' => 'height with frame ',
+        'rš.=' => 'width with frame ',
+        'v-cm=' => 'height ',
+        'š-cm=' => 'width ',
     ],
     'untitled' => 'untitled',
     'authority_roles' => [

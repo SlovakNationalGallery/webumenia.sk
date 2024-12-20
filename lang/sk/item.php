@@ -134,6 +134,10 @@ return [
         'vp=' => 'výška s paspartou ',
         'vp.=' => 'výška s paspartou ',
         'vr=' => 'výška s rámom ',
+        'rv.=' => 'výška s rámom ',
+        'rš.=' => 'šírka s rámom ',
+        'v-cm=' => 'výška ',
+        'š-cm=' => 'šírka ',
     ],
     'untitled' => 'bez názvu',
     'authority_roles' => [
