@@ -263,7 +263,7 @@ abstract class AbstractImporter
         return $this->iipFilesMap[$import_record]
             ->filter(
                 fn(SplFileInfo $file) => preg_match(
-                    sprintf('#^%s\.jp2$#', $image_filename_format),
+                    sprintf('#^%s\.jp[2f]$#', $image_filename_format),
                     $file->getBasename()
                 )
             )
