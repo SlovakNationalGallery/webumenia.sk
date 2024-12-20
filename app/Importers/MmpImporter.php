@@ -58,7 +58,9 @@ class MmpImporter extends AbstractImporter
             return 'Neznámy autor';
         }
 
-        return $record['Autor'];
+        return str($record['Autor'])
+            ->trim()
+            ->replaceMatches('/(.*?) /', '$1, ', 1);
     }
 
     protected function hydrateWorkType(array $record, string $locale): ?string

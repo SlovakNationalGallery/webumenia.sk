@@ -40,7 +40,7 @@ class MmpImporterTest extends TestCase
         $item = Item::find('CZE:MP.H_014_487');
 
         $this->assertEquals('H 014 487', $item->identifier);
-        $this->assertEquals('Neznámy autor', $item->author);
+        $this->assertEquals('Beisch, Josef Antonín', $item->author);
         $this->assertEquals(1701, $item->date_earliest);
         $this->assertEquals(1800, $item->date_latest);
         $this->assertEquals('Panna Marie Karlovská', $item->title);
@@ -81,7 +81,7 @@ class MmpImporterTest extends TestCase
             "Řada" => "H",
             "Inventární číslo" => "H 014 487",
             "Titul" => "Panna Marie Karlovská",
-            "Autor" => "Anonym",
+            "Autor" => "Beisch Josef Antonín",
             "Datace vzniku" => "počátek 18.stol.",
             "(n) Datace OD" => "1.1.1701",
             "(n) Datace DO" => "31.12.1800",
