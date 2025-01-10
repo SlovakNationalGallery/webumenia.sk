@@ -14,8 +14,8 @@ class MmpImporter extends AbstractImporter
     ];
 
     protected $defaults = [
-        'gallery:sk' => 'Múzeum Prahy, MMP',
-        'gallery:cs' => 'Muzeum Prahy, MMP',
+        'gallery:sk' => 'Múzeum Prahy, MP',
+        'gallery:cs' => 'Muzeum Prahy, MP',
     ];
 
     private array $workTypeTranslationKeys;
