@@ -64,6 +64,7 @@ class UpmImporter extends AbstractImporter
     protected function getItemId(array $record)
     {
         return 'CZE:UPM.' . str($record['ID'])
+            ->replace(' ', '')
             ->explode('_')
             ->transform(fn ($part) => str($part)
                 ->replaceMatches('/\W/', '-')
@@ -75,6 +76,7 @@ class UpmImporter extends AbstractImporter
     protected function getItemImageFilenameFormat(array $record): string
     {
         return str($record['ID'])
+            ->replace(' ', '')
             ->explode('_')
             ->transform(fn ($part) => '0*' . preg_quote($part))
             ->join('_') . '(_.*)?';
