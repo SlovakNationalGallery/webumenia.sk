@@ -23,8 +23,8 @@ class UpmImporter extends AbstractImporter
     ];
 
     protected $defaults = [
-        'relationship_type:sk' => 'zo súboru',
-        'relationship_type:cs' => 'ze souboru',
+        'relationship_type:sk' => 'zbierka',
+        'relationship_type:cs' => 'sbírka',
         'relationship_type:en' => 'collection',
         'gallery:cs' => 'Uměleckoprůmyslové museum v Praze, UPM',
         'gallery:sk' => 'Umeleckopriemyselné múzeum v Prahe, UPM',
