@@ -1,9 +1,7 @@
 name: Deploy "main" branch to test instance
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 concurrency: deploy_test
 
