@@ -52,8 +52,8 @@ class UpmImporterTest extends TestCase
         $this->assertEquals('celková výška/dĺžka 16,5cm (konvice čajová s víčkem větší); celková výška/dĺžka 13,5-14cm (konvice čajová s víčkem menší)', $item->translate('sk')->measurement);
         $this->assertEquals('celková výška/délka 16,5cm (konvice čajová s víčkem větší); celková výška/délka 13,5-14cm (konvice čajová s víčkem menší)', $item->translate('cs')->measurement);
         $this->assertEquals('overall height/length 16,5cm (konvice čajová s víčkem větší); overall height/length 13,5-14cm (konvice čajová s víčkem menší)', $item->translate('en')->measurement);
-        $this->assertEquals('zo súboru', $item->translate('sk')->relationship_type);
-        $this->assertEquals('ze souboru', $item->translate('cs')->relationship_type);
+        $this->assertEquals('zbierka', $item->translate('sk')->relationship_type);
+        $this->assertEquals('sbírka', $item->translate('cs')->relationship_type);
         $this->assertEquals('collection', $item->translate('en')->relationship_type);
         $this->assertEquals('Sbírka užité grafiky', $item->translate('cs')->related_work);
         $this->assertEquals('úžitkové umenie; grafický dizajn', $item->translate('sk')->work_type);
@@ -76,7 +76,7 @@ class UpmImporterTest extends TestCase
         $this->assertEquals('Rösller', $item->translate('cs')->inscription);
         $this->assertEquals('VŠUP atelier V.H.Brunnera (vazba)', $item->translate('cs')->additionals['producer']);
         $this->assertEquals('převod', $item->translate('cs')->additionals['acquisition']);
-        $this->assertEquals('Japonsko design, 2019-2020', $item->translate('cs')->additionals['exhibition']);
+        $this->assertEquals('Japonsko design, 2019-2020', $item->exhibition);
     }
 
     private function importData(array $data = []): ImportRecord

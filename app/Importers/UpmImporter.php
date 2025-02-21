@@ -20,6 +20,7 @@ class UpmImporter extends AbstractImporter
         'related_work:sk' => 'Sbírka',
         'related_work:cs' => 'Sbírka',
         'acquisition_date' => 'Datum akvizice',
+        'exhibition' => 'Výstava',
     ];
 
     protected $defaults = [
@@ -203,10 +204,6 @@ class UpmImporter extends AbstractImporter
 
         if ($record['Způsob akvizice'] !== null) {
             $additionals['acquisition'] = $record['Způsob akvizice'];
-        }
-
-        if ($record['Výstava'] !== null) {
-            $additionals['exhibition'] = $record['Výstava'];
         }
 
         $producer = str($record['Vznik'])->match('/;(.+)/');
