@@ -42,7 +42,7 @@ abstract class AbstractImporter
 
     /** @var array */
     protected static $options = [
-        'delimiter' => ',',
+        'delimiter' => ';',
         'enclosure' => '"',
         'escape' => '\\',
         'newline' => "\n",
