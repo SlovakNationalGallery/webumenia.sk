@@ -531,7 +531,7 @@
                                                             <x-filter.view_header_button
                                                                 v-on:click="dc.goTo('index')">
                                                                 <filter-new-custom-select-popover-label
-                                                                    name="object_type"
+                                                                    name="{{ trans('item.object_type') }}"
                                                                     v-bind:selected-values="query.object_type">
                                                                 </filter-new-custom-select-popover-label>
                                                             </x-filter.view_header_button>

@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+### Fixed
+- fix object type translation to on mobile filter
+
 ## [2.88.0] - 2023-01-12
 ### Changed
 - unisharp/laravel-filemanager to version 2.6.4
