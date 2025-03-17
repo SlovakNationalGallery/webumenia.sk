@@ -48,11 +48,13 @@ const options = computed(() => {
 
 onMounted(() => {
     // Pre-sort options if they're initially selected
-    allOptions.value = props.options.sort((a, b) => {
+    allOptions.value = props.options.toSorted((a, b) => {
         const aChecked = selected.value.includes(a.value)
         const bChecked = selected.value.includes(b.value)
 
-        if (aChecked && bChecked) return 0
+        if (aChecked === bChecked) {
+            return 0
+        }
         if (aChecked) return -1
         return 1
     })
