@@ -2,9 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-
 ### Fixed
 - fix object type translation to on mobile filter
+- fix sort function on select options
 
 ## [2.88.0] - 2023-01-12
 ### Changed
