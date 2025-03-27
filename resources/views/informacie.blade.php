@@ -105,6 +105,7 @@
         </div>
     </div>
 </section>
+{{-- 
 <section class="bg-blue">
     <div class="container">
         <div class="row py-5">
@@ -114,6 +115,7 @@
         </div>
     </div>
 </section>
+ --}}
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->

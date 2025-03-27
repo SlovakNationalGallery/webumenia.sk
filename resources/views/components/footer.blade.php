@@ -12,7 +12,7 @@
       <div class="col-sm-6 text-center text-sm-right top-space bottom-space">
         <span class="text-muted">
           {{ utrans('footer.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans underline">lab.SNG</a>.
-          {{ utrans('footer.subscribe') }} <a href="https://webumenia.us3.list-manage.com/subscribe?u=0836676badd21fd175052c757&id=1d7d3f54f9" target="_blank" class="sans underline">{{ trans('footer.newsletter') }}</a>.
+          {{-- {{ utrans('footer.subscribe') }} <a href="https://webumenia.us3.list-manage.com/subscribe?u=0836676badd21fd175052c757&id=1d7d3f54f9" target="_blank" class="sans underline">{{ trans('footer.newsletter') }}</a>. --}}
         </span>
       </div>
     </div>
