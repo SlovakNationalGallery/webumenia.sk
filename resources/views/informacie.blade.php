@@ -144,9 +144,6 @@
                 <p class="lead">
                     {!! utrans('informacie.more-items_connect_col3_lead') !!}
                 </p>
-                <ul class="list-lab list-unstyled">
-                    {!! trans('informacie.more-items_connect_col3_ul-content') !!}
-                </ul>
             </div>
         </div>
     </div>

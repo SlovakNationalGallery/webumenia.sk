@@ -58,21 +58,8 @@ return array(
     'more-items_connect_col1_lead'       => 'zveřejňujeme výtvarná díla <br>ze sbírek <strong>slovenských galerií</strong>.',
     'more-items_connect_col1_p'          => 'podmínkou pro zveřejnění děl a dalších autorů na Web umenia je jejich zastoupení ve sbírkách registrovaných galerií. Díla ze soukromých sbírek a z jiných zdrojů aktuálně nezveřejňujeme.',
     'more-items_connect_col2_lead'       => 'jsme otevřeni <strong>dalším <br>formám&nbsp;spolupráce</strong>.',
-    'more-items_connect_col2_p'          => 'Pokud víte o některém z děl nebo autorů více informací, případně jste na jeho profilu u nás nenašli fotografii, budeme rádi, když nám pomůžete s jejich doplněním. Napište nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, rádi se s vámi spojíme.',
-    'more-items_connect_col3_lead'       => 'web umenia realizuje <br>kolektiv <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong>',
-    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedoucí lab.SNG</li>
-                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, UX designér</li>
-                                             <li><strong>Igor Rjabinin</strong> vývojář</li>
-                                             <li><strong>Rastislav Chynoranský</strong> vývojář</li>
-                                             <li><strong>Ernest Walzel</strong> vývojář</li>
-                                             <li><strong>Gorazd Ratulovský</strong> UX designér</li>
-                                             <li><strong>Katarína Buzová</strong> UX výzkum</li>
-                                             <li><strong>Zuzana Koblišková</strong> editorka obsahu</li>
-                                             <li><strong>Gabriel Balkó</strong> kontrolor kvality, správce reprodukcí</li>
-                                             <li><strong>Karin Vicianová</strong> kontrolorka kvality</li>
-                                             <li><strong>Jana Šuchová</strong> editorka obsahu</li>
-                                             <li><strong>Vladimír Hergott</strong> správce CEDVU</li>
-                                             <li><strong>Braňo Matis</strong> grafický designér</li>',
+    'more-items_connect_col2_p'          => 'Pokud víte o některém z děl nebo autorů více informací, případně jste na jeho profilu u nás nenašli fotografii, budeme rádi, když nám pomůžete s jejich doplněním. ',
+    'more-items_connect_col3_lead'       => 'web umenia byl vytvořen a spravován týmem <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong> v období od června 2015 do března 2025.',
 
     'modal_disclaimer'      => 'ceny jsou pouze orientační',
     'modal_table-content'   => '<thead>
