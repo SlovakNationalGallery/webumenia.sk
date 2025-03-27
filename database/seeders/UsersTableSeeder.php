@@ -22,19 +22,19 @@ class UsersTableSeeder extends Seeder
                 'username' => 'admin',
                 'email' => 'lab@sng.sk',
                 'password' => Hash::make('admin'),
-                'role' => 'admin',
-            ],
-            [
-                'username' => 'sng',
-                'email' => 'info@sng.sk',
-                'password' => Hash::make('sng'),
-                'role' => 'editor',
+                'can_administer' =>   true,
+                'can_edit' => true,
+                'can_publish' =>  true,
+                'can_import' =>   true,
             ],
             [
                 'username' => 'press',
                 'email' => '',
                 'password' => Hash::make('press'),
-                'role' => 'editor',
+                'can_administer' => false,
+                'can_edit' => true,
+                'can_publish' => true,
+                'can_import' => false,
             ],
         ];
 
