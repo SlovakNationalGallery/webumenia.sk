@@ -158,6 +158,7 @@
                     @endforeach
                 </div>
             </div>
+            {{-- 
             @unless (Cookie::has('newsletterSubscribedAt'))
             <div class="row my-5">
                 <div class="col-md-8 col-md-push-2">
@@ -169,11 +170,12 @@
                 </div>
             </div>
             @endunless
+             --}}
         </div>
     </div>
 </section>
 
-<x-newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" />
+{{-- <x-newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" /> --}}
 @stop
 
 @section('javascript')

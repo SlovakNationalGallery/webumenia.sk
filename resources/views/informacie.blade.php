@@ -105,6 +105,7 @@
         </div>
     </div>
 </section>
+{{-- 
 <section class="bg-blue">
     <div class="container">
         <div class="row py-5">
@@ -114,6 +115,7 @@
         </div>
     </div>
 </section>
+ --}}
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->
@@ -142,9 +144,6 @@
                 <p class="lead">
                     {!! utrans('informacie.more-items_connect_col3_lead') !!}
                 </p>
-                <ul class="list-lab list-unstyled">
-                    {!! trans('informacie.more-items_connect_col3_ul-content') !!}
-                </ul>
             </div>
         </div>
     </div>

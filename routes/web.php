@@ -141,7 +141,7 @@ function()
 
                 return redirect('dakujeme');
             } else {
-                Session::flash('message', 'Nastal problém pri uložení vašej objednávky. Prosím kontaktujte lab@sng.sk. ');
+                Session::flash('message', 'Nastal problém pri uložení vašej objednávky.');
 
                 return Redirect::back()->withInput();
             }
