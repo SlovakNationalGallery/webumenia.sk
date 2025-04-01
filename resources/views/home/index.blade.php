@@ -285,9 +285,13 @@
                             </a>
                         </h4>
                         <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                            <a
-                                href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">{{ $c->user->name }}</a>
-                            ∙ {{ $c->published_at->format('d. m. Y') }}
+                            @if ($c->user?->name)
+                                <a href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">
+                                    {{ $c->user->name }}
+                                </a>
+                                ∙
+                            @endif
+                            {{ optional($c->published_at)->format('d. m. Y') }}
                         </div>
                     </div>
                 @endforeach
