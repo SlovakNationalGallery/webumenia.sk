@@ -105,7 +105,7 @@
                 <div class="collection-meta grey">
                     {{--  {!! $collection->author !!} &nbsp;&middot;&nbsp; --}}
                     {!! $collection->published_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
-                    {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
+                    {!! optional($collection->user)->name !!}
                     {{ $collection->items_count }} {{ trans('kolekcie.collections_artworks') }}
                 </div>
                 <div>
