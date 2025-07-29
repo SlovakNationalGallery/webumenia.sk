@@ -6,22 +6,6 @@ jobs:
     name: Test
     runs-on: [self-hosted, macOS, X64]
 
-    services:
-      mysql:
-        image: mysql:8.0.36
-        env:
-          MYSQL_DATABASE: webumenia_test
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        ports:
-          - 3306
-
-      elasticsearch:
-        image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.17.3
-        env:
-          discovery.type: single-node
-        ports:
-          - 9200
-
     steps:
       - uses: actions/checkout@v4
 
@@ -60,7 +44,10 @@ jobs:
         run: php artisan test
         env:
           APP_KEY: SomeRandomStringSomeRandomString
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
           DB_USERNAME: root
           DB_DATABASE: webumenia_test
-          ES_PORT: ${{ job.services.elasticsearch.ports[9200] }}
+          DB_PASSWORD: ""
+          ELASTICSEARCH_HOST: 127.0.0.1
+          ELASTICSEARCH_PORT: 9200
