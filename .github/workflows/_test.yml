@@ -44,10 +44,20 @@ jobs:
       - name: Build assets
         run: npm run build
 
+      - name: Run migrations
+        run: php artisan migrate --env=testing
+
+      - name: Seed database
+        run: php artisan db:seed --env=testing
+
       - name: Run tests
         run: php artisan test
         env:
           APP_KEY: SomeRandomStringSomeRandomString
-          DB_HOST: 127.0.0_
-
-
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USERNAME: root
+          DB_DATABASE: webumenia_test
+          DB_PASSWORD: ""
+          ELASTICSEARCH_HOST: 127.0.0.1
+          ELASTICSEARCH_PORT: 9200
