@@ -60,7 +60,7 @@
                         <div class="col-sm-6">
                             <div class="v-center min-h-3em">
                                 <a href="{!! route('frontend.collection.index', ['author' => $collection->user->name ]) !!}">
-                                    {!! $collection->user->name !!}
+                                    {!! optional($collection->user)->name !!}
                                 </a>
                             </div>
                         </div>
