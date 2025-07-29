@@ -46,9 +46,21 @@ jobs:
 
       - name: Run migrations
         run: php artisan migrate --env=testing
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USERNAME: root
+          DB_PASSWORD: ""
+          DB_DATABASE: webumenia_test
 
       - name: Seed database
         run: php artisan db:seed --env=testing
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_USERNAME: root
+          DB_PASSWORD: ""
+          DB_DATABASE: webumenia_test
 
       - name: Run tests
         run: php artisan test
@@ -57,7 +69,8 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USERNAME: root
-          DB_DATABASE: webumenia_test
           DB_PASSWORD: ""
+          DB_DATABASE: webumenia_test
           ELASTICSEARCH_HOST: 127.0.0.1
           ELASTICSEARCH_PORT: 9200
+
