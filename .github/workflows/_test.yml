@@ -4,9 +4,9 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, macOS, X64]
 
-     services:
+    services:
       mysql:
         image: mysql:8.0.36
         env:
