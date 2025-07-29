@@ -6,13 +6,27 @@ jobs:
     name: Test
     runs-on: [self-hosted, macOS, X64]
 
+    services:
+      mysql:
+        image: mysql:8.0.36
+        env:
+          MYSQL_DATABASE: webumenia_test
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306
+
+      elasticsearch:
+        image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.17.3
+        env:
+          discovery.type: single-node
+        ports:
+          - 9200
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
+      - name: Check PHP version
+        run: php -v
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -46,10 +60,7 @@ jobs:
         run: php artisan test
         env:
           APP_KEY: SomeRandomStringSomeRandomString
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
           DB_DATABASE: webumenia_test
-          DB_PASSWORD: ""
-          ELASTICSEARCH_HOST: 127.0.0.1
-          ELASTICSEARCH_PORT: 9200
+          ES_PORT: ${{ job.services.elasticsearch.ports[9200] }}
