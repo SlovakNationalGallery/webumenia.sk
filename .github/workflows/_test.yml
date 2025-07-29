@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Add PHP to PATH
+        run: echo "/opt/homebrew/opt/php@8.1/bin" >> $GITHUB_PATH
+
       - name: Check PHP version
         run: php -v
 
