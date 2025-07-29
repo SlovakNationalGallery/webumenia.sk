@@ -4,67 +4,65 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: [self-hosted, macOS, X64]
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0.36
+        env:
+          MYSQL_DATABASE: webumenia_test
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+
+      elasticsearch:
+        image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.17.3
+        env:
+          discovery.type: single-node
+        ports:
+          - 9200:9200
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Add PHP, Composer and npm to PATH
-        run: echo "/opt/homebrew/opt/php@8.1/bin:/usr/local/bin:/opt/homebrew/bin" >> $GITHUB_PATH
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
 
-      - name: Check PHP version
-        run: php -v
-
-      - name: Check Composer version
-        run: composer --version
-
-      - name: Check npm version
-        run: npm -v
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.composer/cache
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: composer-
 
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+      - run: composer install --prefer-dist
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
+      - name: Get npm cache directory
+        id: npm-cache
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: ${{ steps.npm-cache.outputs.dir }}
           key: node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: node-
 
-      - name: Install npm dependencies
-        run: npm ci
+      - run: npm ci
 
       - name: Build assets
         run: npm run build
 
-      - name: Run migrations
-        run: php artisan migrate --env=testing
-        env:
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_USERNAME: root
-          DB_PASSWORD: ""
-          DB_DATABASE: webumenia_test
-
-      # Seedovanie vynechané, aby sa predišlo chybe s typom
-
-      - name: Run tests
+      - name: Test
         run: php artisan test
         env:
           APP_KEY: SomeRandomStringSomeRandomString
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
-          DB_PASSWORD: ""
           DB_DATABASE: webumenia_test
-          ELASTICSEARCH_HOST: 127.0.0.1
-          ELASTICSEARCH_PORT: 9200
-
-
+          ES_PORT: ${{ job.services.elasticsearch.ports[9200] }}
