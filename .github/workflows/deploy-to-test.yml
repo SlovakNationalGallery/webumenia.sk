@@ -1,13 +1,14 @@
 name: Deploy "main" branch to test instance
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # spusti manuálne alebo podľa potreby
 
 concurrency: deploy_test
 
 jobs:
   test:
-    uses: ./.github/workflows/_test.yml
+    uses: ./.github/workflows/_test.yml   # tvoj testovací job, ak ho máš
+
   deploy:
     needs: test
     name: Deploy
@@ -24,7 +25,7 @@ jobs:
       - name: Deploy
         uses: deployphp/action@v1
         with:
-          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}   # súkromný kľúč v GitHub Secrets
+          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}   # known_hosts obsah v GitHub Secrets
           deployer-version: 7.0.0-rc.8
           dep: deploy test

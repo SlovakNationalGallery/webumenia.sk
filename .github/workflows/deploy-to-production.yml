@@ -9,6 +9,7 @@ concurrency: deploy_production
 jobs:
   test:
     uses: ./.github/workflows/_test.yml
+
   deploy:
     environment: production
     needs: test
@@ -26,7 +27,7 @@ jobs:
       - name: Deploy
         uses: deployphp/action@v1
         with:
-          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}      # tvoj súkromný kľúč v GitHub Secrets
+          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}      # obsah known_hosts v Secrets
           deployer-version: 7.0.0-rc.8
           dep: deploy production --tag ${{ github.event.release.tag_name }}
