@@ -17,17 +17,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
 
-      - name: Deploy
+      - name: Deploy with deployphp
         uses: deployphp/action@v1
         with:
-          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}      # tvoj súkromný kľúč v GitHub Secrets
-          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}      # obsah known_hosts v Secrets
+          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
           deployer-version: 7.0.0-rc.8
           dep: deploy production --tag ${{ github.event.release.tag_name }}
