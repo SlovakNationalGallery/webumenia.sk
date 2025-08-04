@@ -13,7 +13,7 @@ jobs:
     environment: production
     needs: test
     name: Deploy
-    runs-on: [self-hosted, macOS]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
