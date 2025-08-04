@@ -3,6 +3,9 @@ name: Deploy "main" branch to test instance
 on:
   workflow_dispatch:
 
+env:
+  ACTIONS_STEP_DEBUG: true
+
 concurrency: deploy_test
 
 jobs:
@@ -28,4 +31,3 @@ jobs:
           private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
           deployer-version: 7.0.0-rc.8
-          dep: deploy test
