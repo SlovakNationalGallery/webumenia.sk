@@ -17,15 +17,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
 
-      - name: Deploy with deployphp
+      - name: Deploy
         uses: deployphp/action@v1
         with:
           private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}

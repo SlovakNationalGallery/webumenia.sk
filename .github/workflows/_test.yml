@@ -62,4 +62,3 @@ jobs:
           DB_USERNAME: root
           DB_DATABASE: webumenia_test
           ES_PORT: ${{ job.services.elasticsearch.ports[9200] }}
-          PATH: /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
