@@ -13,12 +13,11 @@ jobs:
   deploy:
     environment: production
     needs: test
-    name: Deploy
+    name: Deploy to Production
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
