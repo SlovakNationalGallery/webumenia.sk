@@ -49,6 +49,7 @@ import HomeShuffleOrchestrator from './components/home/ShuffleOrchestrator.vue'
 import HomeTransitionInPlace from './components/home/TransitionInPlace.vue'
 import ToggleController from './components/ToggleController.vue'
 import ReloadController from './components/ReloadController.vue'
+import SearchBar from './components/SearchBar.vue'
 import TabsController from './components/TabsController.vue'
 import Tab from './components/Tab.vue'
 import TabPanel from './components/TabPanel.vue'
@@ -68,16 +69,20 @@ import BottomModal from './components/BottomModal.vue'
 import NewsletterSignupFormController from './components/newsletter-signup/FormController.vue'
 import NewsletterSignupBottomModalController from './components/newsletter-signup/BottomModalController.vue'
 
-createApp({
+const app = createApp({
     compilerOptions: {
         whitespace: 'preserve',
     },
 })
-    .use(VueMasonryPlugin)
+
+app.use(VueMasonryPlugin)
     .use(i18nVue, {
         resolve: async (lang) => {
             const langs = import.meta.glob('../../lang/*.json')
             return await langs[`../../lang/${lang}.json`]()
+        },
+        onLoad: () => {
+            app.mount('#app') // App is mounted here so translations are loaded before vue.
         },
     })
     .use(ZiggyVue)
@@ -107,6 +112,7 @@ createApp({
     .component('flickity', Flickity)
     .component('home.shuffle-orchestrator', HomeShuffleOrchestrator)
     .component('home.transition-in-place', HomeTransitionInPlace)
+    .component('search-bar', SearchBar)
     .component('tabs-controller', TabsController)
     .component('tab', Tab)
     .component('tab-panel', TabPanel)
@@ -125,5 +131,3 @@ createApp({
     .component('bottom-modal', BottomModal)
     .component('newsletter-signup.form-controller', NewsletterSignupFormController)
     .component('newsletter-signup.bottom-modal-controller', NewsletterSignupBottomModalController)
-
-    .mount('#app')

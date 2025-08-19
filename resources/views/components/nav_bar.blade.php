@@ -23,6 +23,39 @@
             </a>
         </div>
 
+        {{-- TODO Duplicated header -- remove before merging --}}
+        <div class="tailwind-rules navbar-header page-scroll">
+            @include('components.langswitch', [
+                'currentLocale' => App::getLocale(),
+                'localesOrdered' => LaravelLocalization::getLocalesOrder(),
+                'localizedURLs' => getLocalizedURLArray(),
+            ])
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-main-collapse">
+                <i class="fa fa-bars fa-2x"></i>
+            </button>
+            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
+                web
+            </a>
+
+            <div class="tw-inline-block tw-w-[80%] tw-max-w-[425px] tw-px-4 tw-text-left">
+                <search-bar>
+                    <div class="tw-relative tw-flex tw-items-center">
+                        <i
+                            class="fa fa-search tw-pointer-events-none tw-absolute tw-right-3 tw-z-20 tw-text-sm"></i>
+                        <input autocomplete="off"
+                            class="tw-peer tw-z-10 tw-w-full tw-border tw-border-gray-600 tw-bg-white tw-px-3 tw-py-1.5 tw-text-sm tw-ring-0 placeholder:tw-text-sky-300 focus:tw-outline-none"
+                            placeholder="{{ trans('master.search_placeholder') }}" />
+                    </div>
+                </search-bar>
+            </div>
+
+            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
+                umenia
+            </a>
+        </div>
+
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
                 <li class="visible-xs {{ Request::is('/') ? 'active' : '' }}">
