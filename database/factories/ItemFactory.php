@@ -40,8 +40,6 @@ class ItemFactory extends Factory
             'colors' => [
                 fake()->hexColor => 1,
             ],
-            'created_at' => fake()->date,
-            'updated_at' => fake()->date,
             'frontends' => ["webumenia"],
         ];
     }

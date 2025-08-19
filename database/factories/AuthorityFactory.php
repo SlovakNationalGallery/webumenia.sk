@@ -33,8 +33,6 @@ class AuthorityFactory extends Factory
             'view_count' => fake()->randomNumber,
             'image_source_url' => fake()->url,
             'image_source_label' => fake()->word,
-            'created_at' => fake()->date,
-            'updated_at' => fake()->date,
         ];
     }
 }
