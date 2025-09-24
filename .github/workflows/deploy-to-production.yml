@@ -2,7 +2,7 @@ name: Deploy latest release to production
 
 on:
   release:
-    types: [released]
+    types: [published]  # spustí sa po publikovaní release
 
 concurrency: deploy_production
 
@@ -17,17 +17,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
 
-      - name: Deploy
+      - name: Setup Deployer
         uses: deployphp/action@v1
         with:
-          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
-          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
           deployer-version: 7.0.0-rc.8
-          dep: "deploy production --tag 2.106.2 --no-interaction --ansi -v"
+
+      - name: Deploy to production
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "$DEPLOY_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          php deployer.phar deploy production --tag ${{ github.event.release.tag_name }} --no-interaction --ansi -v
+
