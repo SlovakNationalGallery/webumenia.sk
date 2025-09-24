@@ -8,11 +8,10 @@ concurrency: deploy_test
 jobs:
   test:
     uses: ./.github/workflows/_test.yml
-
   deploy:
     needs: test
-    name: Deploy to Test
-    runs-on: ubuntu-latest
+    name: Deploy
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
