@@ -14,4 +14,4 @@ Fixes # (link to Jira or GitHub issue)
 
 - [ ] I have updated the [CHANGELOG](../CHANGELOG.md)
 - [ ] I have requested at least 1 reviewer for this PR
-- [ ] I have made corresponding changes to the documentation
+- [ ] I have made corresponding changes to the documentation 
