@@ -25,6 +25,12 @@ jobs:
         with:
           php-version: '8.1'
           tools: composer
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }} 
+
       - name: Add production host to known_hosts
         run: |
           mkdir -p ~/.ssh
