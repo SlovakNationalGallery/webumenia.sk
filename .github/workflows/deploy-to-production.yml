@@ -25,6 +25,11 @@ jobs:
         with:
           php-version: '8.1'
           tools: composer
+      - name: Add production host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H webumenia.sk >> ~/.ssh/known_hosts     
+
 
       - name: Install Deployer
         run: |
