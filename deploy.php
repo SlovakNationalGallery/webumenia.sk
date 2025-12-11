@@ -1,4 +1,4 @@
-<?php
+?php
 namespace Deployer;
 
 require 'recipe/laravel.php';
@@ -30,7 +30,7 @@ host('test')
 
 host('production')
     ->set('hostname', 'webumenia.sk')
-    ->set('remote_user', 'sidorjakt')
+    ->set('remote_user', 'lab_sng')
     ->set('deploy_path', '/var/www/webumenia.sk');
 
 // Tasks
