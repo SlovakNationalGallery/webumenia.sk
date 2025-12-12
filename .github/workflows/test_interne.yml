@@ -1,1 +1,31 @@
-runs-on: self-hosted
+
+name: Deploy "main" branch to test internal SNG
+
+on:
+  workflow_dispatch:
+
+concurrency: deploy_test
+
+jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
+  deploy:
+    needs: test
+    name: Deploy
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Deploy
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          deployer-version: 7.0.0-rc.8
+          dep: deploy test
